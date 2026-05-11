@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TARBOUCH SMP - التقديم للإدارة</title>
+    <title>TARBOUCH SMP - تقديم الإدارة</title>
     <style>
         :root {
             --primary-red: #cc0000;
@@ -13,131 +13,142 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', sans-serif;
             background-color: var(--dark-bg);
             color: #eeeeee;
             margin: 0;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start; /* باش يسمح بالـ scroll */
             min-height: 100vh;
+            padding: 40px 0;
         }
 
         .container {
             background: var(--card-bg);
-            padding: 3rem 2rem;
+            padding: 2.5rem;
             border-radius: 25px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.7);
             border: 1px solid rgba(255, 204, 0, 0.2);
-            max-width: 450px;
+            max-width: 550px;
             width: 90%;
             text-align: center;
         }
 
-        /* تعويض اللوجو بنص احترافي */
         .logo-text {
-            font-size: 3rem;
+            font-size: 2.5rem;
             font-weight: 900;
             color: var(--text-gold);
-            text-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
-            margin-bottom: 0.5rem;
+            text-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
+            margin-bottom: 10px;
             display: block;
-            letter-spacing: -2px;
         }
 
-        .server-tag {
-            background: rgba(204, 0, 0, 0.2);
-            color: var(--primary-red);
-            padding: 4px 12px;
-            border-radius: 8px;
-            font-weight: bold;
-            font-size: 0.85rem;
-            display: inline-block;
+        h1 { font-size: 1.5rem; margin-bottom: 30px; color: white; }
+
+        /* ستايل الفورم */
+        .form-group {
+            text-align: right;
             margin-bottom: 20px;
-            border: 1px solid var(--primary-red);
         }
 
-        h1 {
-            color: white;
-            margin: 0 0 15px 0;
-            font-size: 1.8rem;
-        }
-
-        p {
-            color: #cccccc;
-            line-height: 1.7;
-            margin-bottom: 2rem;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
-            margin-bottom: 2.5rem;
-        }
-
-        .stat-box {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 10px;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .stat-box span {
+        label {
             display: block;
-            font-size: 0.75rem;
+            margin-bottom: 8px;
             color: var(--text-gold);
+            font-weight: bold;
+            font-size: 0.9rem;
         }
 
-        .apply-btn {
-            display: block;
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 1px solid #333;
+            background: #252525;
+            color: white;
+            box-sizing: border-box; /* مهم باش ما يخرجش على الإطار */
+            font-family: inherit;
+        }
+
+        input:focus, textarea:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            box-shadow: 0 0 10px rgba(204, 0, 0, 0.2);
+        }
+
+        textarea { height: 100px; resize: vertical; }
+
+        .submit-btn {
+            width: 100%;
             background: linear-gradient(135deg, var(--primary-red), #990000);
             color: white;
-            padding: 15px 20px;
-            text-decoration: none;
+            padding: 15px;
+            border: none;
             border-radius: 12px;
             font-weight: bold;
-            font-size: 1.2rem;
+            font-size: 1.1rem;
+            cursor: pointer;
             transition: 0.3s;
-            box-shadow: 0 5px 15px rgba(204, 0, 0, 0.4);
+            margin-top: 10px;
         }
 
-        .apply-btn:hover {
-            transform: translateY(-4px);
+        .submit-btn:hover {
+            transform: translateY(-3px);
             filter: brightness(1.2);
+            box-shadow: 0 10px 20px rgba(204, 0, 0, 0.4);
         }
 
-        .footer-note {
-            margin-top: 2rem;
-            font-size: 0.75rem;
-            color: #555;
-        }
+        .footer { margin-top: 30px; font-size: 0.8rem; color: #555; }
     </style>
 </head>
 <body>
 
     <div class="container">
         <span class="logo-text">TARBOUCH</span>
-        <div class="server-tag">STAFF RECRUITMENT</div>
-        
-        <h1>تـربـوش SMP</h1>
-        
-        <p>نحن نبحث عن طاقم إداري محترف للعمل على أقوى سيرفر عربي بمواصفات عالمية.</p>
+        <h1>استمارة الانضمام لطاقم الإدارة</h1>
 
-        <div class="stats-grid">
-            <div class="stat-box">
-                <span>المواصفات</span>
-                <strong>24GB RAM</strong>
+        <form action="https://formspree.io/f/YOUR_ID" method="POST">
+            
+            <div class="form-group">
+                <label>الاسم داخل اللعبة (In-Game Name):</label>
+                <input type="text" name="ign" placeholder="مثال: Sherlock_MC" required>
             </div>
-            <div class="stat-box">
-                <span>الإصدار</span>
-                <strong>1.21.4</strong>
+
+            <div class="form-group">
+                <label>السن:</label>
+                <input type="number" name="age" required>
             </div>
-        </div>
 
-        <a href="رابط-الفورم-هنا" class="apply-btn" target="_blank">قدم طلبك الآن 📥</a>
+            <div class="form-group">
+                <label>الرتبة المطلوبة:</label>
+                <select name="role">
+                    <option value="Helper">Helper</option>
+                    <option value="Moderator">Moderator</option>
+                    <option value="Builder">Builder</option>
+                </select>
+            </div>
 
-        <div class="footer-note">
+            <div class="form-group">
+                <label>هل لديك خبرة سابقة في الإدارة؟ (اذكر السيرفرات):</label>
+                <textarea name="experience" placeholder="اكتب خبرتك هنا..." required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>لماذا تريد أن تصبح Admin في Tarbouch SMP؟</label>
+                <textarea name="why_us" required></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>حساب الديسكورد (Discord Tag):</label>
+                <input type="text" name="discord" placeholder="Username#0000" required>
+            </div>
+
+            <button type="submit" class="submit-btn">إرسال الطلب (Submit) 🚀</button>
+
+        </form>
+
+        <div class="footer">
             🛡️ Secured by <b>Sherlock Systems</b>
         </div>
     </div>
