@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TARBOUCH SMP - التقديم للإدارة</title>
+    <style>
+        :root {
+            --primary-red: #cc0000;
+            --dark-bg: #0f0f0f;
+            --card-bg: #1a1a1a;
+            --text-gold: #ffcc00;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
+            color: #eeeeee;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background: var(--card-bg);
+            padding: 3rem 2rem;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+            border: 1px solid rgba(255, 204, 0, 0.2);
+            max-width: 450px;
+            width: 90%;
+            text-align: center;
+        }
+
+        /* تعويض اللوجو بنص احترافي */
+        .logo-text {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--text-gold);
+            text-shadow: 0 0 20px rgba(255, 204, 0, 0.5);
+            margin-bottom: 0.5rem;
+            display: block;
+            letter-spacing: -2px;
+        }
+
+        .server-tag {
+            background: rgba(204, 0, 0, 0.2);
+            color: var(--primary-red);
+            padding: 4px 12px;
+            border-radius: 8px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-bottom: 20px;
+            border: 1px solid var(--primary-red);
+        }
+
+        h1 {
+            color: white;
+            margin: 0 0 15px 0;
+            font-size: 1.8rem;
+        }
+
+        p {
+            color: #cccccc;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 2.5rem;
+        }
+
+        .stat-box {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-box span {
+            display: block;
+            font-size: 0.75rem;
+            color: var(--text-gold);
+        }
+
+        .apply-btn {
+            display: block;
+            background: linear-gradient(135deg, var(--primary-red), #990000);
+            color: white;
+            padding: 15px 20px;
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: bold;
+            font-size: 1.2rem;
+            transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(204, 0, 0, 0.4);
+        }
+
+        .apply-btn:hover {
+            transform: translateY(-4px);
+            filter: brightness(1.2);
+        }
+
+        .footer-note {
+            margin-top: 2rem;
+            font-size: 0.75rem;
+            color: #555;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <span class="logo-text">TARBOUCH</span>
+        <div class="server-tag">STAFF RECRUITMENT</div>
+        
+        <h1>تـربـوش SMP</h1>
+        
+        <p>نحن نبحث عن طاقم إداري محترف للعمل على أقوى سيرفر عربي بمواصفات عالمية.</p>
+
+        <div class="stats-grid">
+            <div class="stat-box">
+                <span>المواصفات</span>
+                <strong>24GB RAM</strong>
+            </div>
+            <div class="stat-box">
+                <span>الإصدار</span>
+                <strong>1.21.4</strong>
+            </div>
+        </div>
+
+        <a href="رابط-الفورم-هنا" class="apply-btn" target="_blank">قدم طلبك الآن 📥</a>
+
+        <div class="footer-note">
+            🛡️ Secured by <b>Sherlock Systems</b>
+        </div>
+    </div>
+
+</body>
+</html>
