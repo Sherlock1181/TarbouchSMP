@@ -115,7 +115,6 @@
 
         .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(204, 0, 0, 0.4); }
 
-        /* Notification Styling */
         #success-msg {
             display: none;
             background: #2ecc71;
@@ -124,6 +123,14 @@
             border-radius: 10px;
             margin-bottom: 20px;
             font-weight: bold;
+            line-height: 1.6;
+        }
+
+        .char-hint {
+            display: block;
+            font-size: 0.75rem;
+            margin-top: 5px;
+            color: #888;
         }
 
         .footer { margin-top: 30px; font-size: 0.8rem; color: #555; }
@@ -143,7 +150,8 @@
 
         <div id="success-msg">
             تم إرسال طلبك بنجاح! ✅<br>
-            يرجى فتح تذكرة (Ticket) في الديسكورد وانتظار رد الإدارة بالقبول أو الرفض.
+            دابا دخل للديسكورد وحل تذكرة (Ticket) باش تكمل الإجراءات.<br>
+            تسنى الرد ديالنا واش غيكون القبول (Accepted) ولا الرفض (Denied).
         </div>
 
         <form id="applyForm" action="https://formspree.io/f/mykolbgw" method="POST">
@@ -176,8 +184,9 @@
             </div>
 
             <div class="form-group">
-                <label>الخبرة السابقة أو رابط قناتك:</label>
-                <textarea name="experience" placeholder="اكتب خبرتك أو حط رابط قناتك هنا..." required></textarea>
+                <label>الخبرة السابقة أو رابط قناتك (أكثر من 20 حرف):</label>
+                <textarea name="experience" id="exp" minlength="20" placeholder="اكتب بالتفصيل هنا..." required></textarea>
+                <span class="char-hint" id="exp-hint">عدد الحروف: 0 (خاصك على الأقل 20)</span>
             </div>
 
             <div class="form-group">
@@ -202,14 +211,10 @@
     </div>
 
     <script>
-        // لربط الديسكورد
         function discordLogin() {
             const status = document.getElementById('login-status');
             const btn = document.querySelector('.discord-btn');
-            
             btn.innerHTML = "Logging in...";
-            btn.style.opacity = "0.7";
-
             setTimeout(() => {
                 const username = prompt("دخل الـ Discord Username ديالك للربط:");
                 if(username) {
@@ -220,9 +225,34 @@
                     btn.style.backgroundColor = "#43b581";
                 } else {
                     btn.innerHTML = "Sign in with Discord";
-                    btn.style.opacity = "1";
                 }
             }, 1000);
         }
 
-        // باش تطلع الرسالة ديال الـ Ticket ملي يبرك على Submit
+        // حساب الحروف ومنع الإرسال إيلا كان قل من 20
+        const expArea = document.getElementById('exp');
+        const expHint = document.getElementById('exp-hint');
+        
+        expArea.addEventListener('input', () => {
+            const len = expArea.value.length;
+            expHint.innerText = `عدد الحروف: ${len} (خاصك على الأقل 20)`;
+            if(len < 20) {
+                expHint.style.color = "#cc0000";
+            } else {
+                expHint.style.color = "#2ecc71";
+            }
+        });
+
+        // التعامل مع الإرسال
+        const form = document.getElementById('applyForm');
+        form.onsubmit = function(e) {
+            // كنعطيو وقت للفورم يتصيفط قبل ما نخفيوه
+            setTimeout(() => {
+                form.style.display = 'none';
+                document.getElementById('success-msg').style.display = 'block';
+                window.scrollTo(0,0);
+            }, 1000);
+        };
+    </script>
+</body>
+</html>
