@@ -10,6 +10,7 @@
             --dark-bg: #0f0f0f;
             --card-bg: #1a1a1a;
             --text-gold: #ffcc00;
+            --discord-color: #5865F2;
         }
 
         body {
@@ -19,7 +20,7 @@
             margin: 0;
             display: flex;
             justify-content: center;
-            align-items: flex-start; /* باش يسمح بالـ scroll */
+            align-items: flex-start;
             min-height: 100vh;
             padding: 40px 0;
         }
@@ -44,13 +45,36 @@
             display: block;
         }
 
-        h1 { font-size: 1.5rem; margin-bottom: 30px; color: white; }
-
-        /* ستايل الفورم */
-        .form-group {
-            text-align: right;
-            margin-bottom: 20px;
+        .discord-btn {
+            background-color: var(--discord-color);
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            font-weight: bold;
+            margin-bottom: 30px;
+            cursor: pointer;
+            border: none;
+            width: 100%;
+            transition: 0.3s;
         }
+
+        .discord-btn:hover { filter: brightness(1.2); transform: scale(1.02); }
+
+        .status-tag {
+            font-size: 0.8rem;
+            color: #555;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        h1 { font-size: 1.5rem; margin-bottom: 20px; color: white; }
+
+        .form-group { text-align: right; margin-bottom: 20px; }
 
         label {
             display: block;
@@ -67,17 +91,14 @@
             border: 1px solid #333;
             background: #252525;
             color: white;
-            box-sizing: border-box; /* مهم باش ما يخرجش على الإطار */
+            box-sizing: border-box;
             font-family: inherit;
         }
 
         input:focus, textarea:focus {
             outline: none;
             border-color: var(--primary-red);
-            box-shadow: 0 0 10px rgba(204, 0, 0, 0.2);
         }
-
-        textarea { height: 100px; resize: vertical; }
 
         .submit-btn {
             width: 100%;
@@ -90,14 +111,9 @@
             font-size: 1.1rem;
             cursor: pointer;
             transition: 0.3s;
-            margin-top: 10px;
         }
 
-        .submit-btn:hover {
-            transform: translateY(-3px);
-            filter: brightness(1.2);
-            box-shadow: 0 10px 20px rgba(204, 0, 0, 0.4);
-        }
+        .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(204, 0, 0, 0.4); }
 
         .footer { margin-top: 30px; font-size: 0.8rem; color: #555; }
     </style>
@@ -106,13 +122,30 @@
 
     <div class="container">
         <span class="logo-text">TARBOUCH</span>
-        <h1>استمارة الانضمام لطاقم الإدارة</h1>
+        
+        <button class="discord-btn" onclick="discordLogin()">
+            <span>Sign in with Discord</span>
+        </button>
+        <span class="status-tag" id="login-status">يرجى تسجيل الدخول لربط حسابك</span>
+
+        <h1>استمارة تقديم طاقم الإدارة</h1>
 
         <form action="https://formspree.io/f/YOUR_ID" method="POST">
             
             <div class="form-group">
-                <label>الاسم داخل اللعبة (In-Game Name):</label>
-                <input type="text" name="ign" placeholder="مثال: Sherlock_MC" required>
+                <label>الاسم داخل اللعبة (IGN):</label>
+                <input type="text" name="ign" required>
+            </div>
+
+            <div class="form-group">
+                <label>الرتبة المطلوبة:</label>
+                <select name="role">
+                    <option value="Helper">Helper</option>
+                    <option value="Moderator">Moderator</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Sr. Admin">Sr. Admin</option>
+                    <option value="Developer">Developer (Dev)</option>
+                </select>
             </div>
 
             <div class="form-group">
@@ -121,30 +154,21 @@
             </div>
 
             <div class="form-group">
-                <label>الرتبة المطلوبة:</label>
-                <select name="role">
-                    <option value="Helper">Helper</option>
-                    <option value="Moderator">Moderator</option>
-                    <option value="Builder">Builder</option>
-                </select>
+                <label>الخبرة السابقة (Servers):</label>
+                <textarea name="experience" required></textarea>
             </div>
 
             <div class="form-group">
-                <label>هل لديك خبرة سابقة في الإدارة؟ (اذكر السيرفرات):</label>
-                <textarea name="experience" placeholder="اكتب خبرتك هنا..." required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>لماذا تريد أن تصبح Admin في Tarbouch SMP؟</label>
+                <label>لماذا تريد الانضمام إلينا؟</label>
                 <textarea name="why_us" required></textarea>
             </div>
 
             <div class="form-group">
                 <label>حساب الديسكورد (Discord Tag):</label>
-                <input type="text" name="discord" placeholder="Username#0000" required>
+                <input type="text" name="discord" id="discord-input" placeholder="Username#0000" required title="سيتم ملؤه تلقائياً عند تسجيل الدخول">
             </div>
 
-            <button type="submit" class="submit-btn">إرسال الطلب (Submit) 🚀</button>
+            <button type="submit" class="submit-btn">إرسال الطلب 📥</button>
 
         </form>
 
@@ -153,5 +177,29 @@
         </div>
     </div>
 
+    <script>
+        function discordLogin() {
+            // هاد السكريبت كيدير سيمولاسيون للـ Login باش يكون Safe 100%
+            const status = document.getElementById('login-status');
+            const btn = document.querySelector('.discord-btn');
+            
+            btn.innerHTML = "Logging in...";
+            btn.style.opacity = "0.7";
+
+            setTimeout(() => {
+                const username = prompt("دخل الـ Discord Username ديالك للربط:");
+                if(username) {
+                    document.getElementById('discord-input').value = username;
+                    status.innerHTML = "✅ تم ربط الحساب: " + username;
+                    status.style.color = "#43b581";
+                    btn.innerHTML = "Connected as " + username;
+                    btn.style.backgroundColor = "#43b581";
+                } else {
+                    btn.innerHTML = "Sign in with Discord";
+                    btn.style.opacity = "1";
+                }
+            }, 1000);
+        }
+    </script>
 </body>
 </html>
