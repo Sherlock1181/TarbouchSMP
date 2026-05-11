@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TARBOUCH SMP - تقديم الإدارة</title>
+    <title>TARBOUCH SMP - تقديم الإدارة والرتب</title>
     <style>
         :root {
             --primary-red: #cc0000;
@@ -115,6 +115,17 @@
 
         .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(204, 0, 0, 0.4); }
 
+        /* Notification Styling */
+        #success-msg {
+            display: none;
+            background: #2ecc71;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
         .footer { margin-top: 30px; font-size: 0.8rem; color: #555; }
     </style>
 </head>
@@ -128,9 +139,14 @@
         </button>
         <span class="status-tag" id="login-status">يرجى تسجيل الدخول لربط حسابك</span>
 
-        <h1>استمارة تقديم طاقم الإدارة</h1>
+        <h1>استمارة التقديم (إدارة / صناع محتوى)</h1>
 
-        <form action="https://formspree.io/f/mykolbgw" method="POST">
+        <div id="success-msg">
+            تم إرسال طلبك بنجاح! ✅<br>
+            يرجى فتح تذكرة (Ticket) في الديسكورد وانتظار رد الإدارة بالقبول أو الرفض.
+        </div>
+
+        <form id="applyForm" action="https://formspree.io/f/mykolbgw" method="POST">
             
             <div class="form-group">
                 <label>الاسم داخل اللعبة (IGN):</label>
@@ -140,11 +156,17 @@
             <div class="form-group">
                 <label>الرتبة المطلوبة:</label>
                 <select name="role">
-                    <option value="Helper">Helper</option>
-                    <option value="Moderator">Moderator</option>
-                    <option value="Admin">Admin</option>
-                    <option value="Sr. Admin">Sr. Admin</option>
-                    <option value="Developer">Developer (Dev)</option>
+                    <optgroup label="طاقم الإدارة">
+                        <option value="Helper">Helper</option>
+                        <option value="Moderator">Moderator</option>
+                        <option value="Admin">Admin</option>
+                        <option value="Developer">Developer (Dev)</option>
+                    </optgroup>
+                    <optgroup label="صناع المحتوى">
+                        <option value="YouTube">YouTube Rank 🎥</option>
+                        <option value="TikToker">TikToker Rank 📱</option>
+                        <option value="Streamer">Streamer Rank 💜</option>
+                    </optgroup>
                 </select>
             </div>
 
@@ -154,8 +176,8 @@
             </div>
 
             <div class="form-group">
-                <label>الخبرة السابقة (Servers):</label>
-                <textarea name="experience" required></textarea>
+                <label>الخبرة السابقة أو رابط قناتك:</label>
+                <textarea name="experience" placeholder="اكتب خبرتك أو حط رابط قناتك هنا..." required></textarea>
             </div>
 
             <div class="form-group">
@@ -165,8 +187,10 @@
 
             <div class="form-group">
                 <label>حساب الديسكورد (Discord Tag):</label>
-                <input type="text" name="discord" id="discord-input" placeholder="Username#0000" required title="سيتم ملؤه تلقائياً عند تسجيل الدخول">
+                <input type="text" name="discord" id="discord-input" placeholder="Username" required>
             </div>
+
+            <input type="hidden" name="_message" value="🔔 تقديم جديد! يرجى مراجعة الـ Ticket.">
 
             <button type="submit" class="submit-btn">إرسال الطلب 📥</button>
 
@@ -178,6 +202,7 @@
     </div>
 
     <script>
+        // لربط الديسكورد
         function discordLogin() {
             const status = document.getElementById('login-status');
             const btn = document.querySelector('.discord-btn');
@@ -199,6 +224,5 @@
                 }
             }, 1000);
         }
-    </script>
-</body>
-</html>
+
+        // باش تطلع الرسالة ديال الـ Ticket ملي يبرك على Submit
