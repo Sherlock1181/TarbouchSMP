@@ -1,334 +1,88 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TARBOUCH SMP - التقديم الرسمي</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        :root {
-            --primary-red: #ff0000;
-            --dark-bg: #0b0b0b;
-            --card-bg: #1a1a1a;
-            --text-gold: #ffcc00;
-            --input-bg: #111;
-        }
+<!-- زد هاد القسم لـ Dashboard Grid -->
+<div class="dash-card" onclick="showSection('player-report')"><i class="fas fa-user-slash" style="color:#d32f2f;"></i><span>Report Player</span></div>
 
-        body {
-            font-family: 'Segoe UI', sans-serif;
-            background-color: var(--dark-bg);
-            color: #eeeeee;
-            margin: 0;
-            overflow-x: hidden;
-        }
-
-        nav {
-            background: rgba(22, 22, 22, 0.95);
-            padding: 15px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--primary-red);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-
-        .nav-logo { 
-            font-size: 1.8rem; 
-            font-weight: 900; 
-            color: var(--primary-red); 
-            text-decoration: none; 
-            cursor: pointer;
-            animation: flagWave 3s ease-in-out infinite;
-            text-shadow: 2px 2px 10px rgba(204, 0, 0, 0.4);
-            order: 2;
-        }
-
-        @keyframes flagWave {
-            0%, 100% { transform: rotate(-2deg) skewX(2deg); }
-            50% { transform: rotate(2deg) skewX(-2deg); }
-        }
-
-        .nav-links { 
-            display: flex; 
-            gap: 20px;
-            position: absolute;
-            left: 50%;
-            transform: translateX(-50%);
-            order: 1;
-        }
-
-        .nav-links a { 
-            color: white; 
-            text-decoration: none; 
-            font-weight: bold; 
-            transition: 0.3s; 
-            cursor: pointer; 
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.9rem;
-        }
-
-        .nav-links a:hover { color: var(--primary-red); }
-
-        .section { display: none; padding: 40px 20px; animation: fadeIn 0.5s ease-in-out; min-height: 70vh; }
-        .section.active { display: block; }
-
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-
-        .ip-box {
-            background: var(--card-bg);
-            border: 2px dashed var(--primary-red);
-            padding: 15px;
-            border-radius: 10px;
-            display: inline-block;
-            margin: 20px auto;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-        .ip-box:hover { background: rgba(255,0,0,0.1); transform: scale(1.05); }
-
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-            gap: 20px;
-            max-width: 1000px;
-            margin: 50px auto;
-            padding: 20px;
-        }
-
-        .dash-card {
-            background: var(--card-bg);
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            border: 1px solid #333;
-            transition: 0.3s;
-            cursor: pointer;
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .dash-card:hover {
-            border-color: var(--text-gold);
-            transform: translateY(-5px);
-            box-shadow: 0 0 15px rgba(255, 204, 0, 0.2);
-        }
-
-        .dash-card i { font-size: 2.2rem; color: var(--text-gold); margin-bottom: 15px; display: block; }
-        .dash-card span { font-weight: bold; font-size: 0.95rem; }
-        .soon-badge { font-size: 0.7rem; color: #666; display: block; margin-top: 5px; }
-
-        .info-container {
-            width: 100%;
-            max-width: 850px;
-            margin: 0 auto;
-            background: var(--card-bg);
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        table { width: 100%; border-collapse: collapse; text-align: center; }
-        th, td { padding: 18px; border-bottom: 1px solid #333; }
-        th { background: #222; color: var(--text-gold); }
+<!-- قسم التبليغ عن لاعب -->
+<div id="player-report" class="section">
+    <div style="background: var(--card-bg); padding: 40px; border-radius: 20px; max-width: 500px; margin: 0 auto; border: 1px solid #333;">
+        <h2 style="color:var(--text-gold); text-align:center;">تبليغ عن لاعب 🚫</h2>
+        <p style="text-align:center; font-size: 0.9rem; color: #aaa;">بلغ على أي لاعب خالف القوانين</p>
         
-        .badge { padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; font-weight: bold; }
-        .badge-owner { background: var(--primary-red); color: white; }
-        .badge-ceo { background: #8e44ad; color: white; }
-        .badge-co { background: #ff6600; color: white; }
-        .badge-helper { background: #2ecc71; color: white; }
-
-        .footer { text-align: center; padding: 40px; color: #444; font-size: 0.9rem; }
-    </style>
-</head>
-<body>
-
-    <nav>
-        <div class="nav-logo" onclick="showSection('home')">TARBOUCH SMP</div>
-        <div class="nav-links">
-            <a onclick="showSection('home')"><i class="fas fa-home"></i> الرئيسية</a>
-            <a onclick="showSection('staff')"><i class="fas fa-shield-halved"></i> المشرفين</a>
-            <a onclick="showSection('rules')"><i class="fas fa-book"></i> القوانين</a>
-            <a onclick="showSection('apply')"><i class="fas fa-user-plus"></i> تقديم Staff</a>
-            <a onclick="showSection('bug-report')"><i class="fas fa-bug"></i> تبليغ عن Bug</a>
-        </div>
-    </nav>
-
-    <div id="home" class="section active">
-        <div style="text-align: center; padding-top: 20px;">
-            <h1 style="font-size: 3rem; color: var(--text-gold); margin-bottom: 10px;">TARBOUCH SMP</h1>
-            <p style="color: #aaa;">أفضل تجربة Survival مغربية</p>
-            <div class="ip-box">
-                <span style="color: var(--text-gold); font-weight: bold;">SERVER IP:</span>
-                <span style="color: white; letter-spacing: 2px; margin-right: 10px;">COMING SOON</span>
-            </div>
-        </div>
-        <div class="dashboard-grid">
-            <div class="dash-card" onclick="showSection('staff')"><i class="fas fa-users-gear"></i><span>المشرفين</span></div>
-            <div class="dash-card" onclick="showSection('rules')"><i class="fas fa-scroll"></i><span>القوانين</span></div>
-            <a href="https://discord.gg/9WdhzReSY" target="_blank" class="dash-card"><i class="fab fa-discord"></i><span>ديسكورد</span></a>
-            <div class="dash-card" onclick="showSection('apply')"><i class="fas fa-file-signature"></i><span>تقديم Staff</span></div>
-            <div class="dash-card" onclick="showSection('bug-report')"><i class="fas fa-virus-slash" style="color:#e67e22;"></i><span>Bug Report</span></div>
-            <div class="dash-card"><i class="fas fa-shopping-cart" style="opacity:0.4;"></i><span>المتجر<br><small class="soon-badge">SOON</small></span></div>
-            <div class="dash-card"><i class="fas fa-images" style="opacity:0.4;"></i><span>المعرض<br><small class="soon-badge">SOON</small></span></div>
-            <div class="dash-card"><i class="fas fa-chart-line" style="opacity:0.4;"></i><span>الإحصائيات<br><small class="soon-badge">SOON</small></span></div>
-        </div>
+        <input type="text" id="p_target" placeholder="اسم اللاعب المشتكى به" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;">
+        <textarea id="p_reason" placeholder="شنو دار؟ (السبب بالتفصيل)" rows="3" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;"></textarea>
+        
+        <label style="display:block; margin-top:10px; color:var(--text-gold); font-size:0.8rem;">إثبات (صورة من الجهاز):</label>
+        <input type="file" id="p_file" accept="image/*" style="width:100%; padding:10px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;">
+        
+        <input type="text" id="p_discord" placeholder="Discord Username ديالك" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;">
+        <button onclick="uploadAndSend('player')" style="width:100%; background:var(--primary-red); color:white; padding:16px; border:none; border-radius:10px; font-weight:bold; cursor:pointer; margin-top:10px;">إرسال التقرير ⚖️</button>
     </div>
+</div>
 
-    <div id="staff" class="section">
-        <h2 style="text-align:center; color:var(--text-gold);">إدارة السيرفر 🛡️</h2>
-        <div class="info-container">
-            <table>
-                <thead>
-                    <tr><th>العضو</th><th>الرتبة</th><th>الصلاحيات</th></tr>
-                </thead>
-                <tbody>
-                    <tr><td style="color:var(--primary-red); font-weight:bold;">Sherlock</td><td><span class="badge badge-owner">OWNER</span></td><td>System Security / Development</td></tr>
-                    <tr><td style="color:#8e44ad; font-weight:bold;">amine3g_13052</td><td><span class="badge badge-ceo">SMP CEO</span></td><td>Overall Operations</td></tr>
-                    <tr><td style="color:#ff6600; font-weight:bold;">Itz1lm2</td><td><span class="badge badge-co">CO-OWNER</span></td><td>Management / Operations</td></tr>
-                    <tr><td>1.arw</td><td><span class="badge badge-helper">HELPER</span></td><td>Player Support</td></tr>
-                    <tr><td>pogba04273</td><td><span class="badge badge-helper">HELPER</span></td><td>Player Support</td></tr>
-                    <tr><td>kolt_85285</td><td><span class="badge badge-helper">HELPER</span></td><td>Player Support</td></tr>
-                    <tr><td>xeroxx_01</td><td><span class="badge badge-helper">HELPER</span></td><td>Player Support</td></tr>
-                    <tr><td>nawaf_on_top</td><td><span class="badge badge-helper">HELPER</span></td><td>Player Support</td></tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
+<script>
+    // هاد الدالة هي اللي كتتكلف بكلشي (Upload + Webhook)
+    async function uploadAndSend(type) {
+        const webhookURL = "https://discord.com/api/webhooks/1503396690336420002/vlqbGHaEvGRQlCCPKOJRL6O8gZ5rbbaZSNps8dVqg8RalsuhvkKFMnQTysPbT_a-ST7g";
+        
+        let fileInput, title, fields;
+        const formData = new FormData();
 
-    <!-- Bug Report Section -->
-    <div id="bug-report" class="section">
-        <div style="background: var(--card-bg); padding: 40px; border-radius: 20px; max-width: 500px; margin: 0 auto; border: 1px solid #333;">
-            <h2 style="color:var(--text-gold); text-align:center;">إبلاغ عن خطأ (Bug Report) 🐛</h2>
-            <p style="text-align:center; font-size: 0.9rem; color: #aaa;">ساعدنا نطور السيرفر ونقيوه من المشاكل</p>
-            
-            <input type="text" id="bug_title" placeholder="عنوان المشكلة (مثلاً: مشكلة في البناء)" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;">
-            
-            <textarea id="bug_details" placeholder="اشرح لينا التفاصيل (فين وقع المشكل وكيفاش؟)" rows="4" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;"></textarea>
-            
-            <input type="text" id="bug_image" placeholder="رابط صورة المشكلة (اختياري - Imgur link)" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;">
-            
-            <input type="text" id="bug_discord" placeholder="Discord Username ديالك" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;">
-            
-            <button onclick="sendBugToDiscord()" style="width:100%; background:#e67e22; color:white; padding:16px; border:none; border-radius:10px; font-weight:bold; cursor:pointer; margin-top:10px;">إرسال التقرير 🚩</button>
-        </div>
-    </div>
+        if (type === 'player') {
+            fileInput = document.getElementById('p_file');
+            const target = document.getElementById('p_target').value;
+            const reason = document.getElementById('p_reason').value;
+            const discord = document.getElementById('p_discord').value;
 
-    <div id="rules" class="section">
-        <h2 style="text-align:center; color:var(--text-gold);">قوانين السيرفر 📜</h2>
-        <div class="info-container" style="padding: 20px; color: #ccc;">
-            <ul style="list-style: none; padding: 0; line-height: 2;">
-                <li>🚫 ممنوع الـ Griefing أو تخريب مباني الآخرين.</li>
-                <li>🚫 ممنوع استخدام أي أنواع الـ Cheats أو الـ X-Ray.</li>
-                <li>⚖️ الاحترام المتبادل بين اللاعبين و Staff.</li>
-                <li>💬 ممنوع السب أو القذف في الـ Chat.</li>
-                <li>📢 يمنع الإعلان لسيرفرات أخرى داخل السيرفر.</li>
-            </ul>
-        </div>
-    </div>
+            if (!target || !reason || !discord) return alert("عمر الخانات كاملة!");
 
-    <div id="apply" class="section">
-        <div style="background: var(--card-bg); padding: 40px; border-radius: 20px; max-width: 500px; margin: 0 auto; border: 1px solid #333;">
-            <h2 style="color:var(--text-gold); text-align:center;">تقديم طلب انضمام 🎯</h2>
-            <p style="text-align:center; font-size: 0.9rem; color: var(--text-gold);">ملاحظة: افتح <b>Ticket</b> فـ الديسكورد مورا الإرسال</p>
-            <input type="text" id="ign" placeholder="الاسم داخل اللعبة" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;">
-            <select id="role" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;">
-                <option value="Helper">Helper</option>
-                <option value="Admin">Admin</option>
-                <option value="Moderator">Moderator</option>
-                <option value="YouTuber/TikToker">Content Creator</option>
-            </select>
-            <textarea id="exp" placeholder="اكتب خبرتك هنا (أكثر من 20 حرف)" rows="4" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;"></textarea>
-            <input type="text" id="discord_tag" placeholder="Discord Username (ex: sherlock1181)" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;">
-            <button onclick="sendToDiscord()" style="width:100%; background:var(--primary-red); color:white; padding:16px; border:none; border-radius:10px; font-weight:bold; cursor:pointer; margin-top:10px;">إرسال الطلب 🚀</button>
-        </div>
-    </div>
+            title = "🚫 بلاغ ضد لاعب";
+            fields = [
+                { name: "👤 المشتكى به", value: target, inline: true },
+                { name: "💬 السبب", value: reason },
+                { name: "🆔 المبلغ", value: discord, inline: true }
+            ];
+        } else {
+            // كود الـ Bug Report بنفس الطريقة
+            fileInput = document.getElementById('bug_file'); // تأكد تبدل ID فـ HTML لـ bug_file
+            const bTitle = document.getElementById('bug_title').value;
+            const bDetails = document.getElementById('bug_details').value;
+            const bDiscord = document.getElementById('bug_discord').value;
 
-    <div class="footer">🛡️ Secured by Sherlock Systems | 2026</div>
+            if (!bTitle || !bDetails || !bDiscord) return alert("عمر الخانات كاملة!");
 
-    <script>
-        function showSection(id) {
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
-            document.getElementById(id).classList.add('active');
-            window.scrollTo(0,0);
+            title = "🐛 تقرير Bug جديد";
+            fields = [
+                { name: "📌 العنوان", value: bTitle },
+                { name: "📝 التفاصيل", value: bDetails },
+                { name: "👤 المبلغ", value: bDiscord, inline: true }
+            ];
         }
 
-        const WEBHOOK_URL = "https://discord.com/api/webhooks/1503396690336420002/vlqbGHaEvGRQlCCPKOJRL6O8gZ5rbbaZSNps8dVqg8RalsuhvkKFMnQTysPbT_a-ST7g";
+        // إعداد الـ Embed
+        const embed = {
+            title: title,
+            color: type === 'player' ? 15548997 : 15105570,
+            fields: fields,
+            timestamp: new Date()
+        };
 
-        function sendToDiscord() {
-            const ign = document.getElementById('ign').value;
-            const role = document.getElementById('role').value;
-            const exp = document.getElementById('exp').value;
-            const discord = document.getElementById('discord_tag').value;
+        formData.append('payload_json', JSON.stringify({ embeds: [embed] }));
 
-            if (!ign || exp.length < 20 || !discord) {
-                alert("⚠️ كمل كاع المعلومات (الخبرة لازم تكون طويلة شوي)!");
-                return;
+        // إضافة الصورة إذا كانت موجودة
+        if (fileInput.files.length > 0) {
+            formData.append('file', fileInput.files[0]);
+        }
+
+        try {
+            const response = await fetch(webhookURL, { method: 'POST', body: formData });
+            if (response.ok) {
+                alert("✅ تم الإرسال بنجاح مع الصورة!");
+                location.reload();
+            } else {
+                alert("❌ فشل الإرسال، تأكد من حجم الصورة.");
             }
-
-            const payload = {
-                username: "TARBOUCH SMP APPLY",
-                embeds: [{
-                    title: "📄 تقديم جديد للطاقم",
-                    color: 16711680,
-                    fields: [
-                        { name: "🎮 IGN", value: `\`${ign}\``, inline: true },
-                        { name: "🛡️ الرتبة", value: `**${role}**`, inline: true },
-                        { name: "💬 ديسكورد", value: discord, inline: true },
-                        { name: "📜 الخبرة", value: `\`\`\`${exp}\`\`\`` }
-                    ],
-                    footer: { text: "Sherlock Systems Security" },
-                    timestamp: new Date()
-                }]
-            };
-
-            fetch(WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
-            .then(res => {
-                if(res.ok) {
-                    alert("✅ تم إرسال طلبك! حل تيكيت فـ الديسكورد دابا.");
-                    location.reload();
-                }
-            });
+        } catch (error) {
+            console.error(error);
+            alert("⚠️ وقع خطأ فني.");
         }
-
-        function sendBugToDiscord() {
-            const title = document.getElementById('bug_title').value;
-            const details = document.getElementById('bug_details').value;
-            const image = document.getElementById('bug_image').value;
-            const discord = document.getElementById('bug_discord').value;
-
-            if (!title || !details || !discord) {
-                alert("⚠️ عافاك عمر المعلومات الأساسية!");
-                return;
-            }
-
-            const payload = {
-                username: "TARBOUCH SMP BUGS",
-                embeds: [{
-                    title: "🐛 تقرير عن مشكلة تقنية",
-                    color: 15105570, 
-                    fields: [
-                        { name: "📌 العنوان", value: title, inline: false },
-                        { name: "💬 التفاصيل", value: `\`\`\`${details}\`\`\`` },
-                        { name: "👤 بواسطة", value: discord, inline: true }
-                    ],
-                    image: { url: image.startsWith('http') ? image : "" },
-                    footer: { text: "Sherlock Systems Bug Tracker" },
-                    timestamp: new Date()
-                }]
-            };
-
-            fetch(WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
-            .then(res => {
-                if(res.ok) {
-                    alert("✅ شكراً! التقرير وصل لـ Sherlock وغادي يشوفو فـ أقرب وقت.");
-                    location.reload();
-                }
-            });
-        }
-    </script>
-</body>
-</html>
+    }
+</script>
