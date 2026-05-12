@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TARBOUCH SMP - تقديم الإدارة والرتب</title>
+    <title>TARBOUCH SMP - الموقع الرسمي</title>
     <style>
         :root {
             --primary-red: #cc0000;
-            --dark-bg: #0f0f0f;
-            --card-bg: #1a1a1a;
+            --dark-bg: #0b0b0b;
+            --card-bg: #161616;
             --text-gold: #ffcc00;
             --discord-color: #5865F2;
         }
@@ -18,13 +18,76 @@
             background-color: var(--dark-bg);
             color: #eeeeee;
             margin: 0;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            padding: 40px 0;
+            overflow-x: hidden;
         }
 
+        /* Navbar Design */
+        nav {
+            background: rgba(22, 22, 22, 0.95);
+            padding: 15px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid var(--primary-red);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .nav-logo {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: var(--text-gold);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: 0.3s;
+            cursor: pointer;
+        }
+
+        .nav-links a:hover { color: var(--primary-red); }
+
+        /* Main Content Sections */
+        .section {
+            display: none; /* مخفيين في البداية */
+            padding: 60px 20px;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        .section.active { display: block; } /* كيبان غير اللي بركنا عليه */
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-content {
+            text-align: center;
+            padding: 100px 20px;
+            background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://i.imgur.com/your-minecraft-bg.jpg'); /* تقدر تبدل التصويرة */
+            background-size: cover;
+        }
+
+        .ip-box {
+            background: var(--card-bg);
+            padding: 15px 30px;
+            border-radius: 10px;
+            border: 1px dashed var(--text-gold);
+            display: inline-block;
+            margin-top: 20px;
+            cursor: pointer;
+        }
+
+        /* Form Styling (نفس اللي كان عندنا) */
         .container {
             background: var(--card-bg);
             padding: 2.5rem;
@@ -32,227 +95,101 @@
             box-shadow: 0 20px 50px rgba(0,0,0,0.7);
             border: 1px solid rgba(255, 204, 0, 0.2);
             max-width: 550px;
-            width: 90%;
+            margin: 0 auto;
             text-align: center;
         }
 
-        .logo-text {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--text-gold);
-            text-shadow: 0 0 15px rgba(255, 204, 0, 0.4);
-            margin-bottom: 10px;
-            display: block;
-        }
-
-        .discord-btn {
-            background-color: var(--discord-color);
-            color: white;
-            padding: 12px;
-            border-radius: 10px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            font-weight: bold;
-            margin-bottom: 30px;
-            cursor: pointer;
-            border: none;
-            width: 100%;
-            transition: 0.3s;
-        }
-
-        .discord-btn:hover { filter: brightness(1.2); transform: scale(1.02); }
-
-        .status-tag {
-            font-size: 0.8rem;
-            color: #555;
-            margin-bottom: 20px;
-            display: block;
-        }
-
-        h1 { font-size: 1.5rem; margin-bottom: 20px; color: white; }
-
         .form-group { text-align: right; margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: var(--text-gold); font-weight: bold; }
+        input, textarea, select { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #333; background: #252525; color: white; box-sizing: border-box; }
+        .submit-btn { width: 100%; background: linear-gradient(135deg, var(--primary-red), #990000); color: white; padding: 15px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        
+        .discord-btn { background-color: var(--discord-color); color: white; padding: 10px; border-radius: 8px; border: none; width: 100%; margin-bottom: 20px; cursor: pointer; font-weight: bold; }
 
-        label {
-            display: block;
-            margin-bottom: 8px;
-            color: var(--text-gold);
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-
-        input, textarea, select {
-            width: 100%;
-            padding: 12px;
-            border-radius: 10px;
-            border: 1px solid #333;
-            background: #252525;
-            color: white;
-            box-sizing: border-box;
-            font-family: inherit;
-        }
-
-        input:focus, textarea:focus {
-            outline: none;
-            border-color: var(--primary-red);
-        }
-
-        .submit-btn {
-            width: 100%;
-            background: linear-gradient(135deg, var(--primary-red), #990000);
-            color: white;
-            padding: 15px;
-            border: none;
-            border-radius: 12px;
-            font-weight: bold;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: 0.3s;
-        }
-
-        .submit-btn:hover { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(204, 0, 0, 0.4); }
-
-        #success-msg {
-            display: none;
-            background: #2ecc71;
-            color: white;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-weight: bold;
-            line-height: 1.6;
-        }
-
-        .char-hint {
-            display: block;
-            font-size: 0.75rem;
-            margin-top: 5px;
-            color: #888;
-        }
-
-        .footer { margin-top: 30px; font-size: 0.8rem; color: #555; }
+        .footer { text-align: center; padding: 40px; color: #555; font-size: 0.9rem; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <span class="logo-text">TARBOUCH</span>
-        
-        <button class="discord-btn" onclick="discordLogin()">
-            <span>Sign in with Discord</span>
-        </button>
-        <span class="status-tag" id="login-status">يرجى تسجيل الدخول لربط حسابك</span>
-
-        <h1>استمارة التقديم (إدارة / صناع محتوى)</h1>
-
-        <div id="success-msg">
-            تم إرسال طلبك بنجاح! ✅<br>
-            دابا دخل للديسكورد وحل تذكرة (Ticket) باش تكمل الإجراءات.<br>
-            تسنى الرد ديالنا واش غيكون القبول (Accepted) ولا الرفض (Denied).
+    <nav>
+        <a href="#" class="nav-logo" onclick="showSection('home')">TARBOUCH SMP</a>
+        <div class="nav-links">
+            <a onclick="showSection('home')">الرئيسية</a>
+            <a onclick="showSection('apply')">تقديم Staff</a>
+            <a href="https://discord.gg/your-link" target="_blank">ديسكورد</a>
         </div>
+    </nav>
 
-        <form id="applyForm" action="https://formspree.io/f/mykolbgw" method="POST">
-            
-            <div class="form-group">
-                <label>الاسم داخل اللعبة (IGN):</label>
-                <input type="text" name="ign" required>
+    <div id="home" class="section active">
+        <div class="hero-content">
+            <h1 style="font-size: 3.5rem; color: var(--text-gold);">مرحباً بك في طربوش SMP</h1>
+            <p style="font-size: 1.2rem;">أفضل تجربة بقاء (Survival) في المغرب!</p>
+            <div class="ip-box" onclick="copyIP()">
+                <span>IP: <b id="server-ip">TARBOUCH.MC-SRV.COM</b></span> (اضغط للنسخ)
             </div>
-
-            <div class="form-group">
-                <label>الرتبة المطلوبة:</label>
-                <select name="role">
-                    <optgroup label="طاقم الإدارة">
-                        <option value="Helper">Helper</option>
-                        <option value="Moderator">Moderator</option>
-                        <option value="Admin">Admin</option>
-                        <option value="Developer">Developer (Dev)</option>
-                    </optgroup>
-                    <optgroup label="صناع المحتوى">
-                        <option value="YouTube">YouTube Rank 🎥</option>
-                        <option value="TikToker">TikToker Rank 📱</option>
-                        <option value="Streamer">Streamer Rank 💜</option>
-                    </optgroup>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label>السن:</label>
-                <input type="number" name="age" required>
-            </div>
-
-            <div class="form-group">
-                <label>الخبرة السابقة أو رابط قناتك (أكثر من 20 حرف):</label>
-                <textarea name="experience" id="exp" minlength="20" placeholder="اكتب بالتفصيل هنا..." required></textarea>
-                <span class="char-hint" id="exp-hint">عدد الحروف: 0 (خاصك على الأقل 20)</span>
-            </div>
-
-            <div class="form-group">
-                <label>لماذا تريد الانضمام إلينا؟</label>
-                <textarea name="why_us" required></textarea>
-            </div>
-
-            <div class="form-group">
-                <label>حساب الديسكورد (Discord Tag):</label>
-                <input type="text" name="discord" id="discord-input" placeholder="Username" required>
-            </div>
-
-            <input type="hidden" name="_message" value="🔔 تقديم جديد! يرجى مراجعة الـ Ticket.">
-
-            <button type="submit" class="submit-btn">إرسال الطلب 📥</button>
-
-        </form>
-
-        <div class="footer">
-            🛡️ Secured by <b>Sherlock Systems</b>
         </div>
     </div>
 
+    <div id="apply" class="section">
+        <div class="container">
+            <button class="discord-btn" onclick="discordLogin()">Sign in with Discord</button>
+            <h2 id="login-status" style="font-size: 1rem; color: #888;">يرجى الربط قبل التقديم</h2>
+            
+            <h1>تقديم طاقم الإدارة</h1>
+            <form action="https://formspree.io/f/mykolbgw" method="POST">
+                <div class="form-group">
+                    <label>الاسم داخل اللعبة (IGN):</label>
+                    <input type="text" name="ign" required>
+                </div>
+                <div class="form-group">
+                    <label>الرتبة المطلوبة:</label>
+                    <select name="role">
+                        <option value="Helper">Helper</option>
+                        <option value="Moderator">Moderator</option>
+                        <option value="Admin">Admin</option>
+                        <option value="YouTube/TikTok">Content Creator</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>الخبرة (أكثر من 20 حرف):</label>
+                    <textarea name="experience" id="exp" minlength="20" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label>حساب الديسكورد:</label>
+                    <input type="text" name="discord" id="discord-input" required>
+                </div>
+                <button type="submit" class="submit-btn">إرسال الطلب 📥</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="footer">
+        🛡️ Secured by <b>Sherlock Systems</b> | 2026
+    </div>
+
     <script>
-        function discordLogin() {
-            const status = document.getElementById('login-status');
-            const btn = document.querySelector('.discord-btn');
-            btn.innerHTML = "Logging in...";
-            setTimeout(() => {
-                const username = prompt("دخل الـ Discord Username ديالك للربط:");
-                if(username) {
-                    document.getElementById('discord-input').value = username;
-                    status.innerHTML = "✅ تم ربط الحساب: " + username;
-                    status.style.color = "#43b581";
-                    btn.innerHTML = "Connected as " + username;
-                    btn.style.backgroundColor = "#43b581";
-                } else {
-                    btn.innerHTML = "Sign in with Discord";
-                }
-            }, 1000);
+        // التنقل بين الخانات بلا ما تتبدل الصفحة
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(sectionId).classList.add('active');
         }
 
-        // حساب الحروف ومنع الإرسال إيلا كان قل من 20
-        const expArea = document.getElementById('exp');
-        const expHint = document.getElementById('exp-hint');
-        
-        expArea.addEventListener('input', () => {
-            const len = expArea.value.length;
-            expHint.innerText = `عدد الحروف: ${len} (خاصك على الأقل 20)`;
-            if(len < 20) {
-                expHint.style.color = "#cc0000";
-            } else {
-                expHint.style.color = "#2ecc71";
-            }
-        });
+        // نسخ الـ IP
+        function copyIP() {
+            const ip = document.getElementById('server-ip').innerText;
+            navigator.clipboard.writeText(ip);
+            alert("تم نسخ IP السيرفر! نتمناو نشوفوك داخل.");
+        }
 
-        // التعامل مع الإرسال
-        const form = document.getElementById('applyForm');
-        form.onsubmit = function(e) {
-            // كنعطيو وقت للفورم يتصيفط قبل ما نخفيوه
-            setTimeout(() => {
-                form.style.display = 'none';
-                document.getElementById('success-msg').style.display = 'block';
-                window.scrollTo(0,0);
-            }, 1000);
-        };
+        // نظام الربط (نفس اللي كان)
+        function discordLogin() {
+            const user = prompt("دخل Discord Username:");
+            if(user) {
+                document.getElementById('discord-input').value = user;
+                document.getElementById('login-status').innerText = "✅ تم الربط: " + user;
+                document.getElementById('login-status').style.color = "#2ecc71";
+            }
+        }
     </script>
 </body>
 </html>
