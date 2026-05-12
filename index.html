@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>TARBOUCH SMP | 3D Minecraft Style</title>
+    <title>TARBOUCH SMP | القائمة الرسمية</title>
     <style>
         * {
             margin: 0;
@@ -13,556 +13,201 @@
 
         body {
             min-height: 100vh;
-            background: url('https://i.imgur.com/6zUFvE6.jpeg') no-repeat center center fixed;
-            background-size: cover;
-            font-family: 'Segoe UI', 'Press Start 2P', 'Courier New', monospace;
-            position: relative;
+            background: #1a1a1a;
+            font-family: 'Segoe UI', Tahoma, sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
             padding: 20px;
+            overflow-x: hidden;
         }
 
-        /* Dark Overlay غامق مع تأثير زجاجي */
+        /* خلفية ماينكرافت بنظام Overlay */
         body::before {
             content: "";
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at center, rgba(0,0,0,0.6) 0%, rgba(0,0,0,0.85) 100%);
-            backdrop-filter: blur(3px);
-            z-index: 0;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://i.imgur.com/vHqPZ8L.png') center/cover no-repeat;
+            opacity: 0.3;
+            z-index: -1;
         }
 
         /* الحاوية الرئيسية 3D */
-        .minecraft-container {
+        .main-container {
             position: relative;
             z-index: 10;
             width: 100%;
-            max-width: 800px;
-            background: rgba(20, 18, 25, 0.65);
-            border-radius: 48px;
-            padding: 25px 25px 35px;
-            box-shadow: 0 30px 40px rgba(0,0,0,0.6), inset 0 1px 3px rgba(255,215,0,0.3);
-            border: 1px solid rgba(218,165,32,0.6);
-            backdrop-filter: blur(10px);
-            transition: all 0.2s;
+            max-width: 500px;
+            background: rgba(43, 33, 25, 0.95); /* لون خشبي غامق */
+            border: 6px solid #ffca28; /* إطار ذهبي */
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 10px 10px 0px #000;
+            text-align: center;
         }
 
-        /* Pixel Logo طربوش مغربي (شكل مخروطي مبتكر) */
-        .pixel-logo {
-            text-align: center;
-            margin-bottom: 15px;
-            position: relative;
-            filter: drop-shadow(8px 10px 0px #2a1a0a);
-        }
-        .tarboosh-3d {
+        /* الهيدر: اللوغو والاسم */
+        .flex-header {
             display: flex;
-            justify-content: center;
-            margin-bottom: 10px;
-            transform: perspective(800px) rotateX(2deg);
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #4a3828;
         }
-        .pixel-grid {
-            display: grid;
-            grid-template-columns: repeat(13, 16px);
-            grid-auto-rows: 16px;
-            background: #2f2419;
-            padding: 8px;
-            border-radius: 30px;
-            box-shadow: inset 0 0 0 3px #e6b422, 0 12px 20px rgba(0,0,0,0.4);
-        }
-        .pixel-cell {
-            width: 16px;
-            height: 16px;
-            background-color: #996633;
-            transition: 0.05s linear;
-        }
-        .pixel-cell.red-m { background-color: #c22d1e; box-shadow: inset 0 0 2px #ff7744; }
-        .pixel-cell.gold-m { background-color: #e6bc3c; box-shadow: inset 0 0 2px #ffe193; }
-        .pixel-cell.black-m { background-color: #2d241a; }
-        .pixel-cell.brown-m { background-color: #8b5a2b; }
-        
-        /* اسم السيرفر متحرك ونبض */
-        .animated-title {
-            text-align: center;
-            margin: 12px 0 8px;
-        }
-        .glow-text {
-            font-family: 'Press Start 2P', monospace;
-            font-size: 1.7rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, #e6b422, #ff5555, #ffcc44, #e6b422);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            animation: gradientMove 3s ease infinite, textPulse 1.8s ease-in-out infinite;
-            text-shadow: 0 0 8px #ffaa33, 0 0 12px #aa4422;
-            letter-spacing: 3px;
-        }
-        @keyframes gradientMove {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        @keyframes textPulse {
-            0% { text-shadow: 0 0 5px #ffaa33, 0 0 8px #ff5533; }
-            100% { text-shadow: 0 0 15px #ffcc55, 0 0 20px #ff6644; }
-        }
-        .server-stats {
-            background: #1e1b11cc;
-            border-radius: 60px;
-            padding: 12px 18px;
-            margin: 12px auto 15px;
-            display: inline-block;
-            width: auto;
-            text-align: center;
-            backdrop-filter: blur(4px);
-            border: 1px solid #dbb04e;
-            box-shadow: 0 5px 0 #4a351a;
-        }
-        .stats-line {
-            color: #ffdd99;
-            font-family: monospace;
-            font-size: 0.8rem;
-            font-weight: bold;
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-        .stats-line span i {
-            color: #ffaa33;
-            margin-left: 6px;
-        }
-        .server-ip {
-            font-family: monospace;
-            background: #0f0e0a;
-            padding: 6px 18px;
-            border-radius: 30px;
-            font-weight: bold;
-            color: #f5cb5c;
+
+        .glowing-title {
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #ffca28;
+            text-shadow: 3px 3px 0 #000;
             letter-spacing: 1px;
-            font-size: 0.85rem;
-            margin-bottom: 5px;
-            display: inline-block;
         }
-        /* الأزرار الرئيسية 3D بارزة بشكل جنوني */
-        .nav-buttons {
-            display: flex;
-            flex-direction: row;
-            justify-content: center;
-            gap: 30px;
-            margin: 35px 0 25px;
-            flex-wrap: wrap;
-        }
-        .minecraft-btn {
+
+        /* اللوغو بكسل طربوش (على اليمين فقط) */
+        .pixel-tarbouch {
+            width: 45px;
+            height: 35px;
+            background: #be0000;
             position: relative;
-            background: radial-gradient(circle at 30% 20%, #5e3c24, #2e2117);
-            border: none;
-            min-width: 180px;
-            padding: 16px 0;
-            font-family: 'Press Start 2P', monospace;
-            font-size: 0.9rem;
-            font-weight: bold;
-            text-transform: uppercase;
-            color: #ffefb0;
-            text-shadow: 2px 2px 0 #402a18;
-            cursor: pointer;
-            box-shadow: 0 10px 0 #1e150c, 0 5px 20px rgba(0,0,0,0.4);
-            transition: 0.06s linear;
-            border-radius: 40px;
-            letter-spacing: 1.5px;
-            transform: rotate(0deg) scale(1);
-            border-bottom: 2px solid gold;
+            box-shadow: 
+                -4px 4px 0 0 #be0000, 4px 4px 0 0 #be0000,
+                0 8px 0 0 #be0000, -4px 8px 0 0 #be0000, 4px 8px 0 0 #be0000,
+                2px -6px 0 0 #000; /* الخيط */
+            border-bottom: 3px solid #8e0000;
         }
-        .minecraft-btn:active {
-            transform: translateY(6px);
-            box-shadow: 0 4px 0 #1e150c;
-        }
-        .btn-home { background: radial-gradient(circle at 30% 20%, #4e6b2f, #2c421a); border-bottom: 3px solid #e6c34c; }
-        .btn-staff { background: radial-gradient(circle at 30% 20%, #b6492e, #712818); border-bottom: 3px solid #f5bc70; }
-        .btn-discord { background: radial-gradient(circle at 30% 20%, #2c5f8a, #123b57); border-bottom: 3px solid #6aa9ff; }
-        
-        /* كارت التقديم 3D فاخر */
-        .staff-card {
-            background: #262016d9;
-            border-radius: 42px;
-            padding: 25px 24px;
-            margin-top: 20px;
-            box-shadow: 0 20px 30px -5px black, inset 0 1px 2px #ffd97c;
-            border: 1px solid #e8bc60;
-            backdrop-filter: blur(6px);
-        }
-        .card-title {
-            font-size: 1.3rem;
-            text-align: center;
-            color: #ffdf9c;
-            margin-bottom: 20px;
-        }
-        .form-flex {
+
+        /* الأزرار العمودية 3D */
+        .vertical-nav {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: column;
             gap: 20px;
-        }
-        .form-group {
-            flex: 1;
-            min-width: 180px;
-            margin-bottom: 18px;
-        }
-        .form-group label {
-            display: block;
-            color: #ffcf7a;
-            margin-bottom: 6px;
-            font-size: 0.7rem;
-        }
-        .minecraft-input, .minecraft-select {
-            width: 100%;
-            padding: 12px;
-            background: #19150e;
-            border: 2px solid #c4963a;
-            border-radius: 28px;
-            color: #fff0c0;
-            font-family: monospace;
-            font-size: 0.85rem;
-            outline: none;
-            transition: 0.1s;
-        }
-        .minecraft-input:focus, .minecraft-select:focus {
-            border-color: #f7bc45;
-            box-shadow: 0 0 8px #ffb347;
-        }
-        .char-counter {
-            font-size: 0.65rem;
-            color: #e6bc74;
-            margin-top: 6px;
-        }
-        .rank-group {
             margin-bottom: 20px;
         }
-        .rank-badges {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-top: 8px;
-        }
-        .rank-option {
-            background: #30271c;
-            padding: 8px 16px;
-            border-radius: 100px;
-            cursor: pointer;
-            transition: 0.07s linear;
-            font-size: 0.7rem;
+
+        .mc-btn {
+            background: #7a7a7a;
+            border: 4px solid #000;
+            padding: 18px;
+            font-size: 1.2rem;
             font-weight: bold;
-            color: #ffdfa5;
-            border: 1px solid #bb8b39;
-            box-shadow: 0 3px 0 #5a3e20;
-        }
-        .rank-option.selected {
-            background: #d4952e;
-            color: #241b0e;
-            box-shadow: 0 2px 0 #7a4f18;
-            transform: translateY(1px);
-            border-color: #ffcd7e;
-        }
-        .submit-btn {
-            background: #c9932b;
-            width: 100%;
-            padding: 14px;
-            border-radius: 60px;
-            font-weight: bold;
-            font-family: monospace;
-            font-size: 1rem;
-            border: none;
-            box-shadow: 0 7px 0 #7a501e;
+            color: white;
             cursor: pointer;
-            transition: 0.05s linear;
-            margin-top: 10px;
+            box-shadow: inset -4px -4px 0 #444, 0 6px 0 #000;
+            transition: 0.1s;
+            text-shadow: 2px 2px 0 #000;
         }
-        .submit-btn:active {
+
+        .mc-btn:active {
             transform: translateY(4px);
-            box-shadow: 0 3px 0 #7a501e;
+            box-shadow: inset -4px -4px 0 #444, 0 2px 0 #000;
         }
-        .success-message {
-            background: #236b3b;
-            border-radius: 40px;
-            padding: 16px;
+
+        .btn-home { background: #388e3c; box-shadow: inset -4px -4px 0 #1b5e20, 0 6px 0 #000; }
+        .btn-staff { background: #be0000; box-shadow: inset -4px -4px 0 #8e0000, 0 6px 0 #000; }
+        .btn-discord { background: #5865F2; box-shadow: inset -4px -4px 0 #3b44a3, 0 6px 0 #000; }
+
+        /* منطقة المحتوى الديناميكي */
+        .content-area {
             margin-top: 20px;
-            text-align: center;
-            color: #f9e7b3;
+            background: rgba(0,0,0,0.5);
+            border-radius: 10px;
+            padding: 20px;
+            display: none;
         }
-        .error-msg {
-            color: #ffb48a;
-            font-size: 0.65rem;
+
+        .content-area.active { display: block; animation: fadeIn 0.3s; }
+
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* الفورم */
+        .form-group { text-align: right; margin-bottom: 15px; }
+        label { color: #ffca28; display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea, select {
+            width: 100%; padding: 12px; background: #222; border: 2px solid #ffca28;
+            color: white; font-family: inherit;
         }
-        footer {
-            text-align: center;
+
+        .footer {
             margin-top: 30px;
-            color: #cfaa6e;
-            font-size: 0.7rem;
-            border-top: 1px dashed #7e5d30;
-            padding-top: 15px;
+            font-size: 0.8rem;
+            color: #777;
         }
-        .hidden { display: none; }
-        @media (max-width: 650px) {
-            .minecraft-btn { min-width: 140px; font-size: 0.7rem; padding: 12px 0; }
-            .glow-text { font-size: 1.1rem; }
-            .stats-line { font-size: 0.6rem; }
-        }
+
+        .success-msg { color: #2ecc71; font-weight: bold; margin-top: 15px; }
+
     </style>
 </head>
 <body>
-<div class="minecraft-container">
-    <!-- Pixel Art طربوش مبتكر 3D -->
-    <div class="pixel-logo">
-        <div class="tarboosh-3d">
-            <div class="pixel-grid" id="pixelTarbooshGrid"></div>
-        </div>
-        <!-- اسم سيرفر متحرك -->
-        <div class="animated-title">
-            <span class="glow-text">⚡ TARBOUCHSMP ⚡</span>
-        </div>
-        <!-- معلومات السيرفر + الرام والحماية وسطر مغربي -->
-        <div style="text-align:center;">
-            <div class="server-stats">
-                <div class="stats-line">
-                    <span>🇲🇦 <i>أقوى سيرفر ماينكرافت مغربي 1.21+</i> 🔥</span>
-                    <span>💾 <i>24GB RAM</i></span>
-                    <span>🛡️ <i>Sherlock Systems</i></span>
-                </div>
-                <div class="server-ip">📡 TARBOUCH.MC-SRV.COM</div>
+
+<div class="main-container">
+    <div class="flex-header">
+        <div class="glowing-title">TARBOUCH SMP</div>
+        <div class="pixel-tarbouch"></div>
+    </div>
+
+    <div class="vertical-nav">
+        <button class="mc-btn btn-home" onclick="showContent('home')">🏠 الرئيسية</button>
+        <button class="mc-btn btn-staff" onclick="showContent('staff')">📜 تقديم Staff</button>
+        <a href="https://discord.gg/wFEPWrdJav" target="_blank" style="text-decoration: none;">
+            <button class="mc-btn btn-discord" style="width: 100%;">💬 ديسكورد</button>
+        </a>
+    </div>
+
+    <div id="home-content" class="content-area active">
+        <p style="color: #ccc;">مرحباً بك في لوحة تحكم طربوش SMP. اختر من القائمة أعلاه للبدء.</p>
+    </div>
+
+    <div id="staff-content" class="content-area">
+        <h3 style="color: #ffca28; margin-bottom: 15px;">إستمارة التقديم</h3>
+        <form id="applyForm">
+            <div class="form-group">
+                <label>الاسم في اللعبة:</label>
+                <input type="text" id="ign" required>
             </div>
-        </div>
+            <div class="form-group">
+                <label>الرتبة:</label>
+                <select id="role">
+                    <option>Helper</option>
+                    <option>Moderator</option>
+                    <option>Admin</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>الخبرة (20 حرف+):</label>
+                <textarea id="exp" minlength="20" required></textarea>
+                <small id="charCount" style="color: #be0000;">0 / 20</small>
+            </div>
+            <button type="submit" class="mc-btn btn-home" style="width: 100%; margin-top: 10px;">إرسال الطلب</button>
+        </form>
+        <div id="result" class="success-msg"></div>
     </div>
 
-    <!-- أزرار التنقل الثلاثة (الصفحة الرئيسية) -->
-    <div class="nav-buttons">
-        <button class="minecraft-btn btn-home" id="homeBtn">🏠 الرئيسية</button>
-        <button class="minecraft-btn btn-staff" id="staffApplyBtn">📜 RANK APPLY</button>
-        <button class="minecraft-btn btn-discord" id="discordBtn">🎧 ديسكورد</button>
-    </div>
-
-    <!-- المحتوى الديناميكي -->
-    <div id="dynamicContent">
-        <div id="homeGreeting" style="background:#1f1b12aa; border-radius: 42px; padding: 25px; text-align:center; backdrop-filter: blur(4px);">
-            <p style="color:#f7dd9b;">✨ مرحباً بك في عرش الماينكرافت المغربي ✨<br> 
-            استخدم الأزرار للتنقل، وقدم طلب رتبة بكل احترافية.</p>
-        </div>
-    </div>
-    
-    <footer>Secured by Sherlock Systems 🛡️ | TARBOUCH SMP</footer>
+    <div class="footer">Secured by Sherlock Systems | 2026</div>
 </div>
 
 <script>
-    // إنشاء Pixel Art طربوش مخروطي الشكل
-    function buildPixelTarboosh() {
-        const container = document.getElementById('pixelTarbooshGrid');
-        if(!container) return;
-        container.innerHTML = '';
-        const rows = 13, cols = 13;
-        let design = Array(rows).fill().map(() => Array(cols).fill('brown-m'));
-        // تاج القبعة : ذهبي
-        for(let i=0;i<rows;i++){
-            for(let j=0;j<cols;j++){
-                let center = Math.floor(cols/2);
-                let dist = Math.abs(j - center);
-                if(i <= 2 && dist <= 2) design[i][j] = 'gold-m';
-                else if(i == 3 && (j >= 4 && j <= 8)) design[i][j] = 'gold-m';
-            }
-        }
-        // جسم الطربوش أحمر
-        for(let i=2;i<=9;i++){
-            for(let j=1;j<=11;j++){
-                if(i>=3 && i<=8 && j>=2 && j<=10) design[i][j] = 'red-m';
-                else if(i>=2 && i<=9 && j>=1 && j<=11 && design[i][j]!='gold-m') design[i][j] = 'red-m';
-            }
-        }
-        // قاعدة سوداء
-        for(let i=10;i<=12;i++){
-            for(let j=3;j<=9;j++) design[i][j] = 'black-m';
-        }
-        for(let i=0;i<rows;i++){
-            for(let j=0;j<cols;j++){
-                const cell = document.createElement('div');
-                cell.classList.add('pixel-cell');
-                if(design[i][j] === 'red-m') cell.classList.add('red-m');
-                else if(design[i][j] === 'gold-m') cell.classList.add('gold-m');
-                else if(design[i][j] === 'black-m') cell.classList.add('black-m');
-                else cell.classList.add('brown-m');
-                container.appendChild(cell);
-            }
-        }
+    function showContent(id) {
+        document.querySelectorAll('.content-area').forEach(c => c.classList.remove('active'));
+        document.getElementById(id + '-content').classList.add('active');
     }
 
-    // متغيرات التحكم
-    const homeBtn = document.getElementById('homeBtn');
-    const staffBtn = document.getElementById('staffApplyBtn');
-    const discordBtn = document.getElementById('discordBtn');
-    const dynamicDiv = document.getElementById('dynamicContent');
-    let selectedRank = '';
+    const exp = document.getElementById('exp');
+    const count = document.getElementById('charCount');
+    exp.addEventListener('input', () => {
+        const len = exp.value.length;
+        count.innerText = len + " / 20";
+        count.style.color = len < 20 ? "#be0000" : "#2ecc71";
+    });
 
-    function showHomePage() {
-        dynamicDiv.innerHTML = `<div id="homeGreeting" style="background:#1f1b12aa; border-radius: 42px; padding: 25px; text-align:center; backdrop-filter: blur(4px);">
-            <p style="color:#f7dd9b; line-height:1.8;">🔮 TARBOUCH SMP - القمة في المتعة والحماية 🔮<br>
-            🎮 24GB RAM | Anti-DDoS | 1.21+ 🎮<br>
-            ✨ اختر وجهتك من الأزرار أعلاه ✨</p>
-        </div>`;
-    }
-
-    // عرض استمارة التقديم مع رتب Sr Admin, Sr Mod, Helper, YouTuber, TikToker
-    function showStaffApply() {
-        dynamicDiv.innerHTML = `
-            <div class="staff-card">
-                <div class="card-title">🎯 تقديم طلب رتبة (Rank Apply)</div>
-                <div class="form-group">
-                    <label>🎮 الاسم داخل اللعبة (IGN)</label>
-                    <input type="text" id="ignName" class="minecraft-input" placeholder="TarbouchPro">
-                </div>
-                <div class="rank-group">
-                    <label>⭐ اختر الرتبة المطلوبة</label>
-                    <div class="rank-badges" id="rankSelector">
-                        <div data-rank="Sr Admin" class="rank-option">👑 Sr Admin</div>
-                        <div data-rank="Sr Mod" class="rank-option">🛡️ Sr Mod</div>
-                        <div data-rank="Helper" class="rank-option">🤝 Helper</div>
-                        <div data-rank="YouTuber" class="rank-option">📺 YouTuber</div>
-                        <div data-rank="TikToker" class="rank-option">📱 TikToker</div>
-                    </div>
-                    <input type="hidden" id="selectedRankHidden" value="">
-                </div>
-                <div class="form-group">
-                    <label>📜 الخبرة (شرط: 20 حرفاً على الأقل)</label>
-                    <textarea id="experience" rows="3" class="minecraft-input" placeholder="اكتب خبرتك في الإدارة / المحتوى ..."></textarea>
-                    <div class="char-counter" id="charCount">عدد الحروف: 0 / 20 مطلوب</div>
-                    <div id="expError" class="error-msg"></div>
-                </div>
-                <div class="form-group">
-                    <label>💬 ربط ديسكورد (username#1234)</label>
-                    <input type="text" id="discordUsername" class="minecraft-input" placeholder="Tarbouch#9999">
-                    <div id="discordError" class="error-msg"></div>
-                </div>
-                <button id="submitApplicationBtn" class="submit-btn">📩 إرسال الطلب</button>
-                <div id="formResultMsg"></div>
-            </div>
-        `;
-
-        // تفعيل اختيار الرتب
-        const rankOptions = document.querySelectorAll('.rank-option');
-        const hiddenRank = document.getElementById('selectedRankHidden');
-        rankOptions.forEach(opt => {
-            opt.addEventListener('click', function() {
-                rankOptions.forEach(o => o.classList.remove('selected'));
-                this.classList.add('selected');
-                selectedRank = this.getAttribute('data-rank');
-                hiddenRank.value = selectedRank;
-            });
-        });
-
-        const expText = document.getElementById('experience');
-        const charSpan = document.getElementById('charCount');
-        const expErrorSpan = document.getElementById('expError');
-        const discordInput = document.getElementById('discordUsername');
-        const discordErrorSpan = document.getElementById('discordError');
-        const submitBtn = document.getElementById('submitApplicationBtn');
-
-        function updateCharCount() {
-            const len = expText.value.length;
-            charSpan.innerText = `عدد الحروف: ${len} / 20 (الحد الأدنى)`;
-            if(len < 20) {
-                expErrorSpan.innerText = '⚠️ الخبرة يجب ان تحتوي 20 حرفاً على الأقل';
-                submitBtn.disabled = true;
-            } else {
-                expErrorSpan.innerText = '✅ ممتاز';
-                if(validateDiscordField() && selectedRank) submitBtn.disabled = false;
-                else submitBtn.disabled = true;
-            }
-        }
-
-        function validateDiscordField() {
-            const val = discordInput.value.trim();
-            if(val.length === 0) {
-                discordErrorSpan.innerText = '❌ مطلوب كتابة اسم الديسكورد';
-                return false;
-            } else if(!val.match(/^[\w\d_]+#\d{4}$/)) {
-                discordErrorSpan.innerText = '❌ صيغة خاطئة، مثال: name#1234';
-                return false;
-            } else {
-                discordErrorSpan.innerText = '✅ صالح';
-                return true;
-            }
-        }
-
-        function checkFormComplete() {
-            const expOk = expText.value.length >= 20;
-            const discOk = validateDiscordField();
-            const rankOk = (selectedRank && selectedRank !== '');
-            if(expOk && discOk && rankOk) submitBtn.disabled = false;
-            else submitBtn.disabled = true;
-        }
-
-        expText.addEventListener('input', () => { updateCharCount(); checkFormComplete(); });
-        discordInput.addEventListener('input', () => { validateDiscordField(); checkFormComplete(); });
-        
-        // مراقبة تغيير الرتبة
-        const observer = new MutationObserver(() => {
-            if(selectedRank) checkFormComplete();
-        });
-        const rankContainer = document.getElementById('rankSelector');
-        observer.observe(rankContainer, { attributes: true, childList: true, subtree: true });
-        
-        // تحديث أولي
-        updateCharCount();
-        validateDiscordField();
-        submitBtn.disabled = true;
-
-        submitBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            const ign = document.getElementById('ignName').value.trim();
-            if(!ign) { alert('الاسم داخل اللعبة مطلوب'); return; }
-            if(!selectedRank) { alert('يرجى اختيار رتبة من القائمة'); return; }
-            if(expText.value.length < 20) { alert('الخبرة أقل من 20 حرفاً'); return; }
-            if(!discordInput.value.match(/^[\w\d_]+#\d{4}$/)) { alert('اسم ديسكورد غير صالح'); return; }
-            const resultDiv = document.getElementById('formResultMsg');
-            resultDiv.innerHTML = `
-                <div class="success-message">
-                    ✅ تم الإرسال بنجاح! حل Ticket دابا في الديسكورد 🎫<br>
-                    شكراً ${ign}، رتبة ${selectedRank} تحت المراجعة.
-                </div>
-            `;
-            submitBtn.disabled = true;
-        });
-    }
-
-    // عرض صفحة الديسكورد مع رابط
-    function showDiscordPage() {
-        dynamicDiv.innerHTML = `
-            <div class="staff-card" style="text-align:center;">
-                <div class="card-title">💬 انضم إلى مجتمع TARBOUCH SMP</div>
-                <p style="color:#ffdd99; margin-bottom:20px;">اطلب الدعم، تواصل مع الإدارة، واستمتع بالأحداث!</p>
-                <div style="background:#0c0b09; padding:15px; border-radius:40px; direction:ltr; font-family:monospace;">https://discord.gg/tarbouchsmp</div>
-                <button id="copyDiscordInvite" class="minecraft-btn" style="width:70%; margin:25px auto 15px; display:block;">📋 نسخ الرابط</button>
-                <button id="backHomeBtnDisc" class="minecraft-btn" style="background:#6b4c2c; width:60%;">🏠 العودة للرئيسية</button>
-                <div id="copyFeedback" class="success-message hidden" style="margin-top:12px;"></div>
-            </div>
-        `;
-        document.getElementById('copyDiscordInvite')?.addEventListener('click', () => {
-            navigator.clipboard.writeText('https://discord.gg/tarbouchsmp');
-            const feed = document.getElementById('copyFeedback');
-            feed.classList.remove('hidden');
-            feed.innerHTML = '✅ تم نسخ رابط الديسكورد!';
-            setTimeout(() => feed.classList.add('hidden'), 1800);
-        });
-        document.getElementById('backHomeBtnDisc')?.addEventListener('click', showHomePage);
-    }
-
-    // ربط الأزرار
-    homeBtn.addEventListener('click', showHomePage);
-    staffBtn.addEventListener('click', showStaffApply);
-    discordBtn.addEventListener('click', showDiscordPage);
-    
-    buildPixelTarboosh();
-    showHomePage();
+    document.getElementById('applyForm').onsubmit = function(e) {
+        e.preventDefault();
+        const ign = document.getElementById('ign').value;
+        document.getElementById('result').innerText = "✅ تم الإرسال بنجاح! حل Ticket دابا في الديسكورد يا " + ign;
+        this.reset();
+        count.innerText = "0 / 20";
+    };
 </script>
+
 </body>
 </html>
