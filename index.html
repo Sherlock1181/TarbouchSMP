@@ -52,7 +52,7 @@
 
         .nav-links { 
             display: flex; 
-            gap: 25px;
+            gap: 20px;
             position: absolute;
             left: 50%;
             transform: translateX(-50%);
@@ -68,6 +68,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            font-size: 0.9rem;
         }
 
         .nav-links a:hover { color: var(--primary-red); }
@@ -77,9 +78,22 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
+        /* IP Box */
+        .ip-box {
+            background: var(--card-bg);
+            border: 2px dashed var(--primary-red);
+            padding: 15px;
+            border-radius: 10px;
+            display: inline-block;
+            margin: 20px auto;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .ip-box:hover { background: rgba(255,0,0,0.1); transform: scale(1.05); }
+
         .dashboard-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
             gap: 20px;
             max-width: 1000px;
             margin: 50px auto;
@@ -88,7 +102,7 @@
 
         .dash-card {
             background: var(--card-bg);
-            padding: 20px;
+            padding: 25px;
             border-radius: 15px;
             text-align: center;
             border: 1px solid #333;
@@ -104,53 +118,28 @@
             box-shadow: 0 0 15px rgba(255, 204, 0, 0.2);
         }
 
-        .dash-card i {
-            font-size: 2rem;
-            color: var(--text-gold);
-            margin-bottom: 10px;
-            display: block;
-        }
+        .dash-card i { font-size: 2.2rem; color: var(--text-gold); margin-bottom: 15px; display: block; }
+        .dash-card span { font-weight: bold; font-size: 0.95rem; }
+        .soon-badge { font-size: 0.7rem; color: #666; display: block; margin-top: 5px; }
 
-        .dash-card span { font-weight: bold; font-size: 0.9rem; }
-
-        /* Staff Table Styles */
-        .staff-table {
+        /* Staff & Rules Table */
+        .info-container {
             width: 100%;
-            max-width: 800px;
-            margin: 20px auto;
-            border-collapse: collapse;
+            max-width: 850px;
+            margin: 0 auto;
             background: var(--card-bg);
             border-radius: 15px;
             overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
-        .staff-table th, .staff-table td {
-            padding: 15px;
-            text-align: center;
-            border-bottom: 1px solid #333;
-        }
-
-        .staff-table th { background: #222; color: var(--text-gold); }
+        table { width: 100%; border-collapse: collapse; text-align: center; }
+        th, td { padding: 18px; border-bottom: 1px solid #333; }
+        th { background: #222; color: var(--text-gold); }
+        
         .badge { padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; font-weight: bold; }
         .badge-owner { background: var(--primary-red); color: white; }
         .badge-co { background: #ff6600; color: white; }
-
-        .apply-container {
-            background: var(--card-bg);
-            padding: 35px;
-            border-radius: 20px;
-            border: 1px solid #333;
-            max-width: 550px;
-            width: 90%;
-            margin: 0 auto;
-        }
-
-        .submit-btn {
-            width: 100%; background: var(--primary-red); color: white; padding: 16px; 
-            border: none; border-radius: 10px; font-weight: bold; cursor: pointer;
-            transition: 0.3s;
-        }
-        .submit-btn:hover { background: #cc0000; }
 
         .footer { text-align: center; padding: 40px; color: #444; font-size: 0.9rem; }
     </style>
@@ -162,72 +151,87 @@
         <div class="nav-links">
             <a onclick="showSection('home')"><i class="fas fa-home"></i> الرئيسية</a>
             <a onclick="showSection('staff')"><i class="fas fa-shield-halved"></i> المشرفين</a>
+            <a onclick="showSection('rules')"><i class="fas fa-book"></i> القوانين</a>
             <a onclick="showSection('apply')"><i class="fas fa-user-plus"></i> تقديم Staff</a>
-            <a href="https://discord.gg/9WdhzReSY" target="_blank"><i class="fab fa-discord"></i> ديسكورد</a>
         </div>
     </nav>
 
+    <!-- Home Section -->
     <div id="home" class="section active">
-        <div style="text-align: center; margin-bottom: 30px;">
-            <h1 style="font-size: 2.5rem; color: var(--text-gold);">لوحة التحكم بالسيرفر</h1>
+        <div style="text-align: center; padding-top: 20px;">
+            <h1 style="font-size: 3rem; color: var(--text-gold); margin-bottom: 10px;">TARBOUCH SMP</h1>
+            <p style="color: #aaa;">أفضل تجربة Survival مغربية  </p>
+            
+            <div class="ip-box">
+                <span style="color: var(--text-gold); font-weight: bold;">SERVER IP:</span>
+                <span style="color: white; letter-spacing: 2px; margin-right: 10px;">COMING SOON</span>
+            </div>
         </div>
 
         <div class="dashboard-grid">
-            <div class="dash-card" onclick="showSection('home')"><i class="fas fa-home"></i><span>الرئيسية</span></div>
             <div class="dash-card" onclick="showSection('staff')"><i class="fas fa-users-gear"></i><span>المشرفين</span></div>
+            <div class="dash-card" onclick="showSection('rules')"><i class="fas fa-scroll"></i><span>القوانين</span></div>
             <a href="https://discord.gg/9WdhzReSY" target="_blank" class="dash-card"><i class="fab fa-discord"></i><span>ديسكورد</span></a>
-            <div class="dash-card" onclick="showSection('apply')"><i class="fas fa-user-plus"></i><span>تقديم Staff</span></div>
+            <div class="dash-card" onclick="showSection('apply')"><i class="fas fa-file-signature"></i><span>تقديم Staff</span></div>
             
-            <!-- Soon Icons -->
-            <div class="dash-card"><i class="fas fa-store" style="opacity: 0.5;"></i><span style="color:#666">SOON</span></div>
-            <div class="dash-card"><i class="fas fa-trophy" style="opacity: 0.5;"></i><span style="color:#666">SOON</span></div>
+            <!-- Future Features -->
+            <div class="dash-card"><i class="fas fa-shopping-cart" style="opacity:0.4;"></i><span>المتجر<br><small class="soon-badge">SOON</small></span></div>
+            <div class="dash-card"><i class="fas fa-images" style="opacity:0.4;"></i><span>المعرض<br><small class="soon-badge">SOON</small></span></div>
+            <div class="dash-card"><i class="fas fa-chart-line" style="opacity:0.4;"></i><span>الإحصائيات<br><small class="soon-badge">SOON</small></span></div>
+            <div class="dash-card"><i class="fas fa-map-location-dot" style="opacity:0.4;"></i><span>الخريطة<br><small class="soon-badge">SOON</small></span></div>
         </div>
     </div>
 
-    <!-- Staff Members Section -->
+    <!-- Staff Section -->
     <div id="staff" class="section">
-        <h2 style="text-align:center; color:var(--text-gold);">إدارة TARBOUCH SMP 🛡️</h2>
-        <table class="staff-table">
-            <thead>
-                <tr>
-                    <th>العضو</th>
-                    <th>الرتبة</th>
-                    <th>الصلاحيات الأساسية</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td style="font-weight:bold; color:var(--primary-red);">Sherlock</td>
-                    <td><span class="badge badge-owner">OWNER</span></td>
-                    <td>Full Access / Console / System Dev</td>
-                </tr>
-                <tr>
-                    <td style="font-weight:bold; color:#ff6600;">Itz1lm2</td>
-                    <td><span class="badge badge-co">CO-OWNER</span></td>
-                    <td>Server Management / Staff Manager</td>
-                </tr>
-            </tbody>
-        </table>
+        <h2 style="text-align:center; color:var(--text-gold);">إدارة السيرفر 🛡️</h2>
+        <div class="info-container">
+            <table>
+                <thead>
+                    <tr><th>العضو</th><th>الرتبة</th><th>الصلاحيات</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td style="color:var(--primary-red); font-weight:bold;">Sherlock</td><td><span class="badge badge-owner">OWNER</span></td><td>System Security / Development</td></tr>
+                    <tr><td style="color:#ff6600; font-weight:bold;">Itz1lm2</td><td><span class="badge badge-co">CO-OWNER</span></td><td>Management / Operations</td></tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
+    <!-- Rules Section -->
+    <div id="rules" class="section">
+        <h2 style="text-align:center; color:var(--text-gold);">قوانين السيرفر 📜</h2>
+        <div class="info-container" style="padding: 20px; color: #ccc;">
+            <ul style="list-style: none; padding: 0; line-height: 2;">
+                <li>🚫 ممنوع الـ Griefing أو تخريب مباني الآخرين.</li>
+                <li>🚫 ممنوع استخدام أي أنواع الـ Cheats أو الـ X-Ray.</li>
+                <li>⚖️ الاحترام المتبادل بين اللاعبين و Staff.</li>
+                <li>💬 ممنوع السب أو القذف في الـ Chat.</li>
+                <li>📢 يمنع الإعلان لسيرفرات أخرى داخل السيرفر.</li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Apply Section -->
     <div id="apply" class="section">
-        <div class="apply-container">
-            <h2>تقديم طلب رتبة 🎯</h2>
-            <div style="margin-bottom:20px; color:var(--text-gold); text-align:center;">يرجى فتح <b>Ticket</b> فـ الديسكورد مورا ما تعمر!</div>
+        <div style="background: var(--card-bg); padding: 40px; border-radius: 20px; max-width: 500px; margin: 0 auto; border: 1px solid #333;">
+            <h2 style="color:var(--text-gold); text-align:center;">تقديم طلب انضمام 🎯</h2>
+            <p style="text-align:center; font-size: 0.9rem; color: var(--text-gold);">ملاحظة: افتح <b>Ticket</b> فـ الديسكورد مورا الإرسال</p>
             
-            <input type="text" id="ign" placeholder="الاسم داخل اللعبة" style="width:100%; padding:12px; margin-bottom:15px; background:#111; border:1px solid #444; color:white; border-radius:8px;">
+            <input type="text" id="ign" placeholder="الاسم داخل اللعبة" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;">
             
-            <select id="role" style="width:100%; padding:12px; margin-bottom:15px; background:#111; border:1px solid #444; color:white; border-radius:8px;">
+            <select id="role" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;">
                 <option value="Helper">Helper</option>
                 <option value="Admin">Admin</option>
-                <option value="YouTuber">YouTuber</option>
+                <option value="Moderator">Moderator</option>
+                <option value="YouTuber/TikToker">Content Creator</option>
             </select>
 
-            <textarea id="exp" placeholder="خبرتك (20 حرف+)" rows="4" style="width:100%; padding:12px; margin-bottom:15px; background:#111; border:1px solid #444; color:white; border-radius:8px;"></textarea>
+            <textarea id="exp" placeholder="اكتب خبرتك هنا (أكثر من 20 حرف)" rows="4" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;"></textarea>
             
-            <input type="text" id="discord_tag" placeholder="Discord Username" style="width:100%; padding:12px; margin-bottom:15px; background:#111; border:1px solid #444; color:white; border-radius:8px;">
+            <input type="text" id="discord_tag" placeholder="Discord Username (ex: sherlock1181)" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;">
 
-            <button class="submit-btn" onclick="sendToDiscord()">إرسال الطلب 🚀</button>
+            <button onclick="sendToDiscord()" style="width:100%; background:var(--primary-red); color:white; padding:16px; border:none; border-radius:10px; font-weight:bold; cursor:pointer; margin-top:10px;">إرسال الطلب 🚀</button>
         </div>
     </div>
 
@@ -248,26 +252,33 @@
             const webhookURL = "https://discord.com/api/webhooks/1503396690336420002/vlqbGHaEvGRQlCCPKOJRL6O8gZ5rbbaZSNps8dVqg8RalsuhvkKFMnQTysPbT_a-ST7g";
 
             if (!ign || exp.length < 20 || !discord) {
-                alert("⚠️ كمل المعلومات!");
+                alert("⚠️ كمل كاع المعلومات (الخبرة لازم تكون طويلة شوي)!");
                 return;
             }
 
             const payload = {
                 username: "TARBOUCH SMP APPLY",
                 embeds: [{
-                    title: "📄 تقديم جديد",
+                    title: "📄 تقديم جديد للطاقم",
                     color: 16711680,
                     fields: [
-                        { name: "🎮 IGN", value: ign, inline: true },
-                        { name: "🛡️ الرتبة", value: role, inline: true },
+                        { name: "🎮 IGN", value: `\`${ign}\``, inline: true },
+                        { name: "🛡️ الرتبة", value: `**${role}**`, inline: true },
                         { name: "💬 ديسكورد", value: discord, inline: true },
-                        { name: "📜 الخبرة", value: exp }
-                    ]
+                        { name: "📜 الخبرة", value: `\`\`\`${exp}\`\`\`` }
+                    ],
+                    footer: { text: "Sherlock Systems Security" },
+                    timestamp: new Date()
                 }]
             };
 
             fetch(webhookURL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
-            .then(res => { if(res.ok) { alert("✅ صيفطتيها! حل تيكيت دابا."); location.reload(); } });
+            .then(res => {
+                if(res.ok) {
+                    alert("✅ تم إرسال طلبك! حل تيكيت فـ الديسكورد دابا.");
+                    location.reload();
+                }
+            });
         }
     </script>
 </body>
