@@ -78,7 +78,6 @@
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* IP Box */
         .ip-box {
             background: var(--card-bg);
             border: 2px dashed var(--primary-red);
@@ -122,7 +121,6 @@
         .dash-card span { font-weight: bold; font-size: 0.95rem; }
         .soon-badge { font-size: 0.7rem; color: #666; display: block; margin-top: 5px; }
 
-        /* Staff & Rules Table */
         .info-container {
             width: 100%;
             max-width: 850px;
@@ -139,7 +137,9 @@
         
         .badge { padding: 5px 10px; border-radius: 5px; font-size: 0.8rem; font-weight: bold; }
         .badge-owner { background: var(--primary-red); color: white; }
+        .badge-ceo { background: #8e44ad; color: white; }
         .badge-co { background: #ff6600; color: white; }
+        .badge-helper { background: #2ecc71; color: white; }
 
         .footer { text-align: center; padding: 40px; color: #444; font-size: 0.9rem; }
     </style>
@@ -156,25 +156,20 @@
         </div>
     </nav>
 
-    <!-- Home Section -->
     <div id="home" class="section active">
         <div style="text-align: center; padding-top: 20px;">
             <h1 style="font-size: 3rem; color: var(--text-gold); margin-bottom: 10px;">TARBOUCH SMP</h1>
-            <p style="color: #aaa;">أفضل تجربة Survival مغربية  </p>
-            
+            <p style="color: #aaa;">أفضل تجربة Survival مغربية</p>
             <div class="ip-box">
                 <span style="color: var(--text-gold); font-weight: bold;">SERVER IP:</span>
                 <span style="color: white; letter-spacing: 2px; margin-right: 10px;">COMING SOON</span>
             </div>
         </div>
-
         <div class="dashboard-grid">
             <div class="dash-card" onclick="showSection('staff')"><i class="fas fa-users-gear"></i><span>المشرفين</span></div>
             <div class="dash-card" onclick="showSection('rules')"><i class="fas fa-scroll"></i><span>القوانين</span></div>
             <a href="https://discord.gg/9WdhzReSY" target="_blank" class="dash-card"><i class="fab fa-discord"></i><span>ديسكورد</span></a>
             <div class="dash-card" onclick="showSection('apply')"><i class="fas fa-file-signature"></i><span>تقديم Staff</span></div>
-            
-            <!-- Future Features -->
             <div class="dash-card"><i class="fas fa-shopping-cart" style="opacity:0.4;"></i><span>المتجر<br><small class="soon-badge">SOON</small></span></div>
             <div class="dash-card"><i class="fas fa-images" style="opacity:0.4;"></i><span>المعرض<br><small class="soon-badge">SOON</small></span></div>
             <div class="dash-card"><i class="fas fa-chart-line" style="opacity:0.4;"></i><span>الإحصائيات<br><small class="soon-badge">SOON</small></span></div>
@@ -182,7 +177,6 @@
         </div>
     </div>
 
-    <!-- Staff Section -->
     <div id="staff" class="section">
         <h2 style="text-align:center; color:var(--text-gold);">إدارة السيرفر 🛡️</h2>
         <div class="info-container">
@@ -192,13 +186,19 @@
                 </thead>
                 <tbody>
                     <tr><td style="color:var(--primary-red); font-weight:bold;">Sherlock</td><td><span class="badge badge-owner">OWNER</span></td><td>System Security / Development</td></tr>
+                    <tr><td style="color:#8e44ad; font-weight:bold;">amine3g_13052</td><td><span class="badge badge-ceo">SMP CEO</span></td><td>Overall Operations</td></tr>
                     <tr><td style="color:#ff6600; font-weight:bold;">Itz1lm2</td><td><span class="badge badge-co">CO-OWNER</span></td><td>Management / Operations</td></tr>
+                    <tr><td>1.arw</td><td><span class="badge badge-helper">HELPER</span></td><td>Player Support</td></tr>
+                    <tr><td>7ankaliss_.</td><td><span class="badge badge-helper">HELPER</span></td><td>Player Support</td></tr>
+                    <tr><td>pogba04273</td><td><span class="badge badge-helper">HELPER</span></td><td>Player Support</td></tr>
+                    <tr><td>kolt_85285</td><td><span class="badge badge-helper">HELPER</span></td><td>Player Support</td></tr>
+                    <tr><td>xeroxx_01</td><td><span class="badge badge-helper">HELPER</span></td><td>Player Support</td></tr>
+                    <tr><td>nawaf_on_top</td><td><span class="badge badge-helper">HELPER</span></td><td>Player Support</td></tr>
                 </tbody>
             </table>
         </div>
     </div>
 
-    <!-- Rules Section -->
     <div id="rules" class="section">
         <h2 style="text-align:center; color:var(--text-gold);">قوانين السيرفر 📜</h2>
         <div class="info-container" style="padding: 20px; color: #ccc;">
@@ -212,25 +212,19 @@
         </div>
     </div>
 
-    <!-- Apply Section -->
     <div id="apply" class="section">
         <div style="background: var(--card-bg); padding: 40px; border-radius: 20px; max-width: 500px; margin: 0 auto; border: 1px solid #333;">
             <h2 style="color:var(--text-gold); text-align:center;">تقديم طلب انضمام 🎯</h2>
             <p style="text-align:center; font-size: 0.9rem; color: var(--text-gold);">ملاحظة: افتح <b>Ticket</b> فـ الديسكورد مورا الإرسال</p>
-            
             <input type="text" id="ign" placeholder="الاسم داخل اللعبة" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;">
-            
             <select id="role" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;">
                 <option value="Helper">Helper</option>
                 <option value="Admin">Admin</option>
                 <option value="Moderator">Moderator</option>
                 <option value="YouTuber/TikToker">Content Creator</option>
             </select>
-
             <textarea id="exp" placeholder="اكتب خبرتك هنا (أكثر من 20 حرف)" rows="4" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;"></textarea>
-            
             <input type="text" id="discord_tag" placeholder="Discord Username (ex: sherlock1181)" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;">
-
             <button onclick="sendToDiscord()" style="width:100%; background:var(--primary-red); color:white; padding:16px; border:none; border-radius:10px; font-weight:bold; cursor:pointer; margin-top:10px;">إرسال الطلب 🚀</button>
         </div>
     </div>
