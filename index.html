@@ -153,6 +153,7 @@
             <a onclick="showSection('staff')"><i class="fas fa-shield-halved"></i> المشرفين</a>
             <a onclick="showSection('rules')"><i class="fas fa-book"></i> القوانين</a>
             <a onclick="showSection('apply')"><i class="fas fa-user-plus"></i> تقديم Staff</a>
+            <a onclick="showSection('bug-report')"><i class="fas fa-bug"></i> تبليغ عن Bug</a>
         </div>
     </nav>
 
@@ -170,10 +171,10 @@
             <div class="dash-card" onclick="showSection('rules')"><i class="fas fa-scroll"></i><span>القوانين</span></div>
             <a href="https://discord.gg/9WdhzReSY" target="_blank" class="dash-card"><i class="fab fa-discord"></i><span>ديسكورد</span></a>
             <div class="dash-card" onclick="showSection('apply')"><i class="fas fa-file-signature"></i><span>تقديم Staff</span></div>
+            <div class="dash-card" onclick="showSection('bug-report')"><i class="fas fa-virus-slash" style="color:#e67e22;"></i><span>Bug Report</span></div>
             <div class="dash-card"><i class="fas fa-shopping-cart" style="opacity:0.4;"></i><span>المتجر<br><small class="soon-badge">SOON</small></span></div>
             <div class="dash-card"><i class="fas fa-images" style="opacity:0.4;"></i><span>المعرض<br><small class="soon-badge">SOON</small></span></div>
             <div class="dash-card"><i class="fas fa-chart-line" style="opacity:0.4;"></i><span>الإحصائيات<br><small class="soon-badge">SOON</small></span></div>
-            <div class="dash-card"><i class="fas fa-map-location-dot" style="opacity:0.4;"></i><span>الخريطة<br><small class="soon-badge">SOON</small></span></div>
         </div>
     </div>
 
@@ -195,6 +196,24 @@
                     <tr><td>nawaf_on_top</td><td><span class="badge badge-helper">HELPER</span></td><td>Player Support</td></tr>
                 </tbody>
             </table>
+        </div>
+    </div>
+
+    <!-- Bug Report Section -->
+    <div id="bug-report" class="section">
+        <div style="background: var(--card-bg); padding: 40px; border-radius: 20px; max-width: 500px; margin: 0 auto; border: 1px solid #333;">
+            <h2 style="color:var(--text-gold); text-align:center;">إبلاغ عن خطأ (Bug Report) 🐛</h2>
+            <p style="text-align:center; font-size: 0.9rem; color: #aaa;">ساعدنا نطور السيرفر ونقيوه من المشاكل</p>
+            
+            <input type="text" id="bug_title" placeholder="عنوان المشكلة (مثلاً: مشكلة في البناء)" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;">
+            
+            <textarea id="bug_details" placeholder="اشرح لينا التفاصيل (فين وقع المشكل وكيفاش؟)" rows="4" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;"></textarea>
+            
+            <input type="text" id="bug_image" placeholder="رابط صورة المشكلة (اختياري - Imgur link)" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;">
+            
+            <input type="text" id="bug_discord" placeholder="Discord Username ديالك" style="width:100%; padding:14px; margin:10px 0; background:#111; border:1px solid #444; color:white; border-radius:8px;">
+            
+            <button onclick="sendBugToDiscord()" style="width:100%; background:#e67e22; color:white; padding:16px; border:none; border-radius:10px; font-weight:bold; cursor:pointer; margin-top:10px;">إرسال التقرير 🚩</button>
         </div>
     </div>
 
@@ -237,12 +256,13 @@
             window.scrollTo(0,0);
         }
 
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1503396690336420002/vlqbGHaEvGRQlCCPKOJRL6O8gZ5rbbaZSNps8dVqg8RalsuhvkKFMnQTysPbT_a-ST7g";
+
         function sendToDiscord() {
             const ign = document.getElementById('ign').value;
             const role = document.getElementById('role').value;
             const exp = document.getElementById('exp').value;
             const discord = document.getElementById('discord_tag').value;
-            const webhookURL = "https://discord.com/api/webhooks/1503396690336420002/vlqbGHaEvGRQlCCPKOJRL6O8gZ5rbbaZSNps8dVqg8RalsuhvkKFMnQTysPbT_a-ST7g";
 
             if (!ign || exp.length < 20 || !discord) {
                 alert("⚠️ كمل كاع المعلومات (الخبرة لازم تكون طويلة شوي)!");
@@ -265,10 +285,46 @@
                 }]
             };
 
-            fetch(webhookURL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+            fetch(WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
             .then(res => {
                 if(res.ok) {
                     alert("✅ تم إرسال طلبك! حل تيكيت فـ الديسكورد دابا.");
+                    location.reload();
+                }
+            });
+        }
+
+        function sendBugToDiscord() {
+            const title = document.getElementById('bug_title').value;
+            const details = document.getElementById('bug_details').value;
+            const image = document.getElementById('bug_image').value;
+            const discord = document.getElementById('bug_discord').value;
+
+            if (!title || !details || !discord) {
+                alert("⚠️ عافاك عمر المعلومات الأساسية!");
+                return;
+            }
+
+            const payload = {
+                username: "TARBOUCH SMP BUGS",
+                embeds: [{
+                    title: "🐛 تقرير عن مشكلة تقنية",
+                    color: 15105570, 
+                    fields: [
+                        { name: "📌 العنوان", value: title, inline: false },
+                        { name: "💬 التفاصيل", value: `\`\`\`${details}\`\`\`` },
+                        { name: "👤 بواسطة", value: discord, inline: true }
+                    ],
+                    image: { url: image.startsWith('http') ? image : "" },
+                    footer: { text: "Sherlock Systems Bug Tracker" },
+                    timestamp: new Date()
+                }]
+            };
+
+            fetch(WEBHOOK_URL, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) })
+            .then(res => {
+                if(res.ok) {
+                    alert("✅ شكراً! التقرير وصل لـ Sherlock وغادي يشوفو فـ أقرب وقت.");
                     location.reload();
                 }
             });
