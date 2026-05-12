@@ -3,301 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TARBOUCH SMP | الموقع الرسمي</title>
+    <title>TARBOUCH SMP - الموقع الرسمي</title>
     <style>
-        /* ألوان ماينكرافت والهوية المغربية */
         :root {
-            --mc-red: #be0000;
-            --mc-green: #388e3c;
-            --mc-gold: #ffca28;
-            --mc-dirt: #4a3828;
-            --mc-stone: #7a7a7a;
-            --panel-bg: rgba(0, 0, 0, 0.85);
-            --shadow-3d: 8px 8px 0px #000;
+            --primary-red: #cc0000;
+            --dark-bg: #0b0b0b;
+            --card-bg: #161616;
+            --text-gold: #ffcc00;
+            --discord-color: #5865F2;
         }
 
         body {
+            font-family: 'Segoe UI', sans-serif;
+            background-color: var(--dark-bg);
+            color: #eeeeee;
             margin: 0;
-            font-family: 'Segoe UI', Tahoma, sans-serif;
-            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), 
-                        url('https://i.imgur.com/vHqPZ8L.png'); /* خلفية ماينكرافت */
-            background-size: cover;
-            background-attachment: fixed;
-            color: white;
             overflow-x: hidden;
         }
 
-        /* --- Minecraft Pixel Tarbouch Logo --- */
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .pixel-tarbouch {
-            width: 40px;
-            height: 30px;
-            background: var(--mc-red);
-            position: relative;
-            box-shadow: 
-                -4px 4px 0 0 var(--mc-red), 4px 4px 0 0 var(--mc-red),
-                0 8px 0 0 var(--mc-red), -4px 8px 0 0 var(--mc-red), 4px 8px 0 0 var(--mc-red),
-                2px -6px 0 0 #000; /* خيط الطربوش الأسود */
-            border-bottom: 3px solid #8e0000;
-        }
-
-        /* Navbar 3D Style */
+        /* Navbar */
         nav {
-            background: var(--mc-dirt);
-            border-bottom: 6px solid var(--mc-gold);
-            padding: 15px 40px;
+            background: rgba(22, 22, 22, 0.95);
+            padding: 15px 50px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+            border-bottom: 2px solid var(--primary-red);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
 
-        .nav-brand { text-decoration: none; display: flex; align-items: center; }
-        .nav-brand span { 
-            font-size: 2rem; 
-            font-weight: 900; 
-            color: var(--mc-gold); 
-            text-shadow: 4px 4px 0 #000; 
-            margin-right: 15px;
-        }
+        .nav-logo { font-size: 1.8rem; font-weight: 900; color: var(--text-gold); text-decoration: none; cursor: pointer; }
+        .nav-links { display: flex; gap: 25px; }
+        .nav-links a { color: white; text-decoration: none; font-weight: bold; transition: 0.3s; cursor: pointer; }
+        .nav-links a:hover { color: var(--primary-red); }
 
-        .nav-links a {
-            color: white;
-            text-decoration: none;
-            font-weight: bold;
-            background: var(--mc-stone);
-            padding: 12px 20px;
-            border: 4px solid #000;
-            box-shadow: inset -4px -4px 0 #444;
-            margin-right: 15px;
-            cursor: pointer;
-            transition: 0.1s;
-        }
+        /* Sections */
+        .section { display: none; padding: 60px 20px; animation: fadeIn 0.5s ease-in-out; min-height: 70vh; }
+        .section.active { display: block; }
 
-        .nav-links a:hover {
-            transform: translateY(-4px);
-            background: var(--mc-green);
-            box-shadow: inset -4px -4px 0 #1b5e20, 0 5px 15px rgba(0,0,0,0.3);
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Main Container 3D */
-        .section {
-            display: none;
-            padding: 80px 20px;
-            text-align: center;
-        }
-
-        .section.active {
-            display: block;
-            animation: bounceIn 0.5s ease-out;
-        }
-
-        @keyframes bounceIn {
-            0% { opacity: 0; transform: scale(0.8); }
-            70% { transform: scale(1.05); }
-            100% { opacity: 1; transform: scale(1); }
-        }
-
-        .card-3d {
-            background: var(--panel-bg);
-            border: 6px solid var(--mc-gold);
-            padding: 40px;
-            max-width: 650px;
-            margin: 0 auto;
-            box-shadow: var(--shadow-3d);
-            position: relative;
-        }
-
-        .mc-button {
-            background: var(--mc-green);
-            color: white;
-            padding: 18px 35px;
-            border: 4px solid #000;
-            box-shadow: inset -5px -5px 0 #1b5e20;
-            font-weight: bold;
-            font-size: 1.2rem;
-            cursor: pointer;
+        /* Home Page */
+        .hero-content { text-align: center; padding: 80px 20px; }
+        .ip-box {
+            background: var(--card-bg);
+            padding: 15px 30px;
+            border-radius: 10px;
+            border: 1px dashed var(--text-gold);
             display: inline-block;
-            margin: 20px 5px;
-            text-decoration: none;
-            transition: 0.1s;
-        }
-
-        .mc-button:active {
-            transform: translate(4px, 4px);
-            box-shadow: inset 0 0 0 #000;
-        }
-
-        /* IP Box Style */
-        .ip-container {
-            background: #000;
-            border: 3px dashed var(--mc-gold);
-            padding: 25px;
-            margin: 30px 0;
+            margin-top: 20px;
             cursor: pointer;
             transition: 0.3s;
         }
+        .ip-box:hover { transform: scale(1.05); border-style: solid; }
 
-        .ip-text {
-            font-size: 2.2rem;
-            color: #2ecc71;
-            font-weight: 900;
-            text-shadow: 0 0 15px #2ecc71;
-            letter-spacing: 2px;
+        /* Apply Form */
+        .container {
+            background: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 25px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7);
+            border: 1px solid rgba(255, 204, 0, 0.2);
+            max-width: 550px;
+            margin: 0 auto;
+            text-align: center;
         }
 
-        /* Form Design */
-        .form-group { text-align: right; margin-bottom: 25px; }
-        label { color: var(--mc-gold); font-weight: bold; display: block; margin-bottom: 10px; font-size: 1.1rem; }
-        input, textarea, select {
-            width: 100%;
-            padding: 15px;
-            background: #222;
-            border: 4px solid var(--mc-dirt);
-            color: #fff;
-            font-family: inherit;
-            box-sizing: border-box;
-            font-size: 1rem;
-        }
-        input:focus { outline: none; border-color: var(--mc-green); }
+        .form-group { text-align: right; margin-bottom: 20px; }
+        label { display: block; margin-bottom: 8px; color: var(--text-gold); font-weight: bold; }
+        input, textarea, select { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #333; background: #252525; color: white; box-sizing: border-box; font-family: inherit; }
+        
+        .submit-btn { width: 100%; background: linear-gradient(135deg, var(--primary-red), #990000); color: white; padding: 15px; border: none; border-radius: 12px; font-weight: bold; cursor: pointer; transition: 0.3s; margin-top: 10px; }
+        .submit-btn:hover { box-shadow: 0 5px 15px rgba(204, 0, 0, 0.4); }
 
         #success-msg {
             display: none;
-            background: var(--mc-green);
-            border: 4px solid #000;
-            padding: 20px;
+            background: #2ecc71;
+            color: white;
+            padding: 15px;
+            border-radius: 10px;
             margin-bottom: 20px;
             font-weight: bold;
-            box-shadow: 4px 4px 0 #000;
         }
 
-        .footer {
-            margin-top: 60px;
-            padding: 30px;
-            background: rgba(0,0,0,0.8);
-            border-top: 4px solid var(--mc-dirt);
-            color: #888;
-        }
+        .char-hint { display: block; font-size: 0.75rem; margin-top: 5px; color: #888; }
+        .discord-btn { background-color: var(--discord-color); color: white; padding: 12px; border-radius: 10px; border: none; width: 100%; margin-bottom: 20px; cursor: pointer; font-weight: bold; }
+
+        .footer { text-align: center; padding: 40px; color: #555; font-size: 0.9rem; margin-top: 40px; }
     </style>
 </head>
 <body>
 
     <nav>
-        <div class="nav-brand" onclick="showSection('home')" style="cursor: pointer;">
-            <div class="logo-container">
-                <div class="pixel-tarbouch"></div>
-                <span>TARBOUCH SMP</span>
-            </div>
-        </div>
+        <div class="nav-logo" onclick="showSection('home')">TARBOUCH SMP</div>
         <div class="nav-links">
             <a onclick="showSection('home')">الرئيسية</a>
             <a onclick="showSection('apply')">تقديم Staff</a>
-            <a href="https://discord.gg/wFEPWrdJav" target="_blank" style="background: #5865F2; box-shadow: inset -4px -4px 0 #3b44a3;">ديسكورد</a>
+            <a href="https://discord.gg/wFEPWrdJav" target="_blank">ديسكورد</a>
         </div>
     </nav>
 
     <div id="home" class="section active">
-        <div class="card-3d">
-            <h1 style="color: var(--mc-gold); text-shadow: 3px 3px 0 #000; font-size: 2.5rem;">مرحباً بك في طربوش SMP</h1>
-            <p style="font-size: 1.3rem; line-height: 1.6;">أقوى سيرفر ما ينكرافت مغربي 1.21+<br> بـ 24GB RAM وحماية Sherlock 🛡️</p>
-            
-            <div class="ip-container" onclick="copyIP()">
-                <div class="ip-text" id="ip-val">TARBOUCH.MC-SRV.COM</div>
-                <p style="color: var(--mc-gold); margin-top: 10px; font-weight: bold;">(اضغط للنسخ ودخول اللعبة)</p>
-            </div>
-
-            <div style="margin-top: 20px;">
-                <button class="mc-button" onclick="showSection('apply')">كن جزءاً من الطاقم</button>
+        <div class="hero-content">
+            <h1 style="font-size: 3rem; color: var(--text-gold); margin-bottom: 10px;">مرحباً بك في طربوش SMP</h1>
+            <p style="font-size: 1.2rem; color: #bbb;">أفضل تجربة Survival مغربية بـ 24GB RAM وحماية Sherlock 🛡️</p>
+            <div class="ip-box" onclick="copyIP()">
+                <span>IP: <b id="server-ip">TARBOUCH.MC-SRV.COM</b></span>
+                <p style="margin: 5px 0 0; font-size: 0.8rem; color: var(--text-gold);">(اضغط للنسخ)</p>
             </div>
         </div>
     </div>
 
     <div id="apply" class="section">
-        <div class="card-3d">
-            <div id="success-msg">تم إرسال طلبك! ✅ حل Ticket في الديسكورد دابا.</div>
-            
-            <h2 style="color: var(--mc-gold); text-shadow: 2px 2px 0 #000;">استمارة طاقم الإدارة</h2>
-            
-            <button class="mc-button" style="background: #5865F2; font-size: 1rem;" onclick="discordLink()">ربط حساب Discord</button>
-            <p id="dc-status" style="color: #aaa; margin-top: -10px; margin-bottom: 25px;">يجب ربط الحساب أولاً</p>
+        <div class="container">
+            <div id="success-msg">
+                تم إرسال طلبك بنجاح! ✅<br>
+                يرجى فتح تذكرة (Ticket) في الديسكورد وانتظار رد الإدارة بالقبول أو الرفض.
+            </div>
 
             <form id="applyForm" action="https://formspree.io/f/mykolbgw" method="POST">
+                <button type="button" class="discord-btn" onclick="discordLogin()">Sign in with Discord</button>
+                <p id="login-status" style="font-size: 0.8rem; color: #777; margin-top: -15px; margin-bottom: 20px;">يرجى ربط الحساب أولاً</p>
+
+                <h1>تقديم طاقم الإدارة</h1>
+                
                 <div class="form-group">
                     <label>الاسم داخل اللعبة (IGN):</label>
-                    <input type="text" name="ign" required placeholder="مثلاً: Cynvix">
+                    <input type="text" name="ign" required>
                 </div>
 
                 <div class="form-group">
                     <label>الرتبة المطلوبة:</label>
                     <select name="role">
-                        <option value="Helper">Helper</option>
-                        <option value="Moderator">Moderator</option>
-                        <option value="Admin">Admin</option>
-                        <option value="Sr.Admin">Sr. Admin</option>
+                        <optgroup label="إدارة">
+                            <option value="Helper">Helper</option>
+                            <option value="Moderator">Moderator</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Sr.Admin">Sr. Admin</option>
+                        </optgroup>
+                        <optgroup label="محتوى">
+                            <option value="YouTube">YouTube Rank</option>
+                            <option value="TikToker">TikToker Rank</option>
+                        </optgroup>
                     </select>
                 </div>
 
                 <div class="form-group">
-                    <label>الخبرة (20 حرف على الأقل):</label>
-                    <textarea name="experience" id="exp" rows="4" minlength="20" required placeholder="تكلم لينا على تجربتك..."></textarea>
-                    <small id="char-count" style="color: #be0000; font-weight: bold; display: block; margin-top: 5px;">الحروف: 0</small>
+                    <label>الخبرة السابقة (أكثر من 20 حرف):</label>
+                    <textarea name="experience" id="exp-field" minlength="20" placeholder="اكتب هنا بوضوح..." required></textarea>
+                    <span class="char-hint" id="exp-hint">عدد الحروف: 0 (المطلوب 20)</span>
                 </div>
 
-                <input type="hidden" name="discord_user" id="dc-input">
-                
-                <button type="submit" class="mc-button">إرسال الطلب 📥</button>
+                <div class="form-group">
+                    <label>حساب الديسكورد (Discord Username):</label>
+                    <input type="text" name="discord" id="discord-input" required readonly>
+                </div>
+
+                <button type="submit" class="submit-btn">إرسال الطلب 📥</button>
             </form>
         </div>
     </div>
 
     <div class="footer">
-        🛡️ نظام الحماية المدعوم بـ <b>Sherlock Systems</b> | 2026<br>
-        Tarbouch SMP - كل الحقوق محفوظة.
+        🛡️ Secured by <b>Sherlock Systems</b> | 2026<br>
+        Tarbouch SMP - All Rights Reserved
     </div>
 
     <script>
-        // التنقل بين الصفحات
         function showSection(id) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             window.scrollTo(0,0);
         }
 
-        // نسخ الـ IP
         function copyIP() {
-            const ip = document.getElementById('ip-val').innerText;
+            const ip = document.getElementById('server-ip').innerText;
             navigator.clipboard.writeText(ip);
-            alert("✅ تم نسخ IP السيرفر! نتمناو نشوفوك داخل.");
+            alert("✅ تم نسخ IP السيرفر: " + ip);
         }
 
-        // ربط الديسكورد
-        function discordLink() {
-            const user = prompt("دخل Discord Username ديالك:");
+        function discordLogin() {
+            const user = prompt("أدخل اسم حسابك في ديسكورد:");
             if(user) {
-                document.getElementById('dc-input').value = user;
-                document.getElementById('dc-status').innerText = "✅ متصل بـ: " + user;
-                document.getElementById('dc-status').style.color = "#2ecc71";
+                document.getElementById('discord-input').value = user;
+                document.getElementById('login-status').innerText = "✅ تم الربط: " + user;
+                document.getElementById('login-status').style.color = "#2ecc71";
             }
         }
 
-        // حساب الحروف
-        const exp = document.getElementById('exp');
-        const count = document.getElementById('char-count');
-        exp.addEventListener('input', () => {
-            const len = exp.value.length;
-            count.innerText = "الحروف: " + len;
-            count.style.color = len < 20 ? "#be0000" : "#2ecc71";
+        const expField = document.getElementById('exp-field');
+        const expHint = document.getElementById('exp-hint');
+        expField.addEventListener('input', () => {
+            const len = expField.value.length;
+            expHint.innerText = `عدد الحروف: ${len} (المطلوب 20)`;
+            expHint.style.color = len < 20 ? "#cc0000" : "#2ecc71";
         });
 
-        // رسالة النجاح
         document.getElementById('applyForm').onsubmit = function() {
             setTimeout(() => {
                 document.getElementById('applyForm').style.display = 'none';
