@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TARBOUCH SMP - الموقع الرسمي</title>
+    <title>TARBOUCH SMP - التقديم الرسمي</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         :root {
@@ -43,7 +43,7 @@
             cursor: pointer;
             animation: flagWave 3s ease-in-out infinite;
             text-shadow: 2px 2px 10px rgba(204, 0, 0, 0.4);
-            order: 2; /* يجيب اللوغو لليمن ف flex */
+            order: 2;
         }
 
         @keyframes flagWave {
@@ -73,13 +73,11 @@
 
         .nav-links a:hover { color: var(--primary-red); }
 
-        /* Sections */
         .section { display: none; padding: 60px 20px; animation: fadeIn 0.5s ease-in-out; min-height: 70vh; }
         .section.active { display: block; }
 
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Form Container */
         .apply-container {
             background: var(--card-bg);
             padding: 35px;
@@ -203,8 +201,8 @@
             const exp = document.getElementById('exp').value;
             const discord = document.getElementById('discord_tag').value;
             
-            // تأكد أن هاد الرابط هو ديال الـ Webhook ديالك
-            const webhookURL = "https://discord.com/api/webhooks/1371510427303022634/O3P9h96I9o5I8H7K3j2L1m0n9O8P7Q6R5S4T3U2V1W0X";
+            // هاهو الـ URL الجديد ديالك محطوط ف بلاصتو
+            const webhookURL = "https://discord.com/api/webhooks/1503396690336420002/vlqbGHaEvGRQlCCPKOJRL6O8gZ5rbbaZSNps8dVqg8RalsuhvkKFMnQTysPbT_a-ST7g";
 
             if (!ign || !selectedRole || exp.length < 20 || !discord) {
                 alert("⚠️ كمل المعلومات كاملة! (الخبرة لازم تكون +20 حرف)");
@@ -212,17 +210,18 @@
             }
 
             const payload = {
-                content: "🔔 **تقديم جديد وصل!**",
+                username: "TARBOUCH SMP APPLY",
+                content: "🔔 **تقديم جديد وصل للسيرفر!**",
                 embeds: [{
-                    title: "📄 معلومات المترشح",
+                    title: "📄 تفاصيل طلب الانضمام",
                     color: 16711680,
                     fields: [
                         { name: "🎮 IGN", value: `\`${ign}\``, inline: true },
-                        { name: "⭐ Role", value: `**${selectedRole}**`, inline: true },
-                        { name: "💬 Discord", value: discord, inline: true },
-                        { name: "📜 Experience", value: `\`\`\`${exp}\`\`\`` }
+                        { name: "🛡️ الرتبة", value: `**${selectedRole}**`, inline: true },
+                        { name: "💬 ديسكورد", value: discord, inline: true },
+                        { name: "📜 الخبرة", value: `\`\`\`${exp}\`\`\`` }
                     ],
-                    footer: { text: "Tarbouch SMP Apply System" },
+                    footer: { text: "Sherlock Systems Protection" },
                     timestamp: new Date()
                 }]
             };
@@ -233,14 +232,17 @@
                 body: JSON.stringify(payload)
             })
             .then(res => {
-                if(res.ok) {
-                    alert("✅ تم إرسال طلبك! غانجاوبوك ف ديسكورد.");
+                if (res.ok || res.status === 204) {
+                    alert("✅ تم إرسال طلبك بنجاح! هاد الرابط غيبقى خدام ديما.");
                     location.reload();
                 } else {
-                    alert("❌ مشكل ف السيرفر، تأكد من Webhook URL.");
+                    alert("❌ ديسكورد رفض الطلب. تأكد أن الـ Webhook URL صحيح.");
                 }
             })
-            .catch(err => alert("❌ وقع خطأ ف الإرسال."));
+            .catch(err => {
+                alert("❌ مشكل فـ الكونيكسيون.");
+                console.error(err);
+            });
         }
     </script>
 </body>
