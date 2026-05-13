@@ -9,7 +9,8 @@
         :root {
             --primary-red: #ff0000;
             --owner-blue: #007bff;
-            --admin-red: #ff0000;
+            --owner-dark-red: #8b0000; /* الأحمر الغامق لـ Owner */
+            --admin-red: #ff0000;      /* الأحمر العادي لـ Admin */
             --accent-gold: #ffcc00;
             --dark-bg: #050505;
             --glass: rgba(255, 255, 255, 0.05);
@@ -165,23 +166,25 @@
                     <tr><th>المسؤول</th><th>الرتبة</th><th>التخصص</th></tr>
                 </thead>
                 <tbody>
-                    <!-- Owner (Blue per your request) -->
+                    <!-- Founder: Sherlock (Blue) -->
                     <tr>
                         <td style="color:var(--owner-blue); font-weight:bold;">Sherlock</td>
-                        <td><span class="badge" style="background:var(--owner-blue)">OWNER</span></td>
+                        <td><span class="badge" style="background:var(--owner-blue)">𝐅𝐎𝐔𝐍𝐃𝐄𝐑 | 👑</span></td>
                         <td>Security & System Dev</td>
                     </tr>
+                    <!-- CEO -->
                     <tr>
                         <td style="color:#8e44ad; font-weight:bold;">amine3g_13052</td>
                         <td><span class="badge" style="background:#8e44ad">CEO</span></td>
                         <td>Management & Operations</td>
                     </tr>
+                    <!-- Owner: 1.arw (Dark Red) -->
                     <tr>
-                        <td style="color:#c0392b; font-weight:bold;">1.arw</td>
-                        <td><span class="badge" style="background:#c0392b">CO-OWNER</span></td>
+                        <td style="color:var(--owner-dark-red); font-weight:bold;">1.arw</td>
+                        <td><span class="badge" style="background:var(--owner-dark-red)">OWNER</span></td>
                         <td>Strategy & Management</td>
                     </tr>
-                    <!-- Admin (Red per your request) -->
+                    <!-- Admin: pogba04273 (Standard Red) -->
                     <tr>
                         <td style="color:var(--admin-red); font-weight:bold;">pogba04273</td>
                         <td><span class="badge" style="background:var(--admin-red)">ADMIN</span></td>
