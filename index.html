@@ -140,7 +140,8 @@
             <a onclick="showSection('home')"><i class="fas fa-ghost"></i> الرئيسية</a>
             <a onclick="showSection('staff')"><i class="fas fa-shield-halved"></i> الإدارة</a>
             <a onclick="showSection('rules')"><i class="fas fa-book"></i> القوانين</a>
-            <a onclick="showSection('apply')"><i class="fas fa-id-card"></i> التقديم</a>
+            <!-- التقديم مقفل في القائمة -->
+            <a onclick="showSection('apply')" style="color: #888;"><i class="fas fa-lock"></i> التقديم 🔒</a>
             <a onclick="showSection('bug-report')"><i class="fas fa-microchip"></i> الأعطال</a>
             <a onclick="showSection('player-report')"><i class="fas fa-shield-virus"></i> البلاغات</a>
         </div>
@@ -158,7 +159,11 @@
             <a href="https://discord.gg/9WdhzReSY" target="_blank" style="text-decoration:none">
                 <div class="card"><i class="fab fa-discord" style="color:#5865F2"></i><h3>ديسكورد</h3></div>
             </a>
-            <div class="card" onclick="showSection('apply')"><i class="fas fa-user-plus"></i><h3>انضم إلينا</h3></div>
+            <!-- التقديم مقفل في البطاقة الرئيسية -->
+            <div class="card" onclick="showSection('apply')" style="border-color: #444; opacity: 0.8;">
+                <i class="fas fa-lock" style="color: #888;"></i>
+                <h3 style="color: #888;">التقديم (مغلق) 🔒</h3>
+            </div>
             <div class="card" onclick="showSection('bug-report')"><i class="fas fa-bug"></i><h3>Bug Report</h3></div>
             <div class="card" onclick="showSection('player-report')"><i class="fas fa-gavel"></i><h3>Report Player</h3></div>
         </div>
@@ -171,19 +176,16 @@
             <table>
                 <thead><tr><th>المسؤول</th><th>الرتبة</th><th>التخصص</th></tr></thead>
                 <tbody>
-                    <!-- Founder -->
                     <tr>
                         <td style="color:var(--owner-blue); font-weight:bold;">Sherlock</td>
                         <td><span class="badge" style="background:var(--owner-blue)">𝐅𝐎𝐔𝐍𝐃𝐄𝐑 | 👑</span></td>
                         <td>Security & System Dev</td>
                     </tr>
-                    <!-- Owner -->
                     <tr>
                         <td style="color:var(--owner-dark-red); font-weight:bold;">1lm2_</td>
                         <td><span class="badge" style="background:var(--owner-dark-red)">OWNER</span></td>
                         <td>Management</td>
                     </tr>
-                    <!-- Admins -->
                     <tr>
                         <td style="color:var(--admin-red); font-weight:bold;">amine3g_13052</td>
                         <td><span class="badge" style="background:var(--admin-red)">ADMIN</span></td>
@@ -194,7 +196,6 @@
                         <td><span class="badge" style="background:var(--admin-red)">ADMIN</span></td>
                         <td>Player Support</td>
                     </tr>
-                    <!-- Helpers List -->
                     <tr><td style="color:#2ecc71; font-weight:bold;">1.arw</td><td><span class="badge" style="background:#2ecc71">HELPER</span></td><td>Community Support</td></tr>
                     <tr><td style="color:#2ecc71; font-weight:bold;">abdou03883</td><td><span class="badge" style="background:#2ecc71">HELPER</span></td><td>Community Support</td></tr>
                     <tr><td style="color:#2ecc71; font-weight:bold;">kolt_85285</td><td><span class="badge" style="background:#2ecc71">HELPER</span></td><td>Community Support</td></tr>
@@ -259,15 +260,21 @@
         </div>
     </div>
 
-    <!-- Apply Section -->
+    <!-- Apply Section (MODIFIED: CLOSED STATE) -->
     <div id="apply" class="section">
-        <div class="form-box">
+        <div class="form-box" style="border-color: #444; position: relative;">
+            <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.4); z-index: 5; border-radius: 25px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(2px);">
+                <div style="background: var(--dark-bg); padding: 20px; border: 2px solid var(--primary-red); border-radius: 15px; text-align: center; box-shadow: var(--neon-glow);">
+                    <h2 style="color: var(--primary-red); margin: 0;">التقديم مغلق حالياً 🔒</h2>
+                    <p style="color: #fff; margin-top: 10px;">لقد اكتمل فريق الإدارة. شكراً لاهتمامكم!</p>
+                </div>
+            </div>
             <h2 style="text-align:center; color:var(--accent-gold);">STAFF APPLICATION 🎯</h2>
-            <input type="text" id="a_ign" placeholder="اسمك في اللعبة (IGN)">
-            <select id="a_role"><option>Helper</option><option>Admin</option><option>Moderator</option></select>
-            <textarea id="a_exp" placeholder="لماذا يجب أن نختارك؟" rows="4"></textarea>
-            <input type="text" id="a_discord" placeholder="حساب الديسكورد">
-            <button onclick="handleSubmission('apply')" class="btn btn-primary">إرسال الطلب</button>
+            <input type="text" placeholder="اسمك في اللعبة (IGN)" disabled>
+            <select disabled><option>Helper</option></select>
+            <textarea placeholder="لماذا يجب أن نختارك؟" rows="4" disabled></textarea>
+            <input type="text" placeholder="حساب الديسكورد" disabled>
+            <button class="btn" style="background: #333; cursor: not-allowed;" disabled>إرسال الطلب</button>
         </div>
     </div>
 
@@ -308,20 +315,12 @@
         }
 
         async function handleSubmission(type) {
+            // Webhook remains functional for bugs and reports
             const webhookURL = "https://discord.com/api/webhooks/1503396690336420002/vlqbGHaEvGRQlCCPKOJRL6O8gZ5rbbaZSNps8dVqg8RalsuhvkKFMnQTysPbT_a-ST7g";
             const formData = new FormData();
             let embed = { timestamp: new Date(), footer: { text: "Sherlock Security Audit" } };
 
-            if (type === 'apply') {
-                embed.title = "🛡️ Staff Application";
-                embed.color = 65535;
-                embed.fields = [
-                    { name: "🎮 IGN", value: document.getElementById('a_ign').value },
-                    { name: "📋 Role", value: document.getElementById('a_role').value },
-                    { name: "💬 Discord", value: document.getElementById('a_discord').value },
-                    { name: "📜 Exp", value: document.getElementById('a_exp').value }
-                ];
-            } else if (type === 'bug') {
+            if (type === 'bug') {
                 embed.title = "🐛 Bug Found";
                 embed.color = 15105570;
                 embed.fields = [
