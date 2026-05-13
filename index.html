@@ -86,7 +86,6 @@
 
         .card i { font-size: 3rem; color: var(--accent-gold); margin-bottom: 20px; display: block; }
 
-        /* Rules Specific Styles */
         .rules-container { max-width: 900px; margin: auto; }
         .rule-category { background: var(--glass); padding: 25px; border-radius: 15px; border-right: 4px solid var(--accent-gold); margin-bottom: 20px; }
         .rule-category h3 { color: var(--accent-gold); margin-top: 0; border-bottom: 1px solid #333; padding-bottom: 10px; }
@@ -147,6 +146,7 @@
         </div>
     </nav>
 
+    <!-- Home Section -->
     <div id="home" class="section active">
         <div class="hero">
             <h1>TARBOUCH ELITE</h1>
@@ -164,6 +164,7 @@
         </div>
     </div>
 
+    <!-- Staff Section -->
     <div id="staff" class="section">
         <h2 style="text-align:center; color:var(--accent-gold);">STAFF COMMAND CENTER 🛡️</h2>
         <div class="table-wrap">
@@ -175,9 +176,10 @@
                         <td><span class="badge" style="background:var(--owner-blue)">𝐅𝐎𝐔𝐍𝐃𝐄𝐑 | 👑</span></td>
                         <td>Security & System Dev</td>
                     </tr>
+                    <!-- Amine3g moved to ADMIN -->
                     <tr>
-                        <td style="color:#8e44ad; font-weight:bold;">amine3g_13052</td>
-                        <td><span class="badge" style="background:#8e44ad">CEO</span></td>
+                        <td style="color:var(--admin-red); font-weight:bold;">amine3g_13052</td>
+                        <td><span class="badge" style="background:var(--admin-red)">ADMIN</span></td>
                         <td>Management & Operations</td>
                     </tr>
                     <tr>
@@ -198,6 +200,7 @@
         </div>
     </div>
 
+    <!-- Rules Section -->
     <div id="rules" class="section">
         <div class="rules-container">
             <h2 style="text-align:center; color:var(--accent-gold); font-size: 2.5rem;">📜 قواعد السيرفر</h2>
@@ -256,3 +259,103 @@
                 <p>• تنطبق القواعد على الجميع دون استثناء</p>
                 <p>• تحتفظ الإدارة بالحق في تعديل القواعد</p>
                 <p>• الإبلاغ عن الانتهاكات عبر التذاكر</p>
+                <p>• اقرأ القواعد بعناية قبل المشاركة</p>
+                <p style="text-align: center; font-weight: bold; color: var(--accent-gold);">اتباع القواعد يعني بيئة أفضل للجميع! 🌟</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Apply Section -->
+    <div id="apply" class="section">
+        <div class="form-box">
+            <h2 style="text-align:center; color:var(--accent-gold);">STAFF APPLICATION 🎯</h2>
+            <input type="text" id="a_ign" placeholder="اسمك في اللعبة (IGN)">
+            <select id="a_role"><option>Helper</option><option>Admin</option><option>Moderator</option></select>
+            <textarea id="a_exp" placeholder="لماذا يجب أن نختارك؟" rows="4"></textarea>
+            <input type="text" id="a_discord" placeholder="حساب الديسكورد">
+            <button onclick="handleSubmission('apply')" class="btn btn-primary">إرسال الطلب</button>
+        </div>
+    </div>
+
+    <!-- Bug Report Section -->
+    <div id="bug-report" class="section">
+        <div class="form-box">
+            <h2 style="text-align:center; color:#e67e22;">BUG REPORT 🐛</h2>
+            <input type="text" id="b_title" placeholder="عنوان المشكلة">
+            <textarea id="b_desc" placeholder="وصف العطل..." rows="4"></textarea>
+            <input type="file" id="b_file" accept="image/*">
+            <input type="text" id="b_discord" placeholder="حسابك في الديسكورد">
+            <button onclick="handleSubmission('bug')" class="btn" style="background:#e67e22">تبليغ عن عطل</button>
+        </div>
+    </div>
+
+    <!-- Player Report Section -->
+    <div id="player-report" class="section">
+        <div class="form-box">
+            <h2 style="text-align:center; color:var(--primary-red);">PLAYER REPORT ⚖️</h2>
+            <input type="text" id="p_target" placeholder="اسم اللاعب المخالف">
+            <textarea id="p_reason" placeholder="سبب البلاغ..." rows="4"></textarea>
+            <input type="file" id="p_file" accept="image/*">
+            <input type="text" id="p_discord" placeholder="حسابك في الديسكورد">
+            <button onclick="handleSubmission('report')" class="btn btn-primary">إرسال البلاغ</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>SECURED BY <span style="color:var(--primary-red)">SHERLOCK</span> SYSTEMS</p>
+        <p style="font-size:0.7rem; opacity:0.5">© 2026 TARBOUCH SMP - ALL RIGHTS RESERVED</p>
+    </footer>
+
+    <script>
+        function showSection(id) {
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        async function handleSubmission(type) {
+            const webhookURL = "https://discord.com/api/webhooks/1503396690336420002/vlqbGHaEvGRQlCCPKOJRL6O8gZ5rbbaZSNps8dVqg8RalsuhvkKFMnQTysPbT_a-ST7g";
+            const formData = new FormData();
+            let embed = { timestamp: new Date(), footer: { text: "Sherlock Security Audit" } };
+
+            if (type === 'apply') {
+                embed.title = "🛡️ Staff Application";
+                embed.color = 65535;
+                embed.fields = [
+                    { name: "🎮 IGN", value: document.getElementById('a_ign').value },
+                    { name: "📋 Role", value: document.getElementById('a_role').value },
+                    { name: "💬 Discord", value: document.getElementById('a_discord').value },
+                    { name: "📜 Exp", value: document.getElementById('a_exp').value }
+                ];
+            } else if (type === 'bug') {
+                embed.title = "🐛 Bug Found";
+                embed.color = 15105570;
+                embed.fields = [
+                    { name: "📌 Title", value: document.getElementById('b_title').value },
+                    { name: "👤 User", value: document.getElementById('b_discord').value },
+                    { name: "📝 Description", value: document.getElementById('b_desc').value }
+                ];
+                const file = document.getElementById('b_file').files[0];
+                if(file) formData.append('file', file);
+            } else if (type === 'report') {
+                embed.title = "🚫 Player Report";
+                embed.color = 16711680;
+                embed.fields = [
+                    { name: "👤 Target", value: document.getElementById('p_target').value },
+                    { name: "⚖️ Reason", value: document.getElementById('p_reason').value },
+                    { name: "💬 Reporter", value: document.getElementById('p_discord').value }
+                ];
+                const file = document.getElementById('p_file').files[0];
+                if(file) formData.append('file', file);
+            }
+
+            formData.append('payload_json', JSON.stringify({ embeds: [embed] }));
+            try {
+                const res = await fetch(webhookURL, { method: 'POST', body: formData });
+                if(res.ok) { alert("تم الإرسال بنجاح!"); location.reload(); }
+                else { alert("مشكلة في الإرسال"); }
+            } catch (e) { alert("خطأ تقني"); }
+        }
+    </script>
+</body>
+</html>
