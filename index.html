@@ -47,12 +47,19 @@
             text-shadow: var(--neon-glow);
         }
 
-        .nav-links { display: flex; gap: 25px; }
+        .nav-links { display: flex; gap: 25px; align-items: center; }
         .nav-links a {
             color: #eee; text-decoration: none; font-weight: 600; font-size: 0.9rem;
             display: flex; align-items: center; gap: 8px; cursor: pointer;
         }
         .nav-links a:hover { color: var(--accent-gold); transform: scale(1.1); }
+
+        .staff-login-btn { 
+            border: 1px solid var(--accent-gold); 
+            padding: 5px 12px; 
+            border-radius: 8px; 
+            color: var(--accent-gold) !important;
+        }
 
         .section { display: none; padding: 60px 10%; min-height: 80vh; animation: sectionIn 0.6s ease; }
         .section.active { display: block; }
@@ -93,18 +100,20 @@
         .rule-item::before { content: "•"; color: var(--primary-red); font-weight: bold; }
 
         .form-box {
-            background: var(--glass);
-            padding: 40px;
-            border-radius: 25px;
-            max-width: 600px;
-            margin: auto;
-            border: 1px solid rgba(255,255,255,0.1);
+            background: var(--glass); padding: 40px; border-radius: 25px;
+            max-width: 600px; margin: auto; border: 1px solid rgba(255,255,255,0.1);
         }
 
         input, textarea, select {
             width: 100%; padding: 15px; margin: 12px 0;
             background: rgba(0,0,0,0.5); border: 1px solid #333;
             color: #fff; border-radius: 12px; outline: none;
+        }
+
+        .file-input-label {
+            display: block; padding: 10px; background: rgba(255,255,255,0.1);
+            border: 1px dashed var(--accent-gold); border-radius: 10px;
+            text-align: center; cursor: pointer; margin: 10px 0;
         }
 
         .btn {
@@ -114,22 +123,20 @@
         }
 
         .btn-primary { background: linear-gradient(45deg, #ff0000, #990000); box-shadow: var(--neon-glow); }
+        .btn-success { background: #2ecc71; margin-top: 10px; }
 
         .table-wrap { overflow-x: auto; background: var(--glass); border-radius: 20px; border: 1px solid #333; margin-top: 20px; }
         table { width: 100%; border-collapse: collapse; }
         th { background: rgba(255,0,0,0.1); color: var(--accent-gold); padding: 20px; }
         td { padding: 20px; border-bottom: 1px solid #222; text-align: center; }
 
-        /* التنسيق الجديد للأيقونات داخل الرتب */
         .badge { padding: 5px 15px; border-radius: 50px; font-size: 0.7rem; font-weight: bold; color: #fff; display: inline-flex; align-items: center; gap: 5px; }
 
-        footer { text-align: center; padding: 50px; color: #555; font-weight: bold; }
+        .admin-controls { display: none; background: rgba(255, 204, 0, 0.1); padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 1px dashed var(--accent-gold); }
+        .delete-btn { color: #ff4444; cursor: pointer; margin-right: 10px; }
 
-        .status-pulse {
-            display: inline-block; width: 10px; height: 10px; background: #2ecc71;
-            border-radius: 50%; margin-left: 10px; box-shadow: 0 0 10px #2ecc71;
-            animation: pulse 1.5s infinite;
-        }
+        footer { text-align: center; padding: 50px; color: #555; font-weight: bold; }
+        .status-pulse { display: inline-block; width: 10px; height: 10px; background: #2ecc71; border-radius: 50%; margin-left: 10px; box-shadow: 0 0 10px #2ecc71; animation: pulse 1.5s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
     </style>
 </head>
@@ -138,6 +145,7 @@
     <nav>
         <div class="nav-logo" onclick="showSection('home')">TARBOUCH <span style="color:#fff">SMP</span></div>
         <div class="nav-links">
+            <a onclick="showSection('staff-login')" class="staff-login-btn"><i class="fas fa-lock-open"></i> Staff Login</a>
             <a onclick="showSection('home')"><i class="fas fa-ghost"></i> الرئيسية</a>
             <a onclick="showSection('staff')"><i class="fas fa-shield-halved"></i> الإدارة</a>
             <a onclick="showSection('rules')"><i class="fas fa-book"></i> القوانين</a>
@@ -146,6 +154,16 @@
             <a onclick="showSection('player-report')"><i class="fas fa-shield-virus"></i> البلاغات</a>
         </div>
     </nav>
+
+    <!-- Staff Login Section -->
+    <div id="staff-login" class="section">
+        <div class="form-box">
+            <h2 style="text-align:center; color:var(--accent-gold);">STAFF PORTAL 🔒</h2>
+            <input type="text" id="staff_user" placeholder="Staff Username">
+            <input type="password" id="staff_pass" placeholder="Security Code">
+            <button onclick="checkStaffAuth()" class="btn btn-primary">Login to Console</button>
+        </div>
+    </div>
 
     <!-- Home Section -->
     <div id="home" class="section active">
@@ -159,47 +177,49 @@
             <a href="https://discord.gg/9WdhzReSY" target="_blank" style="text-decoration:none">
                 <div class="card"><i class="fab fa-discord" style="color:#5865F2"></i><h3>ديسكورد</h3></div>
             </a>
-            <div class="card" onclick="showSection('apply')" style="border-color: #444; opacity: 0.8;">
-                <i class="fas fa-lock" style="color: #888;"></i>
-                <h3 style="color: #888;">التقديم (مغلق) 🔒</h3>
-            </div>
+            <div class="card" onclick="showSection('apply')" style="border-color: #444; opacity: 0.8;"><i class="fas fa-lock" style="color: #888;"></i><h3 style="color: #888;">التقديم (مغلق) 🔒</h3></div>
             <div class="card" onclick="showSection('bug-report')"><i class="fas fa-bug"></i><h3>Bug Report</h3></div>
             <div class="card" onclick="showSection('player-report')"><i class="fas fa-gavel"></i><h3>Report Player</h3></div>
         </div>
     </div>
 
-    <!-- Staff Section (تمت إضافة الأيقونات هنا) -->
+    <!-- Staff Section -->
     <div id="staff" class="section">
         <h2 style="text-align:center; color:var(--accent-gold);">STAFF COMMAND CENTER 🛡️</h2>
+        
+        <div id="admin-editor" class="admin-controls">
+            <h4 style="margin-top:0"><i class="fas fa-user-plus"></i> إضافة مسؤول جديد</h4>
+            <div style="display:flex; gap:10px; flex-wrap: wrap;">
+                <input type="text" id="new_staff_name" placeholder="اسم العضو في اللعبة (IGN)" style="flex:2">
+                <select id="new_staff_rank" style="flex:1">
+                    <option value="owner-blue" data-icon="fa-crown" data-job="System & Security">FOUNDER</option>
+                    <option value="owner-dark-red" data-icon="fa-star" data-job="Server Management">OWNER</option>
+                    <option value="admin-red" data-icon="fa-shield-halved" data-job="Technical Admin">ADMIN</option>
+                    <option value="#9b59b6" data-icon="fa-gears" data-job="System Developer">DEVELOPER</option>
+                    <option value="#e67e22" data-icon="fa-hammer" data-job="Moderation Team">MODERATOR</option>
+                    <option value="#2ecc71" data-icon="fa-hands-helping" data-job="Player Support">HELPER</option>
+                    <option value="#3498db" data-icon="fa-paint-brush" data-job="Creative Design">DESIGNER</option>
+                </select>
+                <button onclick="addStaffMember()" class="btn btn-success" style="width:100%">إضافة الآن</button>
+            </div>
+        </div>
+
         <div class="table-wrap">
-            <table>
-                <thead><tr><th>المسؤول</th><th>الرتبة</th><th>التخصص</th></tr></thead>
-                <tbody>
+            <table id="staff-table">
+                <thead><tr><th>المسؤول</th><th>الرتبة</th><th>التخصص التلقائي</th><th class="admin-only" style="display:none">Action</th></tr></thead>
+                <tbody id="staff-body">
                     <tr>
                         <td style="color:var(--owner-blue); font-weight:bold;"><i class="fas fa-user-tie"></i> Sherlock</td>
                         <td><span class="badge" style="background:var(--owner-blue)"><i class="fas fa-crown"></i> 𝐅𝐎𝐔𝐍𝐃𝐄𝐑 | 👑</span></td>
                         <td><i class="fas fa-code"></i> Security & System Dev</td>
+                        <td class="admin-only" style="display:none"></td>
                     </tr>
                     <tr>
                         <td style="color:var(--owner-dark-red); font-weight:bold;"><i class="fas fa-user-gear"></i> 1lm2_</td>
                         <td><span class="badge" style="background:var(--owner-dark-red)"><i class="fas fa-star"></i> OWNER</span></td>
                         <td><i class="fas fa-sitemap"></i> Management</td>
+                        <td class="admin-only" style="display:none"></td>
                     </tr>
-                    <tr>
-                        <td style="color:var(--admin-red); font-weight:bold;"><i class="fas fa-user-shield"></i> amine3g_13052</td>
-                        <td><span class="badge" style="background:var(--admin-red)"><i class="fas fa-hammer"></i> ADMIN</span></td>
-                        <td><i class="fas fa-wrench"></i> Technical Support</td>
-                    </tr>
-                    <tr>
-                        <td style="color:var(--admin-red); font-weight:bold;"><i class="fas fa-user-shield"></i> pogba04273</td>
-                        <td><span class="badge" style="background:var(--admin-red)"><i class="fas fa-hammer"></i> ADMIN</span></td>
-                        <td><i class="fas fa-headset"></i> Player Support</td>
-                    </tr>
-                    <tr><td style="color:#2ecc71; font-weight:bold;"><i class="fas fa-user"></i> 1.arw</td><td><span class="badge" style="background:#2ecc71"><i class="fas fa-hands-helping"></i> HELPER</span></td><td>Community Support</td></tr>
-                    <tr><td style="color:#2ecc71; font-weight:bold;"><i class="fas fa-user"></i> abdou03883</td><td><span class="badge" style="background:#2ecc71"><i class="fas fa-hands-helping"></i> HELPER</span></td><td>Community Support</td></tr>
-                    <tr><td style="color:#2ecc71; font-weight:bold;"><i class="fas fa-user"></i> kolt_85285</td><td><span class="badge" style="background:#2ecc71"><i class="fas fa-hands-helping"></i> HELPER</span></td><td>Community Support</td></tr>
-                    <tr><td style="color:#2ecc71; font-weight:bold;"><i class="fas fa-user"></i> xeroxx_01</td><td><span class="badge" style="background:#2ecc71"><i class="fas fa-hands-helping"></i> HELPER</span></td><td>Community Support</td></tr>
-                    <tr><td style="color:#2ecc71; font-weight:bold;"><i class="fas fa-user"></i> nawaf_on_top</td><td><span class="badge" style="background:#2ecc71"><i class="fas fa-hands-helping"></i> HELPER</span></td><td>Community Support</td></tr>
                 </tbody>
             </table>
         </div>
@@ -233,14 +253,6 @@
                 <div class="rule-item">اتبع قواعد ماين كرافت الرسمية</div>
                 <div class="rule-item">التشجيع الإيجابي مطلوب</div>
             </div>
-            <div class="rule-category">
-                <h3>🔧 القواعد التقنية</h3>
-                <div class="rule-item">لا انتحال شخصية الآخرين</div>
-                <div class="rule-item">ممنوع مشاركة المعلومات الشخصية</div>
-                <div class="rule-item">احترم خصوصية الأعضاء</div>
-                <div class="rule-item">ممنوع تحميل الملفات الضارة</div>
-                <div class="rule-item">احترم حدود القناة</div>
-            </div>
             <div class="rule-category" style="border-right-color: #e74c3c;">
                 <h3>⚠️ العقوبات</h3>
                 <div class="rule-item">الانتهاك الأول: تحذير</div>
@@ -248,62 +260,34 @@
                 <div class="rule-item">الانتهاكات المتكررة: الحظر الدائم</div>
                 <div class="rule-item">الانتهاكات الخطيرة: الحظر الفوري</div>
             </div>
-            <div class="card" style="margin-top: 20px; text-align: right; padding: 20px; cursor: default;">
-                <h3 style="color:var(--accent-gold)">💎 ملاحظات مهمة</h3>
-                <p>• تنطبق القواعد على الجميع دون استثناء</p>
-                <p>• تحتفظ الإدارة بالحق في تعديل القواعد</p>
-                <p>• الإبلاغ عن الانتهاكات عبر التذاكر</p>
-                <p>• اقرأ القواعد بعناية قبل المشاركة</p>
-                <p style="text-align: center; font-weight: bold; color: var(--accent-gold);">اتباع القواعد يعني بيئة أفضل للجميع! 🌟</p>
-            </div>
         </div>
     </div>
 
-    <!-- Apply Section -->
-    <div id="apply" class="section">
-        <div class="form-box" style="border-color: #444; position: relative;">
-            <div style="position: absolute; top:0; left:0; width:100%; height:100%; background: rgba(0,0,0,0.4); z-index: 5; border-radius: 25px; display: flex; align-items: center; justify-content: center; backdrop-filter: blur(2px);">
-                <div style="background: var(--dark-bg); padding: 20px; border: 2px solid var(--primary-red); border-radius: 15px; text-align: center; box-shadow: var(--neon-glow);">
-                    <h2 style="color: var(--primary-red); margin: 0;">التقديم مغلق حالياً 🔒</h2>
-                    <p style="color: #fff; margin-top: 10px;">لقد اكتمل فريق الإدارة. شكراً لاهتمامكم!</p>
-                </div>
-            </div>
-            <h2 style="text-align:center; color:var(--accent-gold);">STAFF APPLICATION 🎯</h2>
-            <input type="text" placeholder="اسمك في اللعبة (IGN)" disabled>
-            <select disabled><option>Helper</option></select>
-            <textarea placeholder="لماذا يجب أن نختارك؟" rows="4" disabled></textarea>
-            <input type="text" placeholder="حساب الديسكورد" disabled>
-            <button class="btn" style="background: #333; cursor: not-allowed;" disabled>إرسال الطلب</button>
-        </div>
-    </div>
-
-    <!-- Bug Report Section -->
+    <!-- Reports -->
     <div id="bug-report" class="section">
         <div class="form-box">
             <h2 style="text-align:center; color:#e67e22;">BUG REPORT 🐛</h2>
             <input type="text" id="b_title" placeholder="عنوان المشكلة">
             <textarea id="b_desc" placeholder="وصف العطل..." rows="4"></textarea>
-            <input type="file" id="b_file" accept="image/*">
+            <label class="file-input-label"><i class="fas fa-image"></i> أرفق صورة العطل<input type="file" id="b_file" accept="image/*" style="display:none"></label>
             <input type="text" id="b_discord" placeholder="حسابك في الديسكورد">
-            <button onclick="handleSubmission('bug')" class="btn" style="background:#e67e22">تبليغ عن عطل</button>
+            <button onclick="handleSubmission('bug')" class="btn" style="background:#e67e22">إرسال</button>
         </div>
     </div>
 
-    <!-- Player Report Section -->
     <div id="player-report" class="section">
         <div class="form-box">
             <h2 style="text-align:center; color:var(--primary-red);">PLAYER REPORT ⚖️</h2>
             <input type="text" id="p_target" placeholder="اسم اللاعب المخالف">
             <textarea id="p_reason" placeholder="سبب البلاغ..." rows="4"></textarea>
-            <input type="file" id="p_file" accept="image/*">
+            <label class="file-input-label"><i class="fas fa-camera"></i> أرفق الدليل<input type="file" id="p_file" accept="image/*" style="display:none"></label>
             <input type="text" id="p_discord" placeholder="حسابك في الديسكورد">
-            <button onclick="handleSubmission('report')" class="btn btn-primary">إرسال البلاغ</button>
+            <button onclick="handleSubmission('report')" class="btn btn-primary">إرسال</button>
         </div>
     </div>
 
     <footer>
         <p>SECURED BY <span style="color:var(--primary-red)">SHERLOCK</span> SYSTEMS</p>
-        <p style="font-size:0.7rem; opacity:0.5">© 2026 TARBOUCH SMP - ALL RIGHTS RESERVED</p>
     </footer>
 
     <script>
@@ -313,39 +297,66 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
+        function checkStaffAuth() {
+            const u = document.getElementById('staff_user').value;
+            const p = document.getElementById('staff_pass').value;
+            if(u === "tarbouchsmpstaff" && p === "Ga4144X.?") {
+                alert("🔓 Console Access Granted!");
+                document.getElementById('admin-editor').style.display = 'block';
+                document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'table-cell');
+                showSection('staff');
+            } else { alert("❌ Access Denied!"); }
+        }
+
+        function addStaffMember() {
+            const name = document.getElementById('new_staff_name').value;
+            const rankSelect = document.getElementById('new_staff_rank');
+            const rank = rankSelect.value;
+            const rankText = rankSelect.options[rankSelect.selectedIndex].text;
+            const icon = rankSelect.options[rankSelect.selectedIndex].getAttribute('data-icon');
+            const automaticJob = rankSelect.options[rankSelect.selectedIndex].getAttribute('data-job');
+
+            if(!name) return;
+
+            const color = rank.startsWith('#') ? rank : `var(--${rank})`;
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td style="color:${color}; font-weight:bold;"><i class="fas fa-user"></i> ${name}</td>
+                <td><span class="badge" style="background:${color}"><i class="fas ${icon}"></i> ${rankText}</span></td>
+                <td><i class="fas fa-robot"></i> ${automaticJob}</td>
+                <td class="admin-only" style="display:table-cell"><i class="fas fa-trash delete-btn" onclick="this.parentElement.parentElement.remove()"></i></td>
+            `;
+            
+            document.getElementById('staff-body').appendChild(row);
+        }
+
         async function handleSubmission(type) {
             const webhookURL = "https://discord.com/api/webhooks/1503396690336420002/vlqbGHaEvGRQlCCPKOJRL6O8gZ5rbbaZSNps8dVqg8RalsuhvkKFMnQTysPbT_a-ST7g";
             const formData = new FormData();
-            let embed = { timestamp: new Date(), footer: { text: "Sherlock Security Audit" } };
+            let embed = { timestamp: new Date(), footer: { text: "Audit Logs" } };
 
             if (type === 'bug') {
-                embed.title = "🐛 Bug Found";
-                embed.color = 15105570;
+                embed.title = "🐛 Bug Found"; embed.color = 15105570;
                 embed.fields = [
-                    { name: "📌 Title", value: document.getElementById('b_title').value },
-                    { name: "👤 User", value: document.getElementById('b_discord').value },
-                    { name: "📝 Description", value: document.getElementById('b_desc').value }
+                    { name: "Title", value: document.getElementById('b_title').value },
+                    { name: "Desc", value: document.getElementById('b_desc').value },
+                    { name: "Discord", value: document.getElementById('b_discord').value }
                 ];
                 const file = document.getElementById('b_file').files[0];
                 if(file) formData.append('file', file);
-            } else if (type === 'report') {
-                embed.title = "🚫 Player Report";
-                embed.color = 16711680;
+            } else {
+                embed.title = "🚫 Report"; embed.color = 16711680;
                 embed.fields = [
-                    { name: "👤 Target", value: document.getElementById('p_target').value },
-                    { name: "⚖️ Reason", value: document.getElementById('p_reason').value },
-                    { name: "💬 Reporter", value: document.getElementById('p_discord').value }
+                    { name: "Target", value: document.getElementById('p_target').value },
+                    { name: "Reason", value: document.getElementById('p_reason').value },
+                    { name: "By", value: document.getElementById('p_discord').value }
                 ];
                 const file = document.getElementById('p_file').files[0];
                 if(file) formData.append('file', file);
             }
 
             formData.append('payload_json', JSON.stringify({ embeds: [embed] }));
-            try {
-                const res = await fetch(webhookURL, { method: 'POST', body: formData });
-                if(res.ok) { alert("تم الإرسال بنجاح!"); location.reload(); }
-                else { alert("مشكلة في الإرسال"); }
-            } catch (e) { alert("خطأ تقني"); }
+            try { await fetch(webhookURL, { method: 'POST', body: formData }); alert("Sent!"); } catch (e) { alert("Error!"); }
         }
     </script>
 </body>
