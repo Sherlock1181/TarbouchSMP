@@ -46,13 +46,14 @@
         .rule-category h3 { color: var(--accent-gold); margin-top: 0; margin-bottom: 15px; font-size: 1.4rem; }
         .rule-item { list-style: none; padding: 8px 0; display: flex; gap: 10px; color: #ddd; line-height: 1.6; font-size: 1.05rem; }
         .rule-item i { color: var(--bright-red); margin-top: 5px; }
-        .form-box { background: var(--card-bg); padding: 40px; border-radius: 12px; max-width: 600px; margin: auto; border: 1px solid var(--border-color); }
+        .form-box { background: var(--card-bg); padding: 40px; border-radius: 12px; max-width: 700px; margin: auto; border: 1px solid var(--border-color); }
         input, textarea, select { width: 100%; padding: 14px; margin: 10px 0; background: #050507; border: 1px solid var(--border-color); color: #fff; border-radius: 8px; outline: none; text-align: center; }
         .file-input-label { display: block; padding: 12px; background: rgba(255,255,255,0.01); border: 1px dashed #444; border-radius: 8px; cursor: pointer; margin: 10px 0; text-align: center; }
         .btn { width: 100%; padding: 15px; border: none; border-radius: 8px; font-weight: bold; font-size: 1rem; cursor: pointer; text-transform: uppercase; color: #fff; }
         .btn-primary { background: var(--primary-red); }
         .status-pulse { display: inline-block; width: 10px; height: 10px; background: #2ecc71; border-radius: 50%; margin-left: 10px; box-shadow: 0 0 10px #2ecc71; }
         footer { text-align: center; padding: 50px; color: #444; font-weight: bold; border-top: 1px solid #111116; margin-top: 60px; }
+        .rules-list { text-align: right; background: #0a0a0c; padding: 25px; border-radius: 8px; border: 1px solid #333; margin-bottom: 20px; color: #ddd; }
     </style>
 </head>
 <body>
@@ -88,26 +89,65 @@
             <span class="copy-badge" id="copy-status">CLICK TO COPY</span>
         </div>
         <div class="grid">
-            <div class="card" onclick="showSection('staff')"><i class="fas fa-crown"></i><h3>طاقم الإدارة</h3></div>
+            <div class="card" onclick="showSection('apply')"><i class="fas fa-user-plus"></i><h3>Staff Apply</h3></div>
             <div class="card" onclick="showSection('rules')"><i class="fas fa-scroll"></i><h3>قوانين السيرفر</h3></div>
+            <div class="card" onclick="showSection('staff')"><i class="fas fa-crown"></i><h3>طاقم الإدارة</h3></div>
             <a href="https://discord.gg/9WdhzReSY" target="_blank" style="text-decoration:none"><div class="card"><i class="fab fa-discord" style="color:#5865F2"></i><h3>سيرفر الديسكورد</h3></div></a>
-            <div class="card" onclick="showSection('bug-report')"><i class="fas fa-bug"></i><h3>Bug Report</h3></div>
             <div class="card" onclick="showSection('player-report')"><i class="fas fa-gavel"></i><h3>Report Player</h3></div>
+            <div class="card" onclick="showSection('bug-report')"><i class="fas fa-bug"></i><h3>Bug Report</h3></div>
         </div>
     </div>
 
     <div id="apply" class="section">
-        <div class="form-box">
+        <div class="form-box" id="rules-step">
+            <h2 style="text-align:center; color:var(--accent-gold);">🛡️ ميثاق إدارة Tarbouch SMP (Staff Rules)</h2>
+            <div class="rules-list">
+                <ol style="padding-right: 20px;">
+                    <li style="margin-bottom: 20px;">
+                        <strong style="font-size: 1.2rem; color: #fff; display: block; margin-bottom: 5px;">1. الحياد المطلق (Neutrality):</strong>
+                        <span style="color: #aaa;">يمنع منعاً كلياً استغلال الـ Creative Mode أو Teleport لغرض شخصي أو لمساعدة الأصدقاء. السيرفر هو Survival، والـ Staff جزء من هذا العالم مثل أي لاعب.</span>
+                    </li>
+                    <li style="margin-bottom: 20px;">
+                        <strong style="font-size: 1.2rem; color: #fff; display: block; margin-bottom: 5px;">2. التحقيق قبل الحكم (Investigation):</strong>
+                        <span style="color: #aaa;">لا تطرد أو تحظر (Ban) أي لاعب بمجرد "الشك". دائماً استعمل الأدوات المتاحة (مثل CoreProtect) للتأكد من الوقائع قبل اتخاذ أي إجراء.</span>
+                    </li>
+                    <li style="margin-bottom: 20px;">
+                        <strong style="font-size: 1.2rem; color: #fff; display: block; margin-bottom: 5px;">3. التواصل باحترام:</strong>
+                        <span style="color: #aaa;">الـ Staff هو واجهة السيرفر. أي تواصل مع اللاعبين يجب أن يكون بمهنية وهدوء، حتى في حالة تعرضك للإساءة (يتم التعامل مع الإساءة عبر القوانين لا عبر الرد بالمثل).</span>
+                    </li>
+                    <li style="margin-bottom: 20px;">
+                        <strong style="font-size: 1.2rem; color: #fff; display: block; margin-bottom: 5px;">4. منع "التحيز" (No Favoritism):</strong>
+                        <span style="color: #aaa;">ممنوع تماماً إعطاء أفضليات للاعبين (مثل إعطاء موارد، حماية خاصة، أو تجاهل مخالفاتهم) بناءً على معرفة شخصية. الجميع سواسية أمام قوانين السيرفر.</span>
+                    </li>
+                    <li style="margin-bottom: 20px;">
+                        <strong style="font-size: 1.2rem; color: #fff; display: block; margin-bottom: 5px;">5. الشفافية (Transparency):</strong>
+                        <span style="color: #aaa;">أي إجراء تأديبي (Ban/Kick) يجب أن يكون موثقاً بالسبب والأدلة في "سجل الإدارة" (Discord Logs). لا يوجد "عقوبات سرية".</span>
+                    </li>
+                    <li style="margin-bottom: 20px;">
+                        <strong style="font-size: 1.2rem; color: #fff; display: block; margin-bottom: 5px;">6. الصلاحيات للاحتياج فقط (Least Privilege):</strong>
+                        <span style="color: #aaa;">لا تستخدم صلاحياتك (OP commands) إلا إذا كان الأمر يتطلب ذلك فعلاً. كل أمر OP يتم تسجيله في الـ Console الخاص بالديسكورد.</span>
+                    </li>
+                    <li style="margin-bottom: 20px;">
+                        <strong style="font-size: 1.2rem; color: #fff; display: block; margin-bottom: 5px;">7. السرية (Confidentiality):</strong>
+                        <span style="color: #aaa;">يمنع مشاركة معلومات الإدارة أو التيكيتات الخاصة باللاعبين مع أي شخص خارج الفريق.</span>
+                    </li>
+                    <li style="margin-bottom: 20px;">
+                        <strong style="font-size: 1.2rem; color: #fff; display: block; margin-bottom: 5px;">8. الالتزام بالـ Roadmap:</strong>
+                        <span style="color: #aaa;">أي تغيير في قواعد السيرفر أو إضافة Plugin جديد يجب أن يتم بالتنسيق مع الإدارة العليا، ممنوع التصرف الفردي في إعدادات السيرفر التقنية.</span>
+                    </li>
+                </ol>
+            </div>
+            <button onclick="acceptRules()" class="btn btn-primary">أوافق، أريد التقديم</button>
+        </div>
+
+        <div class="form-box" id="apply-form" style="display: none;">
             <h2 style="text-align:center; color:var(--accent-gold);">STAFF APPLICATION 📝</h2>
             <input type="text" id="name" placeholder="Minecraft Username">
             <select id="role">
                 <option value="" disabled selected>اختر الرتبة المطلوبة</option>
                 <option value="Helper">Helper</option>
                 <option value="Moderator">Moderator</option>
-                <option value="Sr. Moderator">Sr. Moderator</option>
                 <option value="Admin">Admin</option>
-                <option value="Sr. Admin">Sr. Admin</option>
-                <option value="Developer">Developer</option>
             </select>
             <input type="text" id="discord" placeholder="Discord Username">
             <textarea id="exp" placeholder="اكتب خبراتك هنا (أكثر من 30 حرف)..." rows="6"></textarea>
@@ -173,9 +213,17 @@
             const ipText = document.getElementById('server-ip').innerText;
             navigator.clipboard.writeText(ipText).then(() => {
                 const badge = document.getElementById('copy-status');
-                badge.innerText = "COPIED! ✅"; badge.style.background = "#2ecc71";
-                setTimeout(() => { badge.innerText = "CLICK TO COPY"; badge.style.background = "var(--accent-gold)"; }, 2000);
+                badge.innerText = "COPIED! ✅"; 
+                badge.style.background = "#2ecc71";
+                setTimeout(() => { 
+                    badge.innerText = "CLICK TO COPY"; 
+                    badge.style.background = "var(--accent-gold)"; 
+                }, 2000);
             });
+        }
+        function acceptRules() {
+            document.getElementById('rules-step').style.display = 'none';
+            document.getElementById('apply-form').style.display = 'block';
         }
         function handleApply() {
             const name = document.getElementById('name').value;
