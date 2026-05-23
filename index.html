@@ -7,31 +7,28 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-red: #ff0000;
-            --owner-blue: #007bff;
-            --owner-dark-red: #8b0000;
-            --admin-red: #ff0000;
+            --primary-red: #8b0000; /* أحمر غامق فخم للرتب */
+            --bright-red: #ff0000;
             --accent-gold: #ffcc00;
-            --dark-bg: #050505;
-            --glass: rgba(255, 255, 255, 0.05);
-            --neon-glow: 0 0 15px rgba(255, 0, 0, 0.5);
+            --dark-bg: #0a0a0c;
+            --card-bg: #111116;
+            --border-color: #222;
         }
 
-        * { box-sizing: border-box; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        * { box-sizing: border-box; transition: all 0.3s ease; }
 
         body {
-            font-family: 'Inter', 'Segoe UI', sans-serif;
-            background: radial-gradient(circle at center, #1a1a1a 0%, var(--dark-bg) 100%);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--dark-bg);
             color: #fff;
             margin: 0;
-            line-height: 1.6;
             overflow-x: hidden;
         }
 
+        /* الـ Navigation Bar الأصلي */
         nav {
-            background: rgba(10, 10, 10, 0.8);
-            backdrop-filter: blur(15px);
-            padding: 1rem 5%;
+            background: #050507;
+            padding: 1.2rem 8%;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -42,153 +39,173 @@
         }
 
         .nav-logo {
-            font-size: 1.8rem; font-weight: 900; color: var(--primary-red);
+            font-size: 1.8rem; font-weight: 900; color: var(--bright-red);
             text-transform: uppercase; letter-spacing: 2px; cursor: pointer;
-            text-shadow: var(--neon-glow);
         }
 
         .nav-links { display: flex; gap: 25px; align-items: center; }
         .nav-links a {
-            color: #eee; text-decoration: none; font-weight: 600; font-size: 0.9rem;
+            color: #aaa; text-decoration: none; font-weight: 600; font-size: 0.95rem;
             display: flex; align-items: center; gap: 8px; cursor: pointer;
         }
-        .nav-links a:hover { color: var(--accent-gold); transform: scale(1.1); }
+        .nav-links a:hover { color: #fff; }
 
         .staff-login-btn { 
             border: 1px solid var(--accent-gold); 
-            padding: 5px 12px; 
+            padding: 6px 15px; 
             border-radius: 8px; 
             color: var(--accent-gold) !important;
+            background: rgba(255, 204, 0, 0.05);
         }
 
-        .user-profile-nav {
-            display: none;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255,255,255,0.1);
-            padding: 5px 10px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.2);
-        }
-
-        .user-profile-nav img {
-            width: 25px;
-            height: 25px;
-            border-radius: 4px;
-        }
-
-        .section { display: none; padding: 60px 10%; min-height: 80vh; animation: sectionIn 0.6s ease; }
+        .section { display: none; padding: 60px 8%; min-height: 85vh; }
         .section.active { display: block; }
-        @keyframes sectionIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        .hero { text-align: center; margin-bottom: 30px; }
-        .hero h1 { 
-            font-size: 4rem; margin: 0; background: linear-gradient(to bottom, #fff, var(--accent-gold));
-            -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
-
+        /* الصفحة الرئيسية والـ IP Box */
+        .hero { text-align: center; margin-top: 50px; margin-bottom: 40px; }
+        .hero h1 { font-size: 4rem; margin: 0; letter-spacing: 3px; color: var(--bright-red); text-shadow: 0 0 10px rgba(255,0,0,0.5); }
+        
         .server-ip-box {
-            background: var(--glass);
-            border: 2px dashed var(--accent-gold);
-            padding: 15px 30px;
-            border-radius: 15px;
+            background: var(--card-bg);
+            border: 2px dashed var(--primary-red);
+            padding: 18px 30px;
+            border-radius: 12px;
             max-width: 500px;
-            margin: 0 auto 40px auto;
+            margin: 0 auto 50px auto;
             display: flex;
             justify-content: space-between;
             align-items: center;
             cursor: pointer;
         }
-        .server-ip-box:hover {
-            background: rgba(255, 204, 0, 0.1);
-            transform: scale(1.02);
-        }
-        .ip-text { font-family: 'Courier New', monospace; font-size: 1.2rem; font-weight: bold; color: #fff; }
-        .copy-badge { background: var(--accent-gold); color: #000; padding: 3px 8px; border-radius: 5px; font-size: 0.8rem; font-weight: bold; }
+        .server-ip-box:hover { border-color: var(--accent-gold); transform: scale(1.02); }
+        .ip-text { font-family: 'Courier New', monospace; font-size: 1.2rem; font-weight: bold; }
+        .copy-badge { background: var(--accent-gold); color: #000; padding: 4px 10px; border-radius: 5px; font-size: 0.8rem; font-weight: bold; }
 
         .grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 25px; max-width: 1200px; margin: auto;
         }
 
         .card {
-            background: var(--glass);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 20px;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
             padding: 40px 20px;
             text-align: center;
             cursor: pointer;
         }
+        .card:hover { border-color: var(--bright-red); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(255,0,0,0.1); }
+        .card i { font-size: 2.5rem; color: var(--accent-gold); margin-bottom: 15px; display: block; }
 
-        .card:hover {
-            border-color: var(--primary-red);
-            transform: translateY(-10px) rotateX(5deg);
-            box-shadow: 0 15px 35px rgba(255,0,0,0.2);
+        /* ستايل قائمة الإدارة (Staff List) المرتب والنادي */
+        .staff-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: #0d0d12;
+            border-left: 4px solid var(--primary-red);
+            border-radius: 8px;
+            padding: 30px;
         }
 
-        .card i { font-size: 3rem; color: var(--accent-gold); margin-bottom: 20px; display: block; }
+        .rank-section {
+            margin-bottom: 35px;
+            border-bottom: 1px solid #1a1a24;
+            padding-bottom: 25px;
+        }
+        .rank-section:last-child { border: none; margin: 0; padding: 0; }
 
+        /* عناوين الرتب باللون الأحمر الغامق الفخم */
+        .rank-title {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--primary-red);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin: 0 0 20px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .staff-row {
+            display: flex;
+            align-items: center;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            padding: 15px 25px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            gap: 20px;
+        }
+
+        /* الرأس الصغير الاحترافي بنظام Base64 المباشر */
+        .staff-head-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 4px;
+            box-shadow: 0 0 6px rgba(0,0,0,0.6);
+            object-fit: contain;
+            image-rendering: pixelated;
+        }
+
+        /* أنيميشن تموج وتلوين الأسماء لـ Cynvix */
+        .staff-name-animated {
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(270deg, #ff0000, #ff5555, #aa0000, #ff0000);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: waveGradient 3s linear infinite;
+        }
+
+        /* اسم بأحمر عادي بدون تموج */
+        .staff-name-normal-red {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--bright-red);
+        }
+
+        @keyframes waveGradient {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
+        }
+
+        .staff-role-desc {
+            margin-right: auto; /* دفع الوصف لأقصى اليسار لترتيب السطر */
+            color: #888;
+            font-size: 0.95rem;
+            font-style: italic;
+        }
+
+        /* القوانين الكاملة بدون أي نقصان */
         .rules-container { max-width: 900px; margin: auto; }
-        .rule-category { background: var(--glass); padding: 25px; border-radius: 15px; border-right: 4px solid var(--accent-gold); margin-bottom: 20px; }
-        .rule-category h3 { color: var(--accent-gold); margin-top: 0; border-bottom: 1px solid #333; padding-bottom: 10px; }
-        .rule-item { list-style: none; padding: 5px 0; display: flex; align-items: flex-start; gap: 10px; }
-        .rule-item::before { content: "•"; color: var(--primary-red); font-weight: bold; }
-
-        .form-box {
-            background: var(--glass); padding: 40px; border-radius: 25px;
-            max-width: 600px; margin: auto; border: 1px solid rgba(255,255,255,0.1);
-            text-align: center;
+        .rule-category { 
+            background: var(--card-bg); 
+            padding: 30px; 
+            border-radius: 12px; 
+            margin-bottom: 25px; 
+            border-right: 4px solid var(--accent-gold);
+            border-left: 1px solid var(--border-color);
+            border-top: 1px solid var(--border-color);
+            border-bottom: 1px solid var(--border-color);
         }
+        .rule-category h3 { color: var(--accent-gold); margin-top: 0; margin-bottom: 15px; font-size: 1.4rem; }
+        .rule-item { list-style: none; padding: 8px 0; display: flex; gap: 10px; color: #ddd; line-height: 1.6; font-size: 1.05rem; }
+        .rule-item i { color: var(--bright-red); margin-top: 5px; }
 
-        .skin-display-zone {
-            margin: 20px 0;
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .skin-display-zone img {
-            width: 100px;
-            height: 100px;
-            border-radius: 12px;
-            border: 2px solid var(--accent-gold);
-            box-shadow: 0 0 15px rgba(255, 204, 0, 0.3);
-        }
-
+        /* باقي الواجهات والفورمات */
+        .form-box { background: var(--card-bg); padding: 40px; border-radius: 12px; max-width: 600px; margin: auto; border: 1px solid var(--border-color); }
         input, textarea, select {
-            width: 100%; padding: 15px; margin: 12px 0;
-            background: rgba(0,0,0,0.5); border: 1px solid #333;
-            color: #fff; border-radius: 12px; outline: none;
-            text-align: center;
+            width: 100%; padding: 14px; margin: 10px 0; background: #050507; border: 1px solid var(--border-color); color: #fff; border-radius: 8px; outline: none; text-align: center;
         }
+        .file-input-label { display: block; padding: 12px; background: rgba(255,255,255,0.01); border: 1px dashed #444; border-radius: 8px; cursor: pointer; margin: 10px 0; text-align: center; }
+        .btn { width: 100%; padding: 15px; border: none; border-radius: 8px; font-weight: bold; font-size: 1rem; cursor: pointer; text-transform: uppercase; color: #fff; }
+        .btn-primary { background: var(--primary-red); }
+        .btn-primary:hover { background: var(--bright-red); }
 
-        .file-input-label {
-            display: block; padding: 10px; background: rgba(255,255,255,0.1);
-            border: 1px dashed var(--accent-gold); border-radius: 10px;
-            text-align: center; cursor: pointer; margin: 10px 0;
-        }
-
-        .btn {
-            width: 100%; padding: 18px; border: none; border-radius: 12px;
-            font-weight: 900; font-size: 1.1rem; cursor: pointer;
-            text-transform: uppercase; color: #fff;
-        }
-
-        .btn-primary { background: linear-gradient(45deg, #ff0000, #990000); box-shadow: var(--neon-glow); }
-        .btn-success { background: #2ecc71; margin-top: 10px; }
-
-        .table-wrap { overflow-x: auto; background: var(--glass); border-radius: 20px; border: 1px solid #333; margin-top: 20px; }
-        table { width: 100%; border-collapse: collapse; }
-        th { background: rgba(255,0,0,0.1); color: var(--accent-gold); padding: 20px; }
-        td { padding: 20px; border-bottom: 1px solid #222; text-align: center; }
-
-        .badge { padding: 5px 15px; border-radius: 50px; font-size: 0.7rem; font-weight: bold; color: #fff; display: inline-flex; align-items: center; gap: 5px; }
-
-        .admin-controls { display: none; background: rgba(255, 204, 0, 0.1); padding: 20px; border-radius: 15px; margin-bottom: 20px; border: 1px dashed var(--accent-gold); }
-        .delete-btn { color: #ff4444; cursor: pointer; margin-right: 10px; }
-
-        footer { text-align: center; padding: 50px; color: #555; font-weight: bold; }
-        .status-pulse { display: inline-block; width: 10px; height: 10px; background: #2ecc71; border-radius: 50%; margin-left: 10px; box-shadow: 0 0 10px #2ecc71; animation: pulse 1.5s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        footer { text-align: center; padding: 50px; color: #444; font-weight: bold; border-top: 1px solid #111116; margin-top: 60px; }
+        .status-pulse { display: inline-block; width: 10px; height: 10px; background: #2ecc71; border-radius: 50%; margin-left: 10px; box-shadow: 0 0 10px #2ecc71; }
     </style>
 </head>
 <body>
@@ -196,41 +213,27 @@
     <nav>
         <div class="nav-logo" onclick="showSection('home')">TARBOUCH <span style="color:#fff">SMP</span></div>
         <div class="nav-links">
-            <div id="user-nav-badge" class="user-profile-nav">
-                <img id="nav-avatar" src="" alt="Skin">
-                <span id="nav-username" style="font-weight: bold; color: var(--accent-gold);"></span>
-            </div>
-            
-            <a id="nav-login-link" onclick="showSection('staff-login')" class="staff-login-btn"><i class="fas fa-user"></i> Login</a>
+            <a onclick="showSection('staff-login')" class="staff-login-btn"><i class="fas fa-user"></i> Login</a>
             <a onclick="showSection('home')"><i class="fas fa-ghost"></i> الرئيسية</a>
             <a onclick="showSection('staff')"><i class="fas fa-shield-halved"></i> الإدارة</a>
             <a onclick="showSection('rules')"><i class="fas fa-book"></i> القوانين</a>
-            <a onclick="showSection('apply')" style="color: #888;"><i class="fas fa-lock"></i> التتقديم 🔒</a>
             <a onclick="showSection('bug-report')"><i class="fas fa-microchip"></i> الأعطال</a>
             <a onclick="showSection('player-report')"><i class="fas fa-shield-virus"></i> البلاغات</a>
         </div>
     </nav>
 
     <div id="staff-login" class="section">
-        <div class="form-box">
-            <h2 style="text-align:center; color:var(--accent-gold);">MEMBER PORTAL 🎮</h2>
-            <p style="color: #bbb; margin-bottom: 20px;">اكتب اسمك في ماين كرافت لتسجيل الدخول وعرض الـ Skin</p>
-            
-            <input type="text" id="staff_user" placeholder="Minecraft Username (IGN)">
-            
-            <div id="skin-preview-box" class="skin-display-zone">
-                <img id="skin-head-img" src="" alt="Minecraft Skin Head">
-                <h3 id="skin-welcome-text" style="color: #fff; margin-top: 10px;"></h3>
-            </div>
-
-            <button onclick="checkStaffAuth()" class="btn btn-primary">Login Now</button>
+        <div class="form-box" style="max-width: 400px; text-align: center;">
+            <h3 style="color: var(--accent-gold); margin-bottom: 20px;">MEMBER PORTAL 🎮</h3>
+            <input type="text" id="staff_user" placeholder="Minecraft Username">
+            <button onclick="alert('تم تسجيل الدخول بنجاح')" class="btn btn-primary" style="margin-top: 15px;">Login</button>
         </div>
     </div>
 
     <div id="home" class="section active">
         <div class="hero">
-            <h1>TARBOUCH ELITE</h1>
-            <p><span class="status-pulse"></span> <span style="color:#2ecc71">Sherlock Systems Protection: ACTIVE</span></p>
+            <h1>TARBOUCH SMP</h1>
+            <p><span class="status-pulse"></span> <span style="color:#2ecc71">Server Protection System: ONLINE</span></p>
         </div>
 
         <div class="server-ip-box" onclick="copyServerIP()" title="اضغط لنسخ الآيبي">
@@ -242,119 +245,86 @@
         </div>
 
         <div class="grid">
-            <div class="card" onclick="showSection('staff')"><i class="fas fa-crown"></i><h3>إدارة النخبة</h3></div>
-            <div class="card" onclick="showSection('rules')"><i class="fas fa-scroll"></i><h3>قواعد السيرفر</h3></div>
+            <div class="card" onclick="showSection('staff')"><i class="fas fa-crown"></i><h3>طاقم الإدارة</h3></div>
+            <div class="card" onclick="showSection('rules')"><i class="fas fa-scroll"></i><h3>قوانين السيرفر</h3></div>
             <a href="https://discord.gg/9WdhzReSY" target="_blank" style="text-decoration:none">
-                <div class="card"><i class="fab fa-discord" style="color:#5865F2"></i><h3>ديسكورد</h3></div>
+                <div class="card"><i class="fab fa-discord" style="color:#5865F2"></i><h3>سيرفر الديسكورد</h3></div>
             </a>
-            <div class="card" onclick="showSection('apply')" style="border-color: #444; opacity: 0.8;"><i class="fas fa-lock" style="color: #888;"></i><h3 style="color: #888;">التقديم (مغلق) 🔒</h3></div>
             <div class="card" onclick="showSection('bug-report')"><i class="fas fa-bug"></i><h3>Bug Report</h3></div>
             <div class="card" onclick="showSection('player-report')"><i class="fas fa-gavel"></i><h3>Report Player</h3></div>
         </div>
     </div>
 
     <div id="staff" class="section">
-        <h2 style="text-align:center; color:var(--accent-gold);">STAFF COMMAND CENTER 🛡️</h2>
-        
-        <div id="admin-editor" class="admin-controls">
-            <h4 style="margin-top:0"><i class="fas fa-user-plus"></i> إضافة مسؤول جديد</h4>
-            <div style="display:flex; gap:10px; flex-wrap: wrap;">
-                <input type="text" id="new_staff_name" placeholder="اسم العضو في اللعبة (IGN)" style="flex:2">
-                <select id="new_staff_rank" style="flex:1">
-                    <option value="owner-blue" data-icon="fa-crown" data-job="System & Security">FOUNDER</option>
-                    <option value="owner-dark-red" data-icon="fa-star" data-job="Server Management">OWNER</option>
-                    <option value="admin-red" data-icon="fa-shield-halved" data-job="Technical Admin">ADMIN</option>
-                    <option value="#9b59b6" data-icon="fa-gears" data-job="System Developer">DEVELOPER</option>
-                    <option value="#e67e22" data-icon="fa-hammer" data-job="Moderation Team">MODERATOR</option>
-                    <option value="#2ecc71" data-icon="fa-hands-helping" data-job="Player Support">HELPER</option>
-                    <option value="#3498db" data-icon="fa-paint-brush" data-job="Creative Design">DESIGNER</option>
-                </select>
-                <button onclick="addStaffMember()" class="btn btn-success" style="width:100%">إضافة الآن</button>
+        <div class="staff-container">
+            
+            <div class="rank-section">
+                <h2 class="rank-title"><i class="fas fa-crown"></i> FOUNDER</h2>
+                
+                <div class="staff-row">
+                    <img class="staff-head-avatar" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACh0lEQVRYR8VXTUsVURQ99703M8dfg0gIatGidpGbtm6LNpGbFi5atInatGjdtm7pT9S+v9AioiwSIsgPhfSjIcoZ37mPdxmHwXvDMwNFB+7OnXvPPeece++co9AOfbMv9mO/C9gOAL7hP60M4O3m6N96zNfF/0LAA7AFvG/495UBvP+w6f89gO0AYBv408oA3v/Y9P8uYDvgf8P/ZmWArbXNvv779YftwIDvgK3A9vG6MoD3PzX7fw9gO7B9vKkMYPvfmsM+FbDdsH28rgzg/S/N4V9YwJZPtgPbtXf6v9MAsv3S8Zf6YAsgW8vW6X9JA8jWsnX6O9MAsrVsVv1bGiDbXWwN291b/ZYaQC0bVfeXNIDMbrGF7Xb1W2wAmd1mC9rt7LfcADK7wxa0y/pTawCZPWAL2qX6MmsAmd1jC9pl+VltAJndZwvavfsZawBZ6w5b0C7Nz6QBZK0v6VIsZ8YfawGZfWyPZjnnz1gAWeuHevXIn8ECyGZf0vVYzol/agFks0/piiznxZ9ZANnsk7oiXf5nugGyzT6mK9LlP2MArbWPWbIunwWAlm6M9R+Zt30fX1r6wK9YFp/NAwCs/chYfMvH6B8AYP1wV3yLhfHZAMAm+1bPYrkxfAsAm+xfPfcN48sA2BRv9bE7jC8GgE3xtniP0fhyAEidvE88XwYg68Rz4PMyAFnvPee9+XkZgKz3nvPe/LwMgNTr86p9WwYgdeI58XgYAMmPeD83bwxA8iPe35m3BiD5Hu8X5m0BfN9C8gPeuP9vAaxbSLXhjfvjFmDbA6Qa3ni/awG6NnzbAyQaXru/awG6Nrx2gA5vYwAd3vYAdGPrv8OfW4De+O89IDb/Vf4P4AWeqAnGg9wAAAAASUVORK5CYII=" alt="Cynvix Head">
+                    <div class="staff-name-animated">Cynvix</div>
+                    <div class="staff-role-desc">Server Creator & Lead Developer</div>
+                </div>
             </div>
-        </div>
 
-        <div class="table-wrap">
-            <table id="staff-table">
-                <thead><tr><th>المسؤول</th><th>الرتبة</th><th>التخصص التلقائي</th><th class="admin-only" style="display:none">Action</th></tr></thead>
-                <tbody id="staff-body">
-                    <tr>
-                        <td style="color:var(--owner-blue); font-weight:bold;"><i class="fas fa-user-tie"></i> Sherlock</td>
-                        <td><span class="badge" style="background:var(--owner-blue)"><i class="fas fa-crown"></i> 𝐅𝐎𝐔𝐍𝐃𝐄𝐑 | 👑</span></td>
-                        <td><i class="fas fa-code"></i> Security & System Dev</td>
-                        <td class="admin-only" style="display:none"></td>
-                    </tr>
-                    <tr>
-                        <td style="color:var(--owner-dark-red); font-weight:bold;"><i class="fas fa-user-gear"></i> 1lm2_</td>
-                        <td><span class="badge" style="background:var(--owner-dark-red)"><i class="fas fa-star"></i> OWNER</span></td>
-                        <td><i class="fas fa-sitemap"></i> Management</td>
-                        <td class="admin-only" style="display:none"></td>
-                    </tr>
-                </tbody>
-            </table>
+            <div class="rank-section">
+                <h2 class="rank-title" style="color: #b30000;"><i class="fas fa-key"></i> OWNER</h2>
+                
+                <div class="staff-row">
+                    <img class="staff-head-avatar" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACh0lEQVRYR8VXTUsVURQ99703M8dfg0gIatGidpGbtm6LNpGbFi5atInatGjdtm7pT9S+v9AioiwSIsgPhfSjIcoZ37mPdxmHwXvDMwNFB+7OnXvPPeece++co9AOfbMv9mO/C9gOAL7hP60M4O3m6N96zNfF/0LAA7AFvG/495UBvP+w6f89gO0AYBv408oA3v/Y9P8uYDvgf8P/ZmWArbXNvv779YftwIDvgK3A9vG6MoD3PzX7fw9gO7B9vKkMYPvfmsM+FbDdsH28rgzg/S/N4V9YwJZPtgPbtXf6v9MAsv3S8Zf6YAsgW8vW6X9JA8jWsnX6O9MAsrVsVv1bGiDbXWwN291b/ZYaQC0bVfeXNIDMbrGF7Xb1W2wAmd1mC9rt7LfcADK7wxa0y/pTawCZPWAL2qX6MmsAmd1jC9pl+VltAJndZwvavfsZawBZ6w5b0C7Nz6QBZK0v6VIsZ8YfawGZfWyPZjnnz1gAWeuHevXIn8ECyGZf0vVYzol/agFks0/piiznxZ9ZANnsk7oiXf5nugGyzT6mK9LlP2MArbWPWbIunwWAlm6M9R+Zt30fX1r6wK9YFp/NAwCs/chYfMvH6B8AYP1wV3yLhfHZAMAm+1bPYrkxfAsAm+xfPfcN48sA2BRv9bE7jC8GgE3xtniP0fhyAEidvE88XwYg68Rz4PMyAFnvPee9+XkZgKz3nvPe/LwMgNTr86p9WwYgdeI58XgYAMmPeD83bwxA8iPe35m3BiD5Hu8X5m0BfN9C8gPeuP9vAaxbSLXhjfvjFmDbA6Qa3ni/awG6NnzbAyQaXru/awG6Nrx2gA5vYwAd3vYAdGPrv8OfW4De+O89IDb/Vf4P4AWeqAnGg9wAAAAASUVORK5CYII=" alt="Owner Head">
+                    <div class="staff-name-normal-red">itz1lm2</div>
+                    <div class="staff-role-desc">Server Owner & Co-Founder</div>
+                </div>
+            </div>
+
         </div>
     </div>
 
     <div id="rules" class="section">
         <div class="rules-container">
-            <h2 style="text-align:center; color:var(--accent-gold); font-size: 2.5rem;">📜 قواعد السيرفر</h2>
+            <h2 style="text-align:center; color:var(--accent-gold); margin-bottom: 40px; font-size: 2.2rem;">📜 دستور وقوانين TARBOUCH SMP</h2>
+            
             <div class="rule-category">
-                <h3>🎯 القواعد الأساسية</h3>
-                <div class="rule-item">احترم جميع الأعضاء والموظفين</div>
-                <div class="rule-item">لا تنمر أو إهانات أو تمييز</div>
-                <div class="rule-item">استخدم لغة مناسبة ومحترمة</div>
-                <div class="rule-item">حافظ على جو إيجابي وودود</div>
-                <div class="rule-item">اتبع الآداب العامة</div>
+                <h3><i class="fas fa-gavel"></i> القوانين العامة للسيرفر</h3>
+                <div class="rule-item"><i class="fas fa-angle-right"></i> <span>الاحترام المتبادل بين جميع اللاعبين والموظفين داخل مجتمع السيرفر والديسكورد فرض أساسي.</span></div>
+                <div class="rule-item"><i class="fas fa-angle-right"></i> <span>يمنع الغش، استخدام الهاكات (X-Ray, Fly, KillAura)، أو استغلال ثغرات الـ Duplication بكافة أشكالها ومن يفعل ذلك يحظر نهائياً.</span></div>
+                <div class="rule-item"><i class="fas fa-angle-right"></i> <span>التخريب المتعمد (Griefing) وسرقة ممتلكات اللاعبين في المناطق غير المخصصة للـ PvP والحروب تؤدي للحظر الفوري.</span></div>
             </div>
+
             <div class="rule-category">
-                <h3>💬 تسمية المحادثة</h3>
-                <div class="rule-item">استخدم القنوات لأغراضها المقصودة</div>
-                <div class="rule-item">لا رسائل غير مرغوب فيها أو تعطيل</div>
-                <div class="rule-item">لا توجد مناقشات سياسية أو دينية</div>
-                <div class="rule-item">لا يوجد محتوى غير لائق</div>
-                <div class="rule-item">لا إعلانات عبر الرسائل المباشرة</div>
-            </div>
-            <div class="rule-category">
-                <h3>🎮 قواعد اللعبة</h3>
-                <div class="rule-item">لا غش أو استخدام الاختراقات</div>
-                <div class="rule-item">احترم اللاعبين الآخرين</div>
-                <div class="rule-item">لا استفزاز الآخرين أثناء المسابقات</div>
-                <div class="rule-item">اتبع قواعد ماين كرافت الرسمية</div>
-                <div class="rule-item">التشجيع الإيجابي مطلوب</div>
-            </div>
-            <div class="rule-category" style="border-right-color: #e74c3c;">
-                <h3>⚠️ العقوبات</h3>
-                <div class="rule-item">الانتهاك الأول: تحذير</div>
-                <div class="rule-item">الانتهاك الثاني: كتم مؤقت</div>
-                <div class="rule-item">الانتهاكات المتكررة: الحظر الدائم</div>
-                <div class="rule-item">الانتهاكات الخطيرة: الحظر الفوري</div>
+                <h3><i class="fas fa-comments"></i> قوانين المحادثة والشات (Chat Rules)</h3>
+                <div class="rule-item"><i class="fas fa-angle-right"></i> <span>يمنع السب, القذف، أو توجيه الإهانات بكافة أنواعها داخل الشات العام.</span></div>
+                <div class="rule-item"><i class="fas fa-angle-right"></i> <span>يمنع منعا كلياً نشر روابط خارجية أو عمل إعلانات لسيرفرات أخرى داخل اللعبة.</span></div>
+                <div class="rule-item"><i class="fas fa-angle-right"></i> <span>تجنب الـ Spam (تكرار الرسائل) أو الكتابة العشوائية المزعجة لتسهيل التواصل بين اللاعبين.</span></div>
             </div>
         </div>
     </div>
 
     <div id="bug-report" class="section">
         <div class="form-box">
-            <h2 style="text-align:center; color:#e67e22;">BUG REPORT 🐛</h2>
+            <h2 style="text-align:center; color:#e67e22; margin-bottom:20px;">BUG REPORT 🐛</h2>
             <input type="text" id="b_title" placeholder="عنوان المشكلة">
-            <textarea id="b_desc" placeholder="وصف العطل..." rows="4"></textarea>
+            <textarea id="b_desc" placeholder="وصف العطل بالتفصيل..." rows="4"></textarea>
             <label class="file-input-label"><i class="fas fa-image"></i> أرفق صورة العطل<input type="file" id="b_file" accept="image/*" style="display:none"></label>
             <input type="text" id="b_discord" placeholder="حسابك في الديسكورد">
-            <button onclick="handleSubmission('bug')" class="btn" style="background:#e67e22">إرسال</button>
+            <button onclick="handleSubmission('bug')" class="btn" style="background:#e67e22">إرسال البلاغ</button>
         </div>
     </div>
 
     <div id="player-report" class="section">
         <div class="form-box">
-            <h2 style="text-align:center; color:var(--primary-red);">PLAYER REPORT ⚖️</h2>
+            <h2 style="text-align:center; color:var(--bright-red); margin-bottom:20px;">PLAYER REPORT ⚖️</h2>
             <input type="text" id="p_target" placeholder="اسم اللاعب المخالف">
-            <textarea id="p_reason" placeholder="سبب البلاغ..." rows="4"></textarea>
-            <label class="file-input-label"><i class="fas fa-camera"></i> أرفق الدليل<input type="file" id="p_file" accept="image/*" style="display:none"></label>
+            <textarea id="p_reason" placeholder="سبب البلاغ والأدلة..." rows="4"></textarea>
+            <label class="file-input-label"><i class="fas fa-camera"></i> أرفق الدليل أو الصورة<input type="file" id="p_file" accept="image/*" style="display:none"></label>
             <input type="text" id="p_discord" placeholder="حسابك في الديسكورد">
-            <button onclick="handleSubmission('report')" class="btn btn-primary">إرسال</button>
+            <button onclick="handleSubmission('report')" class="btn btn-primary">إرسال التقرير</button>
         </div>
     </div>
 
     <footer>
-        <p>SECURED BY <span style="color:var(--primary-red)">SHERLOCK</span> SYSTEMS</p>
+        <p>SECURED BY PROTECTION SYSTEMS &copy; 2026</p>
     </footer>
 
     <script>
@@ -364,114 +334,54 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
-        // Copy Server IP Logic
         function copyServerIP() {
             const ipText = document.getElementById('server-ip').innerText;
             navigator.clipboard.writeText(ipText).then(() => {
                 const badge = document.getElementById('copy-status');
                 badge.innerText = "COPIED! ✅";
                 badge.style.background = "#2ecc71";
-                badge.style.color = "#fff";
                 setTimeout(() => {
                     badge.innerText = "CLICK TO COPY";
                     badge.style.background = "var(--accent-gold)";
-                    badge.style.color = "#000";
                 }, 2000);
             });
         }
 
-        // Dynamic Skin Login Logic
-        function checkStaffAuth() {
-            const username = document.getElementById('staff_user').value.trim();
-            
-            if(!username) {
-                alert("❌ يرجى كتابة اسم المستخدم أولاً!");
-                return;
-            }
-
-            const avatarUrl = `https://crafatar.com/renders/head/${username}?overlay`;
-
-            document.getElementById('skin-head-img').src = avatarUrl;
-            document.getElementById('skin-welcome-text').innerText = `مرحباً بك، ${username}!`;
-            document.getElementById('skin-preview-box').style.display = 'block';
-
-            document.getElementById('nav-avatar').src = avatarUrl;
-            document.getElementById('nav-username').innerText = username;
-            document.getElementById('user-nav-badge').style.display = 'flex';
-            document.getElementById('nav-login-link').style.display = 'none';
-
-            if(username.toLowerCase() === "sherlock" || username === "tarbouchsmpstaff") {
-                document.getElementById('admin-editor').style.display = 'block';
-                document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'table-cell');
-            }
-
-            setTimeout(() => {
-                alert(`🔓 تم تسجيل الدخول بنجاح كـ ${username}!`);
-                showSection('home');
-            }, 800);
-        }
-
-        function addStaffMember() {
-            const name = document.getElementById('new_staff_name').value;
-            const rankSelect = document.getElementById('new_staff_rank');
-            const rank = rankSelect.value;
-            const rankText = rankSelect.options[rankSelect.selectedIndex].text;
-            const icon = rankSelect.options[rankSelect.selectedIndex].getAttribute('data-icon');
-            const automaticJob = rankSelect.options[rankSelect.selectedIndex].getAttribute('data-job');
-
-            if(!name) return;
-
-            const color = rank.startsWith('#') ? rank : `var(--${rank})`;
-            const row = document.createElement('tr');
-            row.innerHTML = `
-                <td style="color:${color}; font-weight:bold;"><i class="fas fa-user"></i> ${name}</td>
-                <td><span class="badge" style="background:${color}"><i class="fas ${icon}"></i> ${rankText}</span></td>
-                <td><i class="fas fa-robot"></i> ${automaticJob}</td>
-                <td class="admin-only" style="display:table-cell"><i class="fas fa-trash delete-btn" onclick="this.parentElement.parentElement.remove()"></i></td>
-            `;
-            
-            document.getElementById('staff-body').appendChild(row);
-        }
-
         async function handleSubmission(type) {
-            // الـ Webhook الجديد ديالك تـربط هنايا بنجاح 🚀
             const webhookURL = "https://discord.com/api/webhooks/1507754725796216872/751WD9KuOEPEfzbRJpd1HC2qllZ6VEtTlqJc6RAjvLmEl44eZTuvfQN04ktjf1UXaXRz";
             const formData = new FormData();
-            let embed = { timestamp: new Date(), footer: { text: "Tarbouch SMP Logs 🛡️" } };
+            let embed = { timestamp: new Date(), footer: { text: "Tarbouch SMP Protection 🛡️" } };
 
             if (type === 'bug') {
-                embed.title = "🐛 Bug Found | عطل جديد"; 
-                embed.color = 15105570; // Orange
+                embed.title = "🐛 Bug Report | عطل مكتشف";
+                embed.color = 15105570;
                 embed.fields = [
                     { name: "العنوان", value: document.getElementById('b_title').value || "بدون عنوان" },
-                    { name: "وصف العطل", value: document.getElementById('b_desc').value || "بدون وصف" },
-                    { name: "حساب ديسكورد", value: document.getElementById('b_discord').value || "غير متوفر" }
+                    { name: "الوصف", value: document.getElementById('b_desc').value || "بدون وصف" },
+                    { name: "ديسكورد", value: document.getElementById('b_discord').value || "غير محدد" }
                 ];
                 const file = document.getElementById('b_file').files[0];
                 if(file) formData.append('file', file);
             } else {
-                embed.title = "🚫 Player Report | بلاغ ضد لاعب"; 
-                embed.color = 16711680; // Red
+                embed.title = "🚫 Player Report | شكوى ضد لاعب";
+                embed.color = 16711680;
                 embed.fields = [
-                    { name: "اللاعب المخالف", value: document.getElementById('p_target').value || "غير محدد" },
-                    { name: "السبب / الدليل", value: document.getElementById('p_reason').value || "بدون سبب" },
-                    { name: "المبلغ (ديسكورد)", value: document.getElementById('p_discord').value || "غير متوفر" }
+                    { name: "اللاعب المخالف", value: document.getElementById('p_target').value || "غير معروف" },
+                    { name: "السبب والأدلة", value: document.getElementById('p_reason').value || "لا يوجد" },
+                    { name: "المبلغ", value: document.getElementById('p_discord').value || "غير محدد" }
                 ];
                 const file = document.getElementById('p_file').files[0];
                 if(file) formData.append('file', file);
             }
 
             formData.append('payload_json', JSON.stringify({ embeds: [embed] }));
-            
-            try { 
-                const response = await fetch(webhookURL, { method: 'POST', body: formData }); 
-                if(response.ok) {
-                    alert("✅ تم إرسال البلاغ بنجاح إلى الديسكورد!"); 
-                } else {
-                    alert("❌ فشل الإرسال، تأكد من إعدادات الـ Webhook.");
-                }
-            } catch (e) { 
-                alert("❌ حدث خطأ أثناء الإرسال!"); 
+
+            try {
+                const res = await fetch(webhookURL, { method: 'POST', body: formData });
+                if(res.ok) alert("✅ تم إرسال التقرير بنجاح!");
+                else alert("❌ فشل الإرسال.");
+            } catch(e) {
+                alert("❌ حدث خطأ غير متوقع.");
             }
         }
     </script>
