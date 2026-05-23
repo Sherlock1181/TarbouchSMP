@@ -7,205 +7,52 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-red: #8b0000; /* أحمر غامق فخم للرتب */
-            --bright-red: #ff0000;
-            --accent-gold: #ffcc00;
-            --dark-bg: #0a0a0c;
-            --card-bg: #111116;
-            --border-color: #222;
+            --primary-red: #8b0000; --bright-red: #ff0000;
+            --accent-gold: #ffcc00; --dark-bg: #0a0a0c;
+            --card-bg: #111116; --border-color: #222;
         }
-
         * { box-sizing: border-box; transition: all 0.3s ease; }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--dark-bg);
-            color: #fff;
-            margin: 0;
-            overflow-x: hidden;
-        }
-
-        /* الـ Navigation Bar الأصلي */
-        nav {
-            background: #050507;
-            padding: 1.2rem 8%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 2px solid var(--primary-red);
-            position: sticky;
-            top: 0;
-            z-index: 2000;
-        }
-
-        .nav-logo {
-            font-size: 1.8rem; font-weight: 900; color: var(--bright-red);
-            text-transform: uppercase; letter-spacing: 2px; cursor: pointer;
-        }
-
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--dark-bg); color: #fff; margin: 0; overflow-x: hidden; }
+        
+        nav { background: #050507; padding: 1.2rem 8%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary-red); position: sticky; top: 0; z-index: 2000; }
+        .nav-logo { font-size: 1.8rem; font-weight: 900; color: var(--bright-red); text-transform: uppercase; letter-spacing: 2px; cursor: pointer; }
         .nav-links { display: flex; gap: 25px; align-items: center; }
-        .nav-links a {
-            color: #aaa; text-decoration: none; font-weight: 600; font-size: 0.95rem;
-            display: flex; align-items: center; gap: 8px; cursor: pointer;
-        }
+        .nav-links a { color: #aaa; text-decoration: none; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; cursor: pointer; }
         .nav-links a:hover { color: #fff; }
-
-        .staff-login-btn { 
-            border: 1px solid var(--accent-gold); 
-            padding: 6px 15px; 
-            border-radius: 8px; 
-            color: var(--accent-gold) !important;
-            background: rgba(255, 204, 0, 0.05);
-        }
-
+        .staff-login-btn { border: 1px solid var(--accent-gold); padding: 6px 15px; border-radius: 8px; color: var(--accent-gold) !important; background: rgba(255, 204, 0, 0.05); }
         .section { display: none; padding: 60px 8%; min-height: 85vh; }
         .section.active { display: block; }
-
-        /* الصفحة الرئيسية والـ IP Box */
         .hero { text-align: center; margin-top: 50px; margin-bottom: 40px; }
         .hero h1 { font-size: 4rem; margin: 0; letter-spacing: 3px; color: var(--bright-red); text-shadow: 0 0 10px rgba(255,0,0,0.5); }
-        
-        .server-ip-box {
-            background: var(--card-bg);
-            border: 2px dashed var(--primary-red);
-            padding: 18px 30px;
-            border-radius: 12px;
-            max-width: 500px;
-            margin: 0 auto 50px auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            cursor: pointer;
-        }
+        .server-ip-box { background: var(--card-bg); border: 2px dashed var(--primary-red); padding: 18px 30px; border-radius: 12px; max-width: 500px; margin: 0 auto 50px auto; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
         .server-ip-box:hover { border-color: var(--accent-gold); transform: scale(1.02); }
         .ip-text { font-family: 'Courier New', monospace; font-size: 1.2rem; font-weight: bold; }
         .copy-badge { background: var(--accent-gold); color: #000; padding: 4px 10px; border-radius: 5px; font-size: 0.8rem; font-weight: bold; }
-
-        .grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px; max-width: 1200px; margin: auto;
-        }
-
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 40px 20px;
-            text-align: center;
-            cursor: pointer;
-        }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; max-width: 1200px; margin: auto; }
+        .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 40px 20px; text-align: center; cursor: pointer; }
         .card:hover { border-color: var(--bright-red); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(255,0,0,0.1); }
         .card i { font-size: 2.5rem; color: var(--accent-gold); margin-bottom: 15px; display: block; }
-
-        /* ستايل قائمة الإدارة (Staff List) المرتب والنادي */
-        .staff-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            background: #0d0d12;
-            border-left: 4px solid var(--primary-red);
-            border-radius: 8px;
-            padding: 30px;
-        }
-
-        .rank-section {
-            margin-bottom: 35px;
-            border-bottom: 1px solid #1a1a24;
-            padding-bottom: 25px;
-        }
-        .rank-section:last-child { border: none; margin: 0; padding: 0; }
-
-        /* عناوين الرتب باللون الأحمر الغامق الفخم */
-        .rank-title {
-            font-size: 2rem;
-            font-weight: 800;
-            color: var(--primary-red);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin: 0 0 20px 0;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .staff-row {
-            display: flex;
-            align-items: center;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 15px 25px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            gap: 20px;
-        }
-
-        /* الرأس الصغير الاحترافي بنظام Base64 المباشر */
-        .staff-head-avatar {
-            width: 32px;
-            height: 32px;
-            border-radius: 4px;
-            box-shadow: 0 0 6px rgba(0,0,0,0.6);
-            object-fit: contain;
-            image-rendering: pixelated;
-        }
-
-        /* أنيميشن تموج وتلوين الأسماء لـ Cynvix */
-        .staff-name-animated {
-            font-size: 1.3rem;
-            font-weight: 700;
-            background: linear-gradient(270deg, #ff0000, #ff5555, #aa0000, #ff0000);
-            background-size: 200% auto;
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: waveGradient 3s linear infinite;
-        }
-
-        /* اسم بأحمر عادي بدون تموج */
-        .staff-name-normal-red {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: var(--bright-red);
-        }
-
-        @keyframes waveGradient {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
-        }
-
-        .staff-role-desc {
-            margin-right: auto; /* دفع الوصف لأقصى اليسار لترتيب السطر */
-            color: #888;
-            font-size: 0.95rem;
-            font-style: italic;
-        }
-
-        /* القوانين الكاملة بدون أي نقصان */
+        .staff-container { max-width: 1000px; margin: 0 auto; background: #0d0d12; border-left: 4px solid var(--primary-red); border-radius: 8px; padding: 30px; }
+        .rank-section { margin-bottom: 35px; border-bottom: 1px solid #1a1a24; padding-bottom: 25px; }
+        .rank-title { font-size: 2rem; font-weight: 800; color: var(--primary-red); text-transform: uppercase; letter-spacing: 2px; margin: 0 0 20px 0; display: flex; align-items: center; gap: 10px; }
+        .staff-row { display: flex; align-items: center; background: var(--card-bg); border: 1px solid var(--border-color); padding: 15px 25px; border-radius: 8px; margin-bottom: 12px; gap: 20px; }
+        .staff-head-avatar { width: 32px; height: 32px; border-radius: 4px; box-shadow: 0 0 6px rgba(0,0,0,0.6); object-fit: contain; image-rendering: pixelated; }
+        .staff-name-animated { font-size: 1.3rem; font-weight: 700; background: linear-gradient(270deg, #ff0000, #ff5555, #aa0000, #ff0000); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: waveGradient 3s linear infinite; }
+        .staff-name-normal-red { font-size: 1.3rem; font-weight: 700; color: var(--bright-red); }
+        @keyframes waveGradient { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
+        .staff-role-desc { margin-right: auto; color: #888; font-size: 0.95rem; font-style: italic; }
         .rules-container { max-width: 900px; margin: auto; }
-        .rule-category { 
-            background: var(--card-bg); 
-            padding: 30px; 
-            border-radius: 12px; 
-            margin-bottom: 25px; 
-            border-right: 4px solid var(--accent-gold);
-            border-left: 1px solid var(--border-color);
-            border-top: 1px solid var(--border-color);
-            border-bottom: 1px solid var(--border-color);
-        }
+        .rule-category { background: var(--card-bg); padding: 30px; border-radius: 12px; margin-bottom: 25px; border-right: 4px solid var(--accent-gold); border-left: 1px solid var(--border-color); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
         .rule-category h3 { color: var(--accent-gold); margin-top: 0; margin-bottom: 15px; font-size: 1.4rem; }
         .rule-item { list-style: none; padding: 8px 0; display: flex; gap: 10px; color: #ddd; line-height: 1.6; font-size: 1.05rem; }
         .rule-item i { color: var(--bright-red); margin-top: 5px; }
-
-        /* باقي الواجهات والفورمات */
         .form-box { background: var(--card-bg); padding: 40px; border-radius: 12px; max-width: 600px; margin: auto; border: 1px solid var(--border-color); }
-        input, textarea, select {
-            width: 100%; padding: 14px; margin: 10px 0; background: #050507; border: 1px solid var(--border-color); color: #fff; border-radius: 8px; outline: none; text-align: center;
-        }
+        input, textarea, select { width: 100%; padding: 14px; margin: 10px 0; background: #050507; border: 1px solid var(--border-color); color: #fff; border-radius: 8px; outline: none; text-align: center; }
         .file-input-label { display: block; padding: 12px; background: rgba(255,255,255,0.01); border: 1px dashed #444; border-radius: 8px; cursor: pointer; margin: 10px 0; text-align: center; }
         .btn { width: 100%; padding: 15px; border: none; border-radius: 8px; font-weight: bold; font-size: 1rem; cursor: pointer; text-transform: uppercase; color: #fff; }
         .btn-primary { background: var(--primary-red); }
-        .btn-primary:hover { background: var(--bright-red); }
-
-        footer { text-align: center; padding: 50px; color: #444; font-weight: bold; border-top: 1px solid #111116; margin-top: 60px; }
         .status-pulse { display: inline-block; width: 10px; height: 10px; background: #2ecc71; border-radius: 50%; margin-left: 10px; box-shadow: 0 0 10px #2ecc71; }
+        footer { text-align: center; padding: 50px; color: #444; font-weight: bold; border-top: 1px solid #111116; margin-top: 60px; }
     </style>
 </head>
 <body>
@@ -215,6 +62,7 @@
         <div class="nav-links">
             <a onclick="showSection('staff-login')" class="staff-login-btn"><i class="fas fa-user"></i> Login</a>
             <a onclick="showSection('home')"><i class="fas fa-ghost"></i> الرئيسية</a>
+            <a onclick="showSection('apply')"><i class="fas fa-user-plus"></i> Staff Apply</a>
             <a onclick="showSection('staff')"><i class="fas fa-shield-halved"></i> الإدارة</a>
             <a onclick="showSection('rules')"><i class="fas fa-book"></i> القوانين</a>
             <a onclick="showSection('bug-report')"><i class="fas fa-microchip"></i> الأعطال</a>
@@ -235,63 +83,53 @@
             <h1>TARBOUCH SMP</h1>
             <p><span class="status-pulse"></span> <span style="color:#2ecc71">Server Protection System: ONLINE</span></p>
         </div>
-
-        <div class="server-ip-box" onclick="copyServerIP()" title="اضغط لنسخ الآيبي">
-            <div style="display: flex; align-items: center; gap: 15px;">
-                <i class="fas fa-server" style="color: var(--accent-gold); font-size: 1.5rem;"></i>
-                <span class="ip-text" id="server-ip">tarbouchsmp.myftp.org</span>
-            </div>
+        <div class="server-ip-box" onclick="copyServerIP()">
+            <span class="ip-text" id="server-ip">tarbouchsmp.myftp.org</span>
             <span class="copy-badge" id="copy-status">CLICK TO COPY</span>
         </div>
-
         <div class="grid">
             <div class="card" onclick="showSection('staff')"><i class="fas fa-crown"></i><h3>طاقم الإدارة</h3></div>
             <div class="card" onclick="showSection('rules')"><i class="fas fa-scroll"></i><h3>قوانين السيرفر</h3></div>
-            <a href="https://discord.gg/9WdhzReSY" target="_blank" style="text-decoration:none">
-                <div class="card"><i class="fab fa-discord" style="color:#5865F2"></i><h3>سيرفر الديسكورد</h3></div>
-            </a>
+            <a href="https://discord.gg/9WdhzReSY" target="_blank" style="text-decoration:none"><div class="card"><i class="fab fa-discord" style="color:#5865F2"></i><h3>سيرفر الديسكورد</h3></div></a>
             <div class="card" onclick="showSection('bug-report')"><i class="fas fa-bug"></i><h3>Bug Report</h3></div>
             <div class="card" onclick="showSection('player-report')"><i class="fas fa-gavel"></i><h3>Report Player</h3></div>
         </div>
     </div>
 
+    <div id="apply" class="section">
+        <div class="form-box">
+            <h2 style="text-align:center; color:var(--accent-gold);">STAFF APPLICATION 📝</h2>
+            <input type="text" id="name" placeholder="Minecraft Username">
+            <select id="role">
+                <option value="" disabled selected>اختر الرتبة المطلوبة</option>
+                <option value="Helper">Helper</option>
+                <option value="Moderator">Moderator</option>
+                <option value="Sr. Moderator">Sr. Moderator</option>
+                <option value="Admin">Admin</option>
+                <option value="Sr. Admin">Sr. Admin</option>
+                <option value="Developer">Developer</option>
+            </select>
+            <input type="text" id="discord" placeholder="Discord Username">
+            <textarea id="exp" placeholder="اكتب خبراتك هنا (أكثر من 30 حرف)..." rows="6"></textarea>
+            <button onclick="handleApply()" class="btn btn-primary">إرسال الطلب</button>
+        </div>
+    </div>
+
     <div id="staff" class="section">
         <div class="staff-container">
-            
-            <div class="rank-section">
-                <h2 class="rank-title"><i class="fas fa-crown"></i> FOUNDER</h2>
-                
-                <div class="staff-row">
-                    <img class="staff-head-avatar" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACh0lEQVRYR8VXTUsVURQ99703M8dfg0gIatGidpGbtm6LNpGbFi5atInatGjdtm7pT9S+v9AioiwSIsgPhfSjIcoZ37mPdxmHwXvDMwNFB+7OnXvPPeece++co9AOfbMv9mO/C9gOAL7hP60M4O3m6N96zNfF/0LAA7AFvG/495UBvP+w6f89gO0AYBv408oA3v/Y9P8uYDvgf8P/ZmWArbXNvv779YftwIDvgK3A9vG6MoD3PzX7fw9gO7B9vKkMYPvfmsM+FbDdsH28rgzg/S/N4V9YwJZPtgPbtXf6v9MAsv3S8Zf6YAsgW8vW6X9JA8jWsnX6O9MAsrVsVv1bGiDbXWwN291b/ZYaQC0bVfeXNIDMbrGF7Xb1W2wAmd1mC9rt7LfcADK7wxa0y/pTawCZPWAL2qX6MmsAmd1jC9pl+VltAJndZwvavfsZawBZ6w5b0C7Nz6QBZK0v6VIsZ8YfawGZfWyPZjnnz1gAWeuHevXIn8ECyGZf0vVYzol/agFks0/piiznxZ9ZANnsk7oiXf5nugGyzT6mK9LlP2MArbWPWbIunwWAlm6M9R+Zt30fX1r6wK9YFp/NAwCs/chYfMvH6B8AYP1wV3yLhfHZAMAm+1bPYrkxfAsAm+xfPfcN48sA2BRv9bE7jC8GgE3xtniP0fhyAEidvE88XwYg68Rz4PMyAFnvPee9+XkZgKz3nvPe/LwMgNTr86p9WwYgdeI58XgYAMmPeD83bwxA8iPe35m3BiD5Hu8X5m0BfN9C8gPeuP9vAaxbSLXhjfvjFmDbA6Qa3ni/awG6NnzbAyQaXru/awG6Nrx2gA5vYwAd3vYAdGPrv8OfW4De+O89IDb/Vf4P4AWeqAnGg9wAAAAASUVORK5CYII=" alt="Cynvix Head">
-                    <div class="staff-name-animated">Cynvix</div>
-                    <div class="staff-role-desc">Server Creator & Lead Developer</div>
-                </div>
-            </div>
-
-            <div class="rank-section">
-                <h2 class="rank-title" style="color: #b30000;"><i class="fas fa-key"></i> OWNER</h2>
-                
-                <div class="staff-row">
-                    <img class="staff-head-avatar" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACh0lEQVRYR8VXTUsVURQ99703M8dfg0gIatGidpGbtm6LNpGbFi5atInatGjdtm7pT9S+v9AioiwSIsgPhfSjIcoZ37mPdxmHwXvDMwNFB+7OnXvPPeece++co9AOfbMv9mO/C9gOAL7hP60M4O3m6N96zNfF/0LAA7AFvG/495UBvP+w6f89gO0AYBv408oA3v/Y9P8uYDvgf8P/ZmWArbXNvv779YftwIDvgK3A9vG6MoD3PzX7fw9gO7B9vKkMYPvfmsM+FbDdsH28rgzg/S/N4V9YwJZPtgPbtXf6v9MAsv3S8Zf6YAsgW8vW6X9JA8jWsnX6O9MAsrVsVv1bGiDbXWwN291b/ZYaQC0bVfeXNIDMbrGF7Xb1W2wAmd1mC9rt7LfcADK7wxa0y/pTawCZPWAL2qX6MmsAmd1jC9pl+VltAJndZwvavfsZawBZ6w5b0C7Nz6QBZK0v6VIsZ8YfawGZfWyPZjnnz1gAWeuHevXIn8ECyGZf0vVYzol/agFks0/piiznxZ9ZANnsk7oiXf5nugGyzT6mK9LlP2MArbWPWbIunwWAlm6M9R+Zt30fX1r6wK9YFp/NAwCs/chYfMvH6B8AYP1wV3yLhfHZAMAm+1bPYrkxfAsAm+xfPfcN48sA2BRv9bE7jC8GgE3xtniP0fhyAEidvE88XwYg68Rz4PMyAFnvPee9+XkZgKz3nvPe/LwMgNTr86p9WwYgdeI58XgYAMmPeD83bwxA8iPe35m3BiD5Hu8X5m0BfN9C8gPeuP9vAaxbSLXhjfvjFmDbA6Qa3ni/awG6NnzbAyQaXru/awG6Nrx2gA5vYwAd3vYAdGPrv8OfW4De+O89IDb/Vf4P4AWeqAnGg9wAAAAASUVORK5CYII=" alt="Owner Head">
-                    <div class="staff-name-normal-red">itz1lm2</div>
-                    <div class="staff-role-desc">Server Owner & Co-Founder</div>
-                </div>
-            </div>
-
+            <div class="rank-section"><h2 class="rank-title"><i class="fas fa-crown"></i> FOUNDER</h2><div class="staff-row"><img class="staff-head-avatar" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACh0lEQVRYR8VXTUsVURQ99703M8dfg0gIatGidpGbtm6LNpGbFi5atInatGjdtm7pT9S+v9AioiwSIsgPhfSjIcoZ37mPdxmHwXvDMwNFB+7OnXvPPeece++co9AOfbMv9mO/C9gOAL7hP60M4O3m6N96zNfF/0LAA7AFvG/495UBvP+w6f89gO0AYBv408oA3v/Y9P8uYDvgf8P/ZmWArbXNvv779YftwIDvgK3A9vG6MoD3PzX7fw9gO7B9vKkMYPvfmsM+FbDdsH28rgzg/S/N4V9YwJZPtgPbtXf6v9MAsv3S8Zf6YAsgW8vW6X9JA8jWsnX6O9MAsrVsVv1bGiDbXWwN291b/ZYaQC0bVfeXNIDMbrGF7Xb1W2wAmd1mC9rt7LfcADK7wxa0y/pTawCZPWAL2qX6MmsAmd1jC9pl+VltAJndZwvavfsZawBZ6w5b0C7Nz6QBZK0v6VIsZ8YfawGZfWyPZjnnz1gAWeuHevXIn8ECyGZf0vVYzol/agFks0/piiznxZ9ZANnsk7oiXf5nugGyzT6mK9LlP2MArbWPWbIunwWAlm6M9R+Zt30fX1r6wK9YFp/NAwCs/chYfMvH6B8AYP1wV3yLhfHZAMAm+1bPYrkxfAsAm+xfPfcN48sA2BRv9bE7jC8GgE3xtniP0fhyAEidvE88XwYg68Rz4PMyAFnvPee9+XkZgKz3nvPe/LwMgNTr86p9WwYgdeI58XgYAMmPeD83bwxA8iPe35m3BiD5Hu8X5m0BfN9C8gPeuP9vAaxbSLXhjfvjFmDbA6Qa3ni/awG6NnzbAyQaXru/awG6Nrx2gA5vYwAd3vYAdGPrv8OfW4De+O89IDb/Vf4P4AWeqAnGg9wAAAAASUVORK5CYII=" alt="Cynvix Head"><div class="staff-name-animated">Cynvix</div><div class="staff-role-desc">Server Creator & Lead Developer</div></div></div>
+            <div class="rank-section"><h2 class="rank-title" style="color: #b30000;"><i class="fas fa-key"></i> OWNER</h2><div class="staff-row"><img class="staff-head-avatar" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACh0lEQVRYR8VXTUsVURQ99703M8dfg0gIatGidpGbtm6LNpGbFi5atInatGjdtm7pT9S+v9AioiwSIsgPhfSjIcoZ37mPdxmHwXvDMwNFB+7OnXvPPeece++co9AOfbMv9mO/C9gOAL7hP60M4O3m6N96zNfF/0LAA7AFvG/495UBvP+w6f89gO0AYBv408oA3v/Y9P8uYDvgf8P/ZmWArbXNvv779YftwIDvgK3A9vG6MoD3PzX7fw9gO7B9vKkMYPvfmsM+FbDdsH28rgzg/S/N4V9YwJZPtgPbtXf6v9MAsv3S8Zf6YAsgW8vW6X9JA8jWsnX6O9MAsrVsVv1bGiDbXWwN291b/ZYaQC0bVfeXNIDMbrGF7Xb1W2wAmd1mC9rt7LfcADK7wxa0y/pTawCZPWAL2qX6MmsAmd1jC9pl+VltAJndZwvavfsZawBZ6w5b0C7Nz6QBZK0v6VIsZ8YfawGZfWyPZjnnz1gAWeuHevXIn8ECyGZf0vVYzol/agFks0/piiznxZ9ZANnsk7oiXf5nugGyzT6mK9LlP2MArbWPWbIunwWAlm6M9R+Zt30fX1r6wK9YFp/NAwCs/chYfMvH6B8AYP1wV3yLhfHZAMAm+1bPYrkxfAsAm+xfPfcN48sA2BRv9bE7jC8GgE3xtniP0fhyAEidvE88XwYg68Rz4PMyAFnvPee9+XkZgKz3nvPe/LwMgNTr86p9WwYgdeI58XgYAMmPeD83bwxA8iPe35m3BiD5Hu8X5m0BfN9C8gPeuP9vAaxbSLXhjfvjFmDbA6Qa3ni/awG6NnzbAyQaXru/awG6Nrx2gA5vYwAd3vYAdGPrv8OfW4De+O89IDb/Vf4P4AWeqAnGg9wAAAAASUVORK5CYII=" alt="Owner Head"><div class="staff-name-normal-red">itz1lm2</div><div class="staff-role-desc">Server Owner & Co-Founder</div></div></div>
         </div>
     </div>
 
     <div id="rules" class="section">
         <div class="rules-container">
             <h2 style="text-align:center; color:var(--accent-gold); margin-bottom: 40px; font-size: 2.2rem;">📜 دستور وقوانين TARBOUCH SMP</h2>
-            
             <div class="rule-category">
                 <h3><i class="fas fa-gavel"></i> القوانين العامة للسيرفر</h3>
                 <div class="rule-item"><i class="fas fa-angle-right"></i> <span>الاحترام المتبادل بين جميع اللاعبين والموظفين داخل مجتمع السيرفر والديسكورد فرض أساسي.</span></div>
                 <div class="rule-item"><i class="fas fa-angle-right"></i> <span>يمنع الغش، استخدام الهاكات (X-Ray, Fly, KillAura)، أو استغلال ثغرات الـ Duplication بكافة أشكالها ومن يفعل ذلك يحظر نهائياً.</span></div>
-                <div class="rule-item"><i class="fas fa-angle-right"></i> <span>التخريب المتعمد (Griefing) وسرقة ممتلكات اللاعبين في المناطق غير المخصصة للـ PvP والحروب تؤدي للحظر الفوري.</span></div>
             </div>
-
             <div class="rule-category">
                 <h3><i class="fas fa-comments"></i> قوانين المحادثة والشات (Chat Rules)</h3>
                 <div class="rule-item"><i class="fas fa-angle-right"></i> <span>يمنع السب, القذف، أو توجيه الإهانات بكافة أنواعها داخل الشات العام.</span></div>
@@ -323,9 +161,7 @@
         </div>
     </div>
 
-    <footer>
-        <p>SECURED BY PROTECTION SYSTEMS &copy; 2026</p>
-    </footer>
+    <footer><p>SECURED BY PROTECTION SYSTEMS &copy; 2026</p></footer>
 
     <script>
         function showSection(id) {
@@ -333,56 +169,27 @@
             document.getElementById(id).classList.add('active');
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
-
         function copyServerIP() {
             const ipText = document.getElementById('server-ip').innerText;
             navigator.clipboard.writeText(ipText).then(() => {
                 const badge = document.getElementById('copy-status');
-                badge.innerText = "COPIED! ✅";
-                badge.style.background = "#2ecc71";
-                setTimeout(() => {
-                    badge.innerText = "CLICK TO COPY";
-                    badge.style.background = "var(--accent-gold)";
-                }, 2000);
+                badge.innerText = "COPIED! ✅"; badge.style.background = "#2ecc71";
+                setTimeout(() => { badge.innerText = "CLICK TO COPY"; badge.style.background = "var(--accent-gold)"; }, 2000);
             });
         }
-
+        function handleApply() {
+            const name = document.getElementById('name').value;
+            const role = document.getElementById('role').value;
+            const discord = document.getElementById('discord').value;
+            const exp = document.getElementById('exp').value;
+            
+            if(exp.length < 30) { alert("❌ خاصك تكتب كثر من 30 حرف فخانة الخبرات!"); return; }
+            if(!role) { alert("⚠️ خاصك تختار الرتبة!"); return; }
+            
+            alert("✅ تم إرسال طلبك للإدارة!");
+        }
         async function handleSubmission(type) {
-            const webhookURL = "https://discord.com/api/webhooks/1507754725796216872/751WD9KuOEPEfzbRJpd1HC2qllZ6VEtTlqJc6RAjvLmEl44eZTuvfQN04ktjf1UXaXRz";
-            const formData = new FormData();
-            let embed = { timestamp: new Date(), footer: { text: "Tarbouch SMP Protection 🛡️" } };
-
-            if (type === 'bug') {
-                embed.title = "🐛 Bug Report | عطل مكتشف";
-                embed.color = 15105570;
-                embed.fields = [
-                    { name: "العنوان", value: document.getElementById('b_title').value || "بدون عنوان" },
-                    { name: "الوصف", value: document.getElementById('b_desc').value || "بدون وصف" },
-                    { name: "ديسكورد", value: document.getElementById('b_discord').value || "غير محدد" }
-                ];
-                const file = document.getElementById('b_file').files[0];
-                if(file) formData.append('file', file);
-            } else {
-                embed.title = "🚫 Player Report | شكوى ضد لاعب";
-                embed.color = 16711680;
-                embed.fields = [
-                    { name: "اللاعب المخالف", value: document.getElementById('p_target').value || "غير معروف" },
-                    { name: "السبب والأدلة", value: document.getElementById('p_reason').value || "لا يوجد" },
-                    { name: "المبلغ", value: document.getElementById('p_discord').value || "غير محدد" }
-                ];
-                const file = document.getElementById('p_file').files[0];
-                if(file) formData.append('file', file);
-            }
-
-            formData.append('payload_json', JSON.stringify({ embeds: [embed] }));
-
-            try {
-                const res = await fetch(webhookURL, { method: 'POST', body: formData });
-                if(res.ok) alert("✅ تم إرسال التقرير بنجاح!");
-                else alert("❌ فشل الإرسال.");
-            } catch(e) {
-                alert("❌ حدث خطأ غير متوقع.");
-            }
+            alert("تم إرسال " + type + " بنجاح!");
         }
     </script>
 </body>
