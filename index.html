@@ -61,15 +61,50 @@
             color: var(--accent-gold) !important;
         }
 
+        .user-profile-nav {
+            display: none;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255,255,255,0.1);
+            padding: 5px 10px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .user-profile-nav img {
+            width: 25px;
+            height: 25px;
+            border-radius: 4px;
+        }
+
         .section { display: none; padding: 60px 10%; min-height: 80vh; animation: sectionIn 0.6s ease; }
         .section.active { display: block; }
         @keyframes sectionIn { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
 
-        .hero { text-align: center; margin-bottom: 50px; }
+        .hero { text-align: center; margin-bottom: 30px; }
         .hero h1 { 
             font-size: 4rem; margin: 0; background: linear-gradient(to bottom, #fff, var(--accent-gold));
             -webkit-background-clip: text; -webkit-text-fill-color: transparent;
         }
+
+        .server-ip-box {
+            background: var(--glass);
+            border: 2px dashed var(--accent-gold);
+            padding: 15px 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            margin: 0 auto 40px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+        }
+        .server-ip-box:hover {
+            background: rgba(255, 204, 0, 0.1);
+            transform: scale(1.02);
+        }
+        .ip-text { font-family: 'Courier New', monospace; font-size: 1.2rem; font-weight: bold; color: #fff; }
+        .copy-badge { background: var(--accent-gold); color: #000; padding: 3px 8px; border-radius: 5px; font-size: 0.8rem; font-weight: bold; }
 
         .grid {
             display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -102,12 +137,28 @@
         .form-box {
             background: var(--glass); padding: 40px; border-radius: 25px;
             max-width: 600px; margin: auto; border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
+        }
+
+        .skin-display-zone {
+            margin: 20px 0;
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .skin-display-zone img {
+            width: 100px;
+            height: 100px;
+            border-radius: 12px;
+            border: 2px solid var(--accent-gold);
+            box-shadow: 0 0 15px rgba(255, 204, 0, 0.3);
         }
 
         input, textarea, select {
             width: 100%; padding: 15px; margin: 12px 0;
             background: rgba(0,0,0,0.5); border: 1px solid #333;
             color: #fff; border-radius: 12px; outline: none;
+            text-align: center;
         }
 
         .file-input-label {
@@ -145,32 +196,51 @@
     <nav>
         <div class="nav-logo" onclick="showSection('home')">TARBOUCH <span style="color:#fff">SMP</span></div>
         <div class="nav-links">
-            <a onclick="showSection('staff-login')" class="staff-login-btn"><i class="fas fa-lock-open"></i> Staff Login</a>
+            <div id="user-nav-badge" class="user-profile-nav">
+                <img id="nav-avatar" src="" alt="Skin">
+                <span id="nav-username" style="font-weight: bold; color: var(--accent-gold);"></span>
+            </div>
+            
+            <a id="nav-login-link" onclick="showSection('staff-login')" class="staff-login-btn"><i class="fas fa-user"></i> Login</a>
             <a onclick="showSection('home')"><i class="fas fa-ghost"></i> الرئيسية</a>
             <a onclick="showSection('staff')"><i class="fas fa-shield-halved"></i> الإدارة</a>
             <a onclick="showSection('rules')"><i class="fas fa-book"></i> القوانين</a>
-            <a onclick="showSection('apply')" style="color: #888;"><i class="fas fa-lock"></i> التقديم 🔒</a>
+            <a onclick="showSection('apply')" style="color: #888;"><i class="fas fa-lock"></i> التتقديم 🔒</a>
             <a onclick="showSection('bug-report')"><i class="fas fa-microchip"></i> الأعطال</a>
             <a onclick="showSection('player-report')"><i class="fas fa-shield-virus"></i> البلاغات</a>
         </div>
     </nav>
 
-    <!-- Staff Login Section -->
     <div id="staff-login" class="section">
         <div class="form-box">
-            <h2 style="text-align:center; color:var(--accent-gold);">STAFF PORTAL 🔒</h2>
-            <input type="text" id="staff_user" placeholder="Staff Username">
-            <input type="password" id="staff_pass" placeholder="Security Code">
-            <button onclick="checkStaffAuth()" class="btn btn-primary">Login to Console</button>
+            <h2 style="text-align:center; color:var(--accent-gold);">MEMBER PORTAL 🎮</h2>
+            <p style="color: #bbb; margin-bottom: 20px;">اكتب اسمك في ماين كرافت لتسجيل الدخول وعرض الـ Skin</p>
+            
+            <input type="text" id="staff_user" placeholder="Minecraft Username (IGN)">
+            
+            <div id="skin-preview-box" class="skin-display-zone">
+                <img id="skin-head-img" src="" alt="Minecraft Skin Head">
+                <h3 id="skin-welcome-text" style="color: #fff; margin-top: 10px;"></h3>
+            </div>
+
+            <button onclick="checkStaffAuth()" class="btn btn-primary">Login Now</button>
         </div>
     </div>
 
-    <!-- Home Section -->
     <div id="home" class="section active">
         <div class="hero">
             <h1>TARBOUCH ELITE</h1>
             <p><span class="status-pulse"></span> <span style="color:#2ecc71">Sherlock Systems Protection: ACTIVE</span></p>
         </div>
+
+        <div class="server-ip-box" onclick="copyServerIP()" title="اضغط لنسخ الآيبي">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <i class="fas fa-server" style="color: var(--accent-gold); font-size: 1.5rem;"></i>
+                <span class="ip-text" id="server-ip">tarbouchsmp.myftp.org</span>
+            </div>
+            <span class="copy-badge" id="copy-status">CLICK TO COPY</span>
+        </div>
+
         <div class="grid">
             <div class="card" onclick="showSection('staff')"><i class="fas fa-crown"></i><h3>إدارة النخبة</h3></div>
             <div class="card" onclick="showSection('rules')"><i class="fas fa-scroll"></i><h3>قواعد السيرفر</h3></div>
@@ -183,7 +253,6 @@
         </div>
     </div>
 
-    <!-- Staff Section -->
     <div id="staff" class="section">
         <h2 style="text-align:center; color:var(--accent-gold);">STAFF COMMAND CENTER 🛡️</h2>
         
@@ -225,7 +294,6 @@
         </div>
     </div>
 
-    <!-- Rules Section -->
     <div id="rules" class="section">
         <div class="rules-container">
             <h2 style="text-align:center; color:var(--accent-gold); font-size: 2.5rem;">📜 قواعد السيرفر</h2>
@@ -263,7 +331,6 @@
         </div>
     </div>
 
-    <!-- Reports -->
     <div id="bug-report" class="section">
         <div class="form-box">
             <h2 style="text-align:center; color:#e67e22;">BUG REPORT 🐛</h2>
@@ -297,15 +364,51 @@
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
 
+        // Copy Server IP Logic
+        function copyServerIP() {
+            const ipText = document.getElementById('server-ip').innerText;
+            navigator.clipboard.writeText(ipText).then(() => {
+                const badge = document.getElementById('copy-status');
+                badge.innerText = "COPIED! ✅";
+                badge.style.background = "#2ecc71";
+                badge.style.color = "#fff";
+                setTimeout(() => {
+                    badge.innerText = "CLICK TO COPY";
+                    badge.style.background = "var(--accent-gold)";
+                    badge.style.color = "#000";
+                }, 2000);
+            });
+        }
+
+        // Dynamic Skin Login Logic
         function checkStaffAuth() {
-            const u = document.getElementById('staff_user').value;
-            const p = document.getElementById('staff_pass').value;
-            if(u === "tarbouchsmpstaff" && p === "Ga4144X.?") {
-                alert("🔓 Console Access Granted!");
+            const username = document.getElementById('staff_user').value.trim();
+            
+            if(!username) {
+                alert("❌ يرجى كتابة اسم المستخدم أولاً!");
+                return;
+            }
+
+            const avatarUrl = `https://crafatar.com/renders/head/${username}?overlay`;
+
+            document.getElementById('skin-head-img').src = avatarUrl;
+            document.getElementById('skin-welcome-text').innerText = `مرحباً بك، ${username}!`;
+            document.getElementById('skin-preview-box').style.display = 'block';
+
+            document.getElementById('nav-avatar').src = avatarUrl;
+            document.getElementById('nav-username').innerText = username;
+            document.getElementById('user-nav-badge').style.display = 'flex';
+            document.getElementById('nav-login-link').style.display = 'none';
+
+            if(username.toLowerCase() === "sherlock" || username === "tarbouchsmpstaff") {
                 document.getElementById('admin-editor').style.display = 'block';
                 document.querySelectorAll('.admin-only').forEach(el => el.style.display = 'table-cell');
-                showSection('staff');
-            } else { alert("❌ Access Denied!"); }
+            }
+
+            setTimeout(() => {
+                alert(`🔓 تم تسجيل الدخول بنجاح كـ ${username}!`);
+                showSection('home');
+            }, 800);
         }
 
         function addStaffMember() {
@@ -331,32 +434,45 @@
         }
 
         async function handleSubmission(type) {
-            const webhookURL = "https://discord.com/api/webhooks/1503396690336420002/vlqbGHaEvGRQlCCPKOJRL6O8gZ5rbbaZSNps8dVqg8RalsuhvkKFMnQTysPbT_a-ST7g";
+            // الـ Webhook الجديد ديالك تـربط هنايا بنجاح 🚀
+            const webhookURL = "https://discord.com/api/webhooks/1507754725796216872/751WD9KuOEPEfzbRJpd1HC2qllZ6VEtTlqJc6RAjvLmEl44eZTuvfQN04ktjf1UXaXRz";
             const formData = new FormData();
-            let embed = { timestamp: new Date(), footer: { text: "Audit Logs" } };
+            let embed = { timestamp: new Date(), footer: { text: "Tarbouch SMP Logs 🛡️" } };
 
             if (type === 'bug') {
-                embed.title = "🐛 Bug Found"; embed.color = 15105570;
+                embed.title = "🐛 Bug Found | عطل جديد"; 
+                embed.color = 15105570; // Orange
                 embed.fields = [
-                    { name: "Title", value: document.getElementById('b_title').value },
-                    { name: "Desc", value: document.getElementById('b_desc').value },
-                    { name: "Discord", value: document.getElementById('b_discord').value }
+                    { name: "العنوان", value: document.getElementById('b_title').value || "بدون عنوان" },
+                    { name: "وصف العطل", value: document.getElementById('b_desc').value || "بدون وصف" },
+                    { name: "حساب ديسكورد", value: document.getElementById('b_discord').value || "غير متوفر" }
                 ];
                 const file = document.getElementById('b_file').files[0];
                 if(file) formData.append('file', file);
             } else {
-                embed.title = "🚫 Report"; embed.color = 16711680;
+                embed.title = "🚫 Player Report | بلاغ ضد لاعب"; 
+                embed.color = 16711680; // Red
                 embed.fields = [
-                    { name: "Target", value: document.getElementById('p_target').value },
-                    { name: "Reason", value: document.getElementById('p_reason').value },
-                    { name: "By", value: document.getElementById('p_discord').value }
+                    { name: "اللاعب المخالف", value: document.getElementById('p_target').value || "غير محدد" },
+                    { name: "السبب / الدليل", value: document.getElementById('p_reason').value || "بدون سبب" },
+                    { name: "المبلغ (ديسكورد)", value: document.getElementById('p_discord').value || "غير متوفر" }
                 ];
                 const file = document.getElementById('p_file').files[0];
                 if(file) formData.append('file', file);
             }
 
             formData.append('payload_json', JSON.stringify({ embeds: [embed] }));
-            try { await fetch(webhookURL, { method: 'POST', body: formData }); alert("Sent!"); } catch (e) { alert("Error!"); }
+            
+            try { 
+                const response = await fetch(webhookURL, { method: 'POST', body: formData }); 
+                if(response.ok) {
+                    alert("✅ تم إرسال البلاغ بنجاح إلى الديسكورد!"); 
+                } else {
+                    alert("❌ فشل الإرسال، تأكد من إعدادات الـ Webhook.");
+                }
+            } catch (e) { 
+                alert("❌ حدث خطأ أثناء الإرسال!"); 
+            }
         }
     </script>
 </body>
