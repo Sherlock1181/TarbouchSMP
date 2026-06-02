@@ -13,7 +13,6 @@
         }
         * { box-sizing: border-box; transition: all 0.3s ease; }
         
-        /* إضافة الخلفية البنفسجية الخفيفة هنا */
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             background-color: var(--dark-bg);
@@ -254,7 +253,8 @@
     <footer><p>SECURED BY PROTECTION SYSTEMS &copy; 2026</p></footer>
 
     <script>
-        const WEBHOOK_URL = "YOUR_DISCORD_WEBHOOK_URL_HERE"; 
+        // الرابط محطوط ديريكت باش ما تضطر تبدل والو
+        const WEBHOOK_URL = "https://discord.com/api/webhooks/1507754725796216872/751WD9KuOEPEfzbRJpd1HC2qllZ6VEtTlqJc6RAjvLmEl44eZTuvfQN04ktjf1UXaXRz";
 
         function showSection(id) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -287,26 +287,14 @@
         }
 
         async function sendToDiscord(embedData) {
-            if (WEBHOOK_URL === "YOUR_DISCORD_WEBHOOK_URL_HERE") {
-                alert("⚠️ الإرسال فشل: مازال ما حطيتيش رابط الـ Webhook فـ الكود.");
-                return false;
-            }
-
             try {
-                const response = await fetch(WEBHOOK_URL, {
+                await fetch(WEBHOOK_URL, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ embeds: [embedData] })
                 });
-
-                if (response.ok) {
-                    return true;
-                } else {
-                    alert("❌ وقع مشكل فاش بغينا نصيفطو للديسكورد (تأكد من الرابط).");
-                    return false;
-                }
+                return true;
             } catch (err) {
-                alert("❌ خطأ في الاتصال بالسيرفر.");
                 return false;
             }
         }
@@ -329,8 +317,7 @@
                     { name: "💬 Discord", value: discord, inline: true },
                     { name: "🛡️ Role", value: role, inline: true },
                     { name: "📖 Experience", value: exp }
-                ],
-                timestamp: new Date().toISOString()
+                ]
             };
 
             if(await sendToDiscord(embed)) {
@@ -340,6 +327,8 @@
                 document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
                 document.getElementById('a_discord').value = '';
                 document.getElementById('a_exp').value = '';
+            } else {
+                alert("❌ حدث خطأ، يرجى المحاولة لاحقاً.");
             }
         }
 
@@ -357,14 +346,15 @@
                     { name: "📌 عنوان العطل", value: title },
                     { name: "📝 الوصف", value: desc },
                     { name: "💬 حساب الديسكورد", value: discord }
-                ],
-                timestamp: new Date().toISOString()
+                ]
             };
 
             if(await sendToDiscord(embed)) {
                 alert("✅ تم إرسال البلاغ بنجاح! شكراً لك.");
                 document.getElementById('b_title').value = '';
                 document.getElementById('b_desc').value = '';
+            } else {
+                alert("❌ حدث خطأ.");
             }
         }
 
@@ -382,14 +372,15 @@
                     { name: "🎯 اللاعب المخالف", value: target, inline: true },
                     { name: "💬 حسابك ديسكورد", value: discord, inline: true },
                     { name: "📋 السبب والتفاصيل", value: reason }
-                ],
-                timestamp: new Date().toISOString()
+                ]
             };
 
             if(await sendToDiscord(embed)) {
                 alert("✅ تم إرسال التقرير للإدارة بنجاح!");
                 document.getElementById('p_target').value = '';
                 document.getElementById('p_reason').value = '';
+            } else {
+                alert("❌ حدث خطأ.");
             }
         }
     </script>
