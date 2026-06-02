@@ -3,54 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>TARBOUCH SMP - THE ELITE</title>
+    <title>VERTEXMC - THE ELITE</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary-red: #8b0000; --bright-red: #ff0000;
+            --primary-violet: #6a0dad; --bright-violet: #9d00ff;
             --accent-gold: #ffcc00; --dark-bg: #0a0a0c;
             --card-bg: #111116; --border-color: #222;
         }
         * { box-sizing: border-box; transition: all 0.3s ease; }
         body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: var(--dark-bg); color: #fff; margin: 0; overflow-x: hidden; }
         
-        nav { background: #050507; padding: 1.2rem 8%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary-red); position: sticky; top: 0; z-index: 2000; }
-        .nav-logo { font-size: 1.8rem; font-weight: 900; color: var(--bright-red); text-transform: uppercase; letter-spacing: 2px; cursor: pointer; }
+        nav { background: #050507; padding: 1.2rem 8%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary-violet); position: sticky; top: 0; z-index: 2000; }
+        .nav-logo { font-size: 1.8rem; font-weight: 900; color: var(--bright-violet); text-transform: uppercase; letter-spacing: 2px; cursor: pointer; }
         .nav-links { display: flex; gap: 25px; align-items: center; }
         .nav-links a { color: #aaa; text-decoration: none; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; cursor: pointer; }
         .nav-links a:hover { color: #fff; }
         .staff-login-btn { border: 1px solid var(--accent-gold); padding: 6px 15px; border-radius: 8px; color: var(--accent-gold) !important; background: rgba(255, 204, 0, 0.05); }
         .section { display: none; padding: 60px 8%; min-height: 85vh; }
-        .section.active { display: block; }
+        .section.active { display: block; animation: fadeIn 0.4s ease-in-out; }
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
         .hero { text-align: center; margin-top: 50px; margin-bottom: 40px; }
-        .hero h1 { font-size: 4rem; margin: 0; letter-spacing: 3px; color: var(--bright-red); text-shadow: 0 0 10px rgba(255,0,0,0.5); }
-        .server-ip-box { background: var(--card-bg); border: 2px dashed var(--primary-red); padding: 18px 30px; border-radius: 12px; max-width: 500px; margin: 0 auto 50px auto; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .hero h1 { font-size: 4rem; margin: 0; letter-spacing: 3px; color: var(--bright-violet); text-shadow: 0 0 10px rgba(157,0,255,0.5); }
+        .server-ip-box { background: var(--card-bg); border: 2px dashed var(--primary-violet); padding: 18px 30px; border-radius: 12px; max-width: 500px; margin: 0 auto 50px auto; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
         .server-ip-box:hover { border-color: var(--accent-gold); transform: scale(1.02); }
         .ip-text { font-family: 'Courier New', monospace; font-size: 1.2rem; font-weight: bold; }
         .copy-badge { background: var(--accent-gold); color: #000; padding: 4px 10px; border-radius: 5px; font-size: 0.8rem; font-weight: bold; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; max-width: 1200px; margin: auto; }
         .card { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 12px; padding: 40px 20px; text-align: center; cursor: pointer; }
-        .card:hover { border-color: var(--bright-red); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(255,0,0,0.1); }
+        .card:hover { border-color: var(--bright-violet); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(157,0,255,0.1); }
         .card i { font-size: 2.5rem; color: var(--accent-gold); margin-bottom: 15px; display: block; }
-        .staff-container { max-width: 1000px; margin: 0 auto; background: #0d0d12; border-left: 4px solid var(--primary-red); border-radius: 8px; padding: 30px; }
+        
+        .staff-container { max-width: 1000px; margin: 0 auto; background: #0d0d12; border-left: 4px solid var(--primary-violet); border-radius: 8px; padding: 30px; }
         .rank-section { margin-bottom: 35px; border-bottom: 1px solid #1a1a24; padding-bottom: 25px; }
-        .rank-title { font-size: 2rem; font-weight: 800; color: var(--primary-red); text-transform: uppercase; letter-spacing: 2px; margin: 0 0 20px 0; display: flex; align-items: center; gap: 10px; }
+        .rank-title { font-size: 2rem; font-weight: 800; color: var(--primary-violet); text-transform: uppercase; letter-spacing: 2px; margin: 0 0 20px 0; display: flex; align-items: center; gap: 10px; }
         .staff-row { display: flex; align-items: center; background: var(--card-bg); border: 1px solid var(--border-color); padding: 15px 25px; border-radius: 8px; margin-bottom: 12px; gap: 20px; }
         .staff-head-avatar { width: 32px; height: 32px; border-radius: 4px; box-shadow: 0 0 6px rgba(0,0,0,0.6); object-fit: contain; image-rendering: pixelated; }
-        .staff-name-animated { font-size: 1.3rem; font-weight: 700; background: linear-gradient(270deg, #ff0000, #ff5555, #aa0000, #ff0000); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: waveGradient 3s linear infinite; }
-        .staff-name-normal-red { font-size: 1.3rem; font-weight: 700; color: var(--bright-red); }
+        
+        .staff-name-animated-red { 
+            font-size: 1.3rem; font-weight: 700; 
+            background: linear-gradient(270deg, #ff0000, #ff4d4d, #990000, #ff0000); 
+            background-size: 200% auto; 
+            -webkit-background-clip: text; 
+            -webkit-text-fill-color: transparent; 
+            animation: waveGradient 3s linear infinite; 
+        }
+        .staff-name-dark-red { 
+            font-size: 1.3rem; font-weight: 700; color: #8B0000; 
+        }
+        
         @keyframes waveGradient { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
         .staff-role-desc { margin-right: auto; color: #888; font-size: 0.95rem; font-style: italic; }
+        
         .rules-container { max-width: 900px; margin: auto; }
         .rule-category { background: var(--card-bg); padding: 30px; border-radius: 12px; margin-bottom: 25px; border-right: 4px solid var(--accent-gold); border-left: 1px solid var(--border-color); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
         .rule-category h3 { color: var(--accent-gold); margin-top: 0; margin-bottom: 15px; font-size: 1.4rem; }
         .rule-item { list-style: none; padding: 8px 0; display: flex; gap: 10px; color: #ddd; line-height: 1.6; font-size: 1.05rem; }
-        .rule-item i { color: var(--bright-red); margin-top: 5px; }
+        .rule-item i { color: var(--bright-violet); margin-top: 5px; }
+        
         .form-box { background: var(--card-bg); padding: 40px; border-radius: 12px; max-width: 700px; margin: auto; border: 1px solid var(--border-color); }
         input, textarea, select { width: 100%; padding: 14px; margin: 10px 0; background: #050507; border: 1px solid var(--border-color); color: #fff; border-radius: 8px; outline: none; text-align: center; }
+        input:focus, textarea:focus, select:focus { border-color: var(--bright-violet); }
         .file-input-label { display: block; padding: 12px; background: rgba(255,255,255,0.01); border: 1px dashed #444; border-radius: 8px; cursor: pointer; margin: 10px 0; text-align: center; }
         .btn { width: 100%; padding: 15px; border: none; border-radius: 8px; font-weight: bold; font-size: 1rem; cursor: pointer; text-transform: uppercase; color: #fff; }
-        .btn-primary { background: var(--primary-red); }
+        .btn-primary { background: var(--primary-violet); }
+        .btn-primary:hover { background: var(--bright-violet); }
         .status-pulse { display: inline-block; width: 10px; height: 10px; background: #2ecc71; border-radius: 50%; margin-left: 10px; box-shadow: 0 0 10px #2ecc71; }
         footer { text-align: center; padding: 50px; color: #444; font-weight: bold; border-top: 1px solid #111116; margin-top: 60px; }
         .rules-list { text-align: right; background: #0a0a0c; padding: 25px; border-radius: 8px; border: 1px solid #333; margin-bottom: 20px; color: #ddd; }
@@ -59,7 +78,7 @@
 <body>
 
     <nav>
-        <div class="nav-logo" onclick="showSection('home')">TARBOUCH <span style="color:#fff">SMP</span></div>
+        <div class="nav-logo" onclick="showSection('home')">VERTEXMC</div>
         <div class="nav-links">
             <a onclick="showSection('staff-login')" class="staff-login-btn"><i class="fas fa-user"></i> Login</a>
             <a onclick="showSection('home')"><i class="fas fa-ghost"></i> الرئيسية</a>
@@ -81,11 +100,11 @@
 
     <div id="home" class="section active">
         <div class="hero">
-            <h1>TARBOUCH SMP</h1>
+            <h1>VERTEXMC</h1>
             <p><span class="status-pulse"></span> <span style="color:#2ecc71">Server Protection System: ONLINE</span></p>
         </div>
         <div class="server-ip-box" onclick="copyServerIP()">
-            <span class="ip-text" id="server-ip">tarbouchsmp.myftp.org</span>
+            <span class="ip-text" id="server-ip">vertexmc.myftp.org</span>
             <span class="copy-badge" id="copy-status">CLICK TO COPY</span>
         </div>
         <div class="grid">
@@ -100,7 +119,7 @@
 
     <div id="apply" class="section">
         <div class="form-box" id="rules-step">
-            <h2 style="text-align:center; color:var(--accent-gold);">🛡️ ميثاق إدارة Tarbouch SMP (Staff Rules)</h2>
+            <h2 style="text-align:center; color:var(--accent-gold);">🛡️ ميثاق إدارة Vertexmc (Staff Rules)</h2>
             <div class="rules-list">
                 <ol style="padding-right: 20px;">
                     <li style="margin-bottom: 20px;">
@@ -142,29 +161,29 @@
 
         <div class="form-box" id="apply-form" style="display: none;">
             <h2 style="text-align:center; color:var(--accent-gold);">STAFF APPLICATION 📝</h2>
-            <input type="text" id="name" placeholder="Minecraft Username">
-            <select id="role">
+            <input type="text" id="a_name" placeholder="Minecraft Username">
+            <select id="a_role">
                 <option value="" disabled selected>اختر الرتبة المطلوبة</option>
                 <option value="Helper">Helper</option>
                 <option value="Moderator">Moderator</option>
                 <option value="Admin">Admin</option>
             </select>
-            <input type="text" id="discord" placeholder="Discord Username">
-            <textarea id="exp" placeholder="اكتب خبراتك هنا (أكثر من 30 حرف)..." rows="6"></textarea>
-            <button onclick="handleApply()" class="btn btn-primary">إرسال الطلب</button>
+            <input type="text" id="a_discord" placeholder="Discord Username">
+            <textarea id="a_exp" placeholder="اكتب خبراتك هنا (أكثر من 30 حرف)..." rows="6"></textarea>
+            <button onclick="submitApply()" class="btn btn-primary">إرسال الطلب</button>
         </div>
     </div>
 
     <div id="staff" class="section">
         <div class="staff-container">
-            <div class="rank-section"><h2 class="rank-title"><i class="fas fa-crown"></i> FOUNDER</h2><div class="staff-row"><img class="staff-head-avatar" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACh0lEQVRYR8VXTUsVURQ99703M8dfg0gIatGidpGbtm6LNpGbFi5atInatGjdtm7pT9S+v9AioiwSIsgPhfSjIcoZ37mPdxmHwXvDMwNFB+7OnXvPPeece++co9AOfbMv9mO/C9gOAL7hP60M4O3m6N96zNfF/0LAA7AFvG/495UBvP+w6f89gO0AYBv408oA3v/Y9P8uYDvgf8P/ZmWArbXNvv779YftwIDvgK3A9vG6MoD3PzX7fw9gO7B9vKkMYPvfmsM+FbDdsH28rgzg/S/N4V9YwJZPtgPbtXf6v9MAsv3S8Zf6YAsgW8vW6X9JA8jWsnX6O9MAsrVsVv1bGiDbXWwN291b/ZYaQC0bVfeXNIDMbrGF7Xb1W2wAmd1mC9rt7LfcADK7wxa0y/pTawCZPWAL2qX6MmsAmd1jC9pl+VltAJndZwvavfsZawBZ6w5b0C7Nz6QBZK0v6VIsZ8YfawGZfWyPZjnnz1gAWeuHevXIn8ECyGZf0vVYzol/agFks0/piiznxZ9ZANnsk7oiXf5nugGyzT6mK9LlP2MArbWPWbIunwWAlm6M9R+Zt30fX1r6wK9YFp/NAwCs/chYfMvH6B8AYP1wV3yLhfHZAMAm+1bPYrkxfAsAm+xfPfcN48sA2BRv9bE7jC8GgE3xtniP0fhyAEidvE88XwYg68Rz4PMyAFnvPee9+XkZgKz3nvPe/LwMgNTr86p9WwYgdeI58XgYAMmPeD83bwxA8iPe35m3BiD5Hu8X5m0BfN9C8gPeuP9vAaxbSLXhjfvjFmDbA6Qa3ni/awG6NnzbAyQaXru/awG6Nrx2gA5vYwAd3vYAdGPrv8OfW4De+O89IDb/Vf4P4AWeqAnGg9wAAAAASUVORK5CYII=" alt="Cynvix Head"><div class="staff-name-animated">Cynvix</div><div class="staff-role-desc">Server Creator & Lead Developer</div></div></div>
-            <div class="rank-section"><h2 class="rank-title" style="color: #b30000;"><i class="fas fa-key"></i> OWNER</h2><div class="staff-row"><img class="staff-head-avatar" src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAACh0lEQVRYR8VXTUsVURQ99703M8dfg0gIatGidpGbtm6LNpGbFi5atInatGjdtm7pT9S+v9AioiwSIsgPhfSjIcoZ37mPdxmHwXvDMwNFB+7OnXvPPeece++co9AOfbMv9mO/C9gOAL7hP60M4O3m6N96zNfF/0LAA7AFvG/495UBvP+w6f89gO0AYBv408oA3v/Y9P8uYDvgf8P/ZmWArbXNvv779YftwIDvgK3A9vG6MoD3PzX7fw9gO7B9vKkMYPvfmsM+FbDdsH28rgzg/S/N4V9YwJZPtgPbtXf6v9MAsv3S8Zf6YAsgW8vW6X9JA8jWsnX6O9MAsrVsVv1bGiDbXWwN291b/ZYaQC0bVfeXNIDMbrGF7Xb1W2wAmd1mC9rt7LfcADK7wxa0y/pTawCZPWAL2qX6MmsAmd1jC9pl+VltAJndZwvavfsZawBZ6w5b0C7Nz6QBZK0v6VIsZ8YfawGZfWyPZjnnz1gAWeuHevXIn8ECyGZf0vVYzol/agFks0/piiznxZ9ZANnsk7oiXf5nugGyzT6mK9LlP2MArbWPWbIunwWAlm6M9R+Zt30fX1r6wK9YFp/NAwCs/chYfMvH6B8AYP1wV3yLhfHZAMAm+1bPYrkxfAsAm+xfPfcN48sA2BRv9bE7jC8GgE3xtniP0fhyAEidvE88XwYg68Rz4PMyAFnvPee9+XkZgKz3nvPe/LwMgNTr86p9WwYgdeI58XgYAMmPeD83bwxA8iPe35m3BiD5Hu8X5m0BfN9C8gPeuP9vAaxbSLXhjfvjFmDbA6Qa3ni/awG6NnzbAyQaXru/awG6Nrx2gA5vYwAd3vYAdGPrv8OfW4De+O89IDb/Vf4P4AWeqAnGg9wAAAAASUVORK5CYII=" alt="Owner Head"><div class="staff-name-normal-red">itz1lm2</div><div class="staff-role-desc">Server Owner & Co-Founder</div></div></div>
+            <div class="rank-section"><h2 class="rank-title"><i class="fas fa-crown"></i> FOUNDER</h2><div class="staff-row"><img class="staff-head-avatar" src="https://minotar.net/helm/snrl/32.png" alt="Head"><div class="staff-name-animated-red">Cynvix</div><div class="staff-role-desc">Server Creator & Lead Developer</div></div></div>
+            <div class="rank-section"><h2 class="rank-title" style="color: #8B0000;"><i class="fas fa-key"></i> OWNER</h2><div class="staff-row"><img class="staff-head-avatar" src="https://minotar.net/helm/Alex/32.png" alt="Head"><div class="staff-name-dark-red">Owner (itz1lm2)</div><div class="staff-role-desc">Server Owner & Co-Founder</div></div></div>
         </div>
     </div>
 
     <div id="rules" class="section">
         <div class="rules-container">
-            <h2 style="text-align:center; color:var(--accent-gold); margin-bottom: 40px; font-size: 2.2rem;">📜 دستور وقوانين TARBOUCH SMP</h2>
+            <h2 style="text-align:center; color:var(--accent-gold); margin-bottom: 40px; font-size: 2.2rem;">📜 دستور وقوانين VERTEXMC</h2>
             <div class="rule-category">
                 <h3><i class="fas fa-gavel"></i> القوانين العامة للسيرفر</h3>
                 <div class="rule-item"><i class="fas fa-angle-right"></i> <span>الاحترام المتبادل بين جميع اللاعبين والموظفين داخل مجتمع السيرفر والديسكورد فرض أساسي.</span></div>
@@ -184,31 +203,32 @@
             <h2 style="text-align:center; color:#e67e22; margin-bottom:20px;">BUG REPORT 🐛</h2>
             <input type="text" id="b_title" placeholder="عنوان المشكلة">
             <textarea id="b_desc" placeholder="وصف العطل بالتفصيل..." rows="4"></textarea>
-            <label class="file-input-label"><i class="fas fa-image"></i> أرفق صورة العطل<input type="file" id="b_file" accept="image/*" style="display:none"></label>
             <input type="text" id="b_discord" placeholder="حسابك في الديسكورد">
-            <button onclick="handleSubmission('bug')" class="btn" style="background:#e67e22">إرسال البلاغ</button>
+            <button onclick="submitBug()" class="btn" style="background:#e67e22">إرسال البلاغ</button>
         </div>
     </div>
 
     <div id="player-report" class="section">
         <div class="form-box">
-            <h2 style="text-align:center; color:var(--bright-red); margin-bottom:20px;">PLAYER REPORT ⚖️</h2>
+            <h2 style="text-align:center; color:var(--bright-violet); margin-bottom:20px;">PLAYER REPORT ⚖️</h2>
             <input type="text" id="p_target" placeholder="اسم اللاعب المخالف">
             <textarea id="p_reason" placeholder="سبب البلاغ والأدلة..." rows="4"></textarea>
-            <label class="file-input-label"><i class="fas fa-camera"></i> أرفق الدليل أو الصورة<input type="file" id="p_file" accept="image/*" style="display:none"></label>
             <input type="text" id="p_discord" placeholder="حسابك في الديسكورد">
-            <button onclick="handleSubmission('report')" class="btn btn-primary">إرسال التقرير</button>
+            <button onclick="submitReport()" class="btn btn-primary">إرسال التقرير</button>
         </div>
     </div>
 
     <footer><p>SECURED BY PROTECTION SYSTEMS &copy; 2026</p></footer>
 
     <script>
+        const WEBHOOK_URL = "YOUR_DISCORD_WEBHOOK_URL_HERE"; 
+
         function showSection(id) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             window.scrollTo({top: 0, behavior: 'smooth'});
         }
+
         function copyServerIP() {
             const ipText = document.getElementById('server-ip').innerText;
             navigator.clipboard.writeText(ipText).then(() => {
@@ -221,23 +241,115 @@
                 }, 2000);
             });
         }
+
         function acceptRules() {
             document.getElementById('rules-step').style.display = 'none';
             document.getElementById('apply-form').style.display = 'block';
         }
-        function handleApply() {
-            const name = document.getElementById('name').value;
-            const role = document.getElementById('role').value;
-            const discord = document.getElementById('discord').value;
-            const exp = document.getElementById('exp').value;
-            
-            if(exp.length < 30) { alert("❌ خاصك تكتب كثر من 30 حرف فخانة الخبرات!"); return; }
-            if(!role) { alert("⚠️ خاصك تختار الرتبة!"); return; }
-            
-            alert("✅ تم إرسال طلبك للإدارة!");
+
+        async function sendToDiscord(embedData) {
+            if (WEBHOOK_URL === "YOUR_DISCORD_WEBHOOK_URL_HERE") {
+                alert("⚠️ الإرسال فشل: مازال ما حطيتيش رابط الـ Webhook فـ الكود.");
+                return false;
+            }
+
+            try {
+                const response = await fetch(WEBHOOK_URL, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ embeds: [embedData] })
+                });
+
+                if (response.ok) {
+                    return true;
+                } else {
+                    alert("❌ وقع مشكل فاش بغينا نصيفطو للديسكورد (تأكد من الرابط).");
+                    return false;
+                }
+            } catch (err) {
+                alert("❌ خطأ في الاتصال بالسيرفر.");
+                return false;
+            }
         }
-        async function handleSubmission(type) {
-            alert("تم إرسال " + type + " بنجاح!");
+
+        async function submitApply() {
+            const name = document.getElementById('a_name').value;
+            const role = document.getElementById('a_role').value;
+            const discord = document.getElementById('a_discord').value;
+            const exp = document.getElementById('a_exp').value;
+            
+            if(!name || !role || !discord || exp.length < 20) { 
+                alert("⚠️ المرجو ملء جميع الخانات بشكل صحيح (الخبرة +20 حرف)."); return; 
+            }
+
+            const embed = {
+                title: "📝 تقديم جديد للإدارة (Staff Apply)",
+                color: 16766720,
+                fields: [
+                    { name: "👤 Minecraft Name", value: name, inline: true },
+                    { name: "💬 Discord", value: discord, inline: true },
+                    { name: "🛡️ Role", value: role, inline: true },
+                    { name: "📖 Experience", value: exp }
+                ],
+                timestamp: new Date().toISOString()
+            };
+
+            if(await sendToDiscord(embed)) {
+                alert("✅ تم إرسال طلبك للإدارة بنجاح!");
+                document.getElementById('a_name').value = '';
+                document.getElementById('a_discord').value = '';
+                document.getElementById('a_exp').value = '';
+            }
+        }
+
+        async function submitBug() {
+            const title = document.getElementById('b_title').value;
+            const desc = document.getElementById('b_desc').value;
+            const discord = document.getElementById('b_discord').value;
+
+            if(!title || !desc || !discord) { alert("⚠️ المرجو ملء جميع الخانات!"); return; }
+
+            const embed = {
+                title: "🐛 بلاغ عن عطل (Bug Report)",
+                color: 15105570,
+                fields: [
+                    { name: "📌 عنوان العطل", value: title },
+                    { name: "📝 الوصف", value: desc },
+                    { name: "💬 حساب الديسكورد", value: discord }
+                ],
+                timestamp: new Date().toISOString()
+            };
+
+            if(await sendToDiscord(embed)) {
+                alert("✅ تم إرسال البلاغ بنجاح! شكراً لك.");
+                document.getElementById('b_title').value = '';
+                document.getElementById('b_desc').value = '';
+            }
+        }
+
+        async function submitReport() {
+            const target = document.getElementById('p_target').value;
+            const reason = document.getElementById('p_reason').value;
+            const discord = document.getElementById('p_discord').value;
+
+            if(!target || !reason || !discord) { alert("⚠️ المرجو ملء جميع الخانات!"); return; }
+
+            const embed = {
+                title: "⚖️ بلاغ عن لاعب (Player Report)",
+                color: 10038562,
+                fields: [
+                    { name: "🎯 اللاعب المخالف", value: target, inline: true },
+                    { name: "💬 حسابك ديسكورد", value: discord, inline: true },
+                    { name: "📋 السبب والتفاصيل", value: reason }
+                ],
+                timestamp: new Date().toISOString()
+            };
+
+            if(await sendToDiscord(embed)) {
+                alert("✅ تم إرسال التقرير للإدارة بنجاح!");
+                document.getElementById('p_target').value = '';
+                document.getElementById('p_reason').value = '';
+            }
         }
     </script>
 </body>
