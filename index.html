@@ -66,7 +66,24 @@
         .form-box { background: var(--card-bg); padding: 40px; border-radius: 12px; max-width: 700px; margin: auto; border: 1px solid var(--border-color); }
         input, textarea, select { width: 100%; padding: 14px; margin: 10px 0; background: #050507; border: 1px solid var(--border-color); color: #fff; border-radius: 8px; outline: none; text-align: center; }
         input:focus, textarea:focus, select:focus { border-color: var(--bright-violet); }
-        .file-input-label { display: block; padding: 12px; background: rgba(255,255,255,0.01); border: 1px dashed #444; border-radius: 8px; cursor: pointer; margin: 10px 0; text-align: center; }
+        
+        /* تصميم أيقونات الرتب الجديد */
+        .role-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 15px 0; }
+        .role-card {
+            background: #050507; border: 2px solid var(--border-color);
+            padding: 10px 18px; border-radius: 8px; cursor: pointer;
+            display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 0.95rem;
+            color: #888; transition: all 0.3s ease; user-select: none;
+        }
+        .role-card i { color: var(--role-color); font-size: 1.2rem; }
+        .role-card:hover { border-color: var(--role-color); color: #fff; }
+        .role-card.selected { 
+            border-color: var(--role-color); 
+            background: rgba(255, 255, 255, 0.05); 
+            color: #fff; 
+            box-shadow: 0 0 15px var(--role-color); 
+        }
+
         .btn { width: 100%; padding: 15px; border: none; border-radius: 8px; font-weight: bold; font-size: 1rem; cursor: pointer; text-transform: uppercase; color: #fff; }
         .btn-primary { background: var(--primary-violet); }
         .btn-primary:hover { background: var(--bright-violet); }
@@ -162,12 +179,19 @@
         <div class="form-box" id="apply-form" style="display: none;">
             <h2 style="text-align:center; color:var(--accent-gold);">STAFF APPLICATION 📝</h2>
             <input type="text" id="a_name" placeholder="Minecraft Username">
-            <select id="a_role">
-                <option value="" disabled selected>اختر الرتبة المطلوبة</option>
-                <option value="Helper">Helper</option>
-                <option value="Moderator">Moderator</option>
-                <option value="Admin">Admin</option>
-            </select>
+            
+            <!-- أزرار اختيار الرتبة عوض القائمة -->
+            <input type="hidden" id="a_role" value="">
+            <div class="role-grid">
+                <div class="role-card" data-role="Helper" style="--role-color: #3498db;" onclick="selectRole(this)"><i class="fas fa-medkit"></i> Helper</div>
+                <div class="role-card" data-role="Sr Helper" style="--role-color: #00cec9;" onclick="selectRole(this)"><i class="fas fa-hand-holding-medical"></i> Sr Helper</div>
+                <div class="role-card" data-role="Moderator" style="--role-color: #f39c12;" onclick="selectRole(this)"><i class="fas fa-shield-alt"></i> Moderator</div>
+                <div class="role-card" data-role="Admin" style="--role-color: #e74c3c;" onclick="selectRole(this)"><i class="fas fa-gavel"></i> Admin</div>
+                <div class="role-card" data-role="Sr Admin" style="--role-color: #c0392b;" onclick="selectRole(this)"><i class="fas fa-user-shield"></i> Sr Admin</div>
+                <div class="role-card" data-role="Developer" style="--role-color: #9b59b6;" onclick="selectRole(this)"><i class="fas fa-code"></i> Developer</div>
+                <div class="role-card" data-role="Sr Developer" style="--role-color: #ff00ff;" onclick="selectRole(this)"><i class="fas fa-laptop-code"></i> Sr Dev</div>
+            </div>
+
             <input type="text" id="a_discord" placeholder="Discord Username">
             <textarea id="a_exp" placeholder="اكتب خبراتك هنا (أكثر من 30 حرف)..." rows="6"></textarea>
             <button onclick="submitApply()" class="btn btn-primary">إرسال الطلب</button>
@@ -247,6 +271,16 @@
             document.getElementById('apply-form').style.display = 'block';
         }
 
+        // دالة اختيار الرتبة الجديدة
+        function selectRole(element) {
+            // إزالة التحديد من جميع الأزرار
+            document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
+            // إضافة التحديد للزر المختار
+            element.classList.add('selected');
+            // حفظ الرتبة في الخانة المخفية باش تمشي للديسكورد
+            document.getElementById('a_role').value = element.getAttribute('data-role');
+        }
+
         async function sendToDiscord(embedData) {
             if (WEBHOOK_URL === "YOUR_DISCORD_WEBHOOK_URL_HERE") {
                 alert("⚠️ الإرسال فشل: مازال ما حطيتيش رابط الـ Webhook فـ الكود.");
@@ -279,7 +313,7 @@
             const exp = document.getElementById('a_exp').value;
             
             if(!name || !role || !discord || exp.length < 20) { 
-                alert("⚠️ المرجو ملء جميع الخانات بشكل صحيح (الخبرة +20 حرف)."); return; 
+                alert("⚠️ المرجو ملء جميع الخانات بشكل صحيح واختيار رتبة (الخبرة +20 حرف)."); return; 
             }
 
             const embed = {
@@ -297,6 +331,8 @@
             if(await sendToDiscord(embed)) {
                 alert("✅ تم إرسال طلبك للإدارة بنجاح!");
                 document.getElementById('a_name').value = '';
+                document.getElementById('a_role').value = '';
+                document.querySelectorAll('.role-card').forEach(c => c.classList.remove('selected'));
                 document.getElementById('a_discord').value = '';
                 document.getElementById('a_exp').value = '';
             }
