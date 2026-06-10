@@ -10,95 +10,121 @@
             --primary-violet: #6a0dad; --bright-violet: #9d00ff;
             --accent-gold: #ffcc00; --dark-bg: #0a0a0c;
             --card-bg: #111116; --border-color: #222;
+            --text-color: #fff; --text-muted: #aaa;
         }
-        * { box-sizing: border-box; transition: all 0.3s ease; }
+
+        /* --- LIGHT MODE VARIABLES --- */
+        body.light-mode {
+            --dark-bg: #f5f6fa;
+            --card-bg: #ffffff;
+            --border-color: #dcdde1;
+            --text-color: #2f3640;
+            --text-muted: #718093;
+            background-image: radial-gradient(circle at 50% -20%, rgba(106, 13, 173, 0.1) 0%, #f5f6fa 70%);
+        }
+
+        * { box-sizing: border-box; transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease; }
         
         body { 
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
             background-color: var(--dark-bg);
             background-image: radial-gradient(circle at 50% -20%, rgba(106, 13, 173, 0.25) 0%, rgba(10, 10, 12, 1) 70%);
             background-attachment: fixed;
-            color: #fff; 
+            color: var(--text-color); 
             margin: 0; 
             overflow-x: hidden; 
         }
-        
-        nav { background: rgba(5, 5, 7, 0.95); backdrop-filter: blur(10px); padding: 1.2rem 8%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary-violet); position: sticky; top: 0; z-index: 2000; }
+
+        /* Nav & Headers */
+        nav { background: rgba(var(--dark-bg), 0.95); backdrop-filter: blur(10px); padding: 1.2rem 8%; display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid var(--primary-violet); position: sticky; top: 0; z-index: 2000; }
+        body.light-mode nav { background: rgba(255, 255, 255, 0.95); }
         .nav-logo { font-size: 1.8rem; font-weight: 900; color: var(--bright-violet); text-transform: uppercase; letter-spacing: 2px; cursor: pointer; }
-        .nav-links { display: flex; gap: 25px; align-items: center; }
-        .nav-links a { color: #aaa; text-decoration: none; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; cursor: pointer; }
-        .nav-links a:hover { color: #fff; }
+        
+        .nav-links { display: flex; gap: 20px; align-items: center; }
+        .nav-links a { color: var(--text-muted); text-decoration: none; font-weight: 600; font-size: 0.95rem; display: flex; align-items: center; gap: 8px; cursor: pointer; position: relative; }
+        .nav-links a:hover { color: var(--bright-violet); }
+        
         .staff-login-btn { border: 1px solid var(--accent-gold); padding: 6px 15px; border-radius: 8px; color: var(--accent-gold) !important; background: rgba(255, 204, 0, 0.05); }
+        
+        /* Beta & Soon Badges */
+        .badge-soon { position: absolute; top: -12px; right: -12px; background: #e74c3c; color: #fff; font-size: 0.65rem; padding: 2px 6px; border-radius: 10px; font-weight: bold; letter-spacing: 1px; box-shadow: 0 2px 5px rgba(231, 76, 60, 0.5); z-index: 10; pointer-events: none; }
+        .badge-beta-nav { position: absolute; top: -10px; right: -5px; background: #f39c12; color: #000; font-size: 0.55rem; padding: 2px 4px; border-radius: 5px; font-weight: bold; }
+
+        /* Sections */
         .section { display: none; padding: 60px 8%; min-height: 85vh; }
         .section.active { display: block; animation: fadeIn 0.4s ease-in-out; }
-        
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         .hero { text-align: center; margin-top: 50px; margin-bottom: 40px; }
         .hero h1 { font-size: 4rem; margin: 0; letter-spacing: 3px; color: var(--bright-violet); text-shadow: 0 0 10px rgba(157,0,255,0.5); }
-        .server-ip-box { background: rgba(17, 17, 22, 0.8); backdrop-filter: blur(5px); border: 2px dashed var(--primary-violet); padding: 18px 30px; border-radius: 12px; max-width: 500px; margin: 0 auto 50px auto; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
-        .server-ip-box:hover { border-color: var(--accent-gold); transform: scale(1.02); background: rgba(17, 17, 22, 0.95); }
+        body.light-mode .hero h1 { text-shadow: none; }
+        
+        .server-stats { display: flex; justify-content: center; gap: 20px; margin: 15px 0; font-weight: bold; color: var(--text-muted); }
+        .server-stats span { background: var(--card-bg); padding: 8px 15px; border-radius: 8px; border: 1px solid var(--border-color); }
+        
+        .server-ip-box { background: var(--card-bg); backdrop-filter: blur(5px); border: 2px dashed var(--primary-violet); padding: 18px 30px; border-radius: 12px; max-width: 500px; margin: 0 auto 50px auto; display: flex; justify-content: space-between; align-items: center; cursor: pointer; box-shadow: 0 5px 15px rgba(0,0,0,0.2); }
+        .server-ip-box:hover { border-color: var(--accent-gold); transform: scale(1.02); }
         .ip-text { font-family: 'Courier New', monospace; font-size: 1.2rem; font-weight: bold; }
         .copy-badge { background: var(--accent-gold); color: #000; padding: 4px 10px; border-radius: 5px; font-size: 0.8rem; font-weight: bold; }
         
+        /* Grid */
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 25px; max-width: 1200px; margin: auto; }
-        .card { background: rgba(17, 17, 22, 0.7); backdrop-filter: blur(5px); border: 1px solid var(--border-color); border-radius: 12px; padding: 40px 20px; text-align: center; cursor: pointer; }
-        .card:hover { background: rgba(17, 17, 22, 0.95); border-color: var(--bright-violet); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(157,0,255,0.15); }
+        .card { background: var(--card-bg); backdrop-filter: blur(5px); border: 1px solid var(--border-color); border-radius: 12px; padding: 40px 20px; text-align: center; cursor: pointer; position: relative; }
+        .card:hover { border-color: var(--bright-violet); transform: translateY(-5px); box-shadow: 0 5px 15px rgba(157,0,255,0.15); }
         .card i { font-size: 2.5rem; color: var(--accent-gold); margin-bottom: 15px; display: block; }
+        .card h3 { color: var(--text-color); margin: 0; font-size: 1.1rem; }
+
+        /* Store Specific */
+        .store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; max-width: 900px; margin: auto; }
+        .rank-card { background: var(--card-bg); border: 2px solid var(--primary-violet); border-radius: 12px; padding: 30px; text-align: center; }
+        .rank-card h3 { font-size: 1.8rem; margin: 0; text-transform: uppercase; }
+        .rank-price { font-size: 2.5rem; color: #2ecc71; font-weight: 900; margin: 15px 0; }
+        .rank-card ul { list-style: none; padding: 0; color: var(--text-muted); line-height: 2; margin-bottom: 20px; text-align: right; }
         
-        .staff-container { max-width: 1000px; margin: 0 auto; background: rgba(13, 13, 18, 0.8); backdrop-filter: blur(5px); border-left: 4px solid var(--primary-violet); border-radius: 8px; padding: 30px; }
-        .rank-section { margin-bottom: 35px; border-bottom: 1px solid #1a1a24; padding-bottom: 25px; }
+        /* Old Styles maintained */
+        .staff-container { max-width: 1000px; margin: 0 auto; background: var(--card-bg); border-left: 4px solid var(--primary-violet); border-radius: 8px; padding: 30px; }
+        .rank-section { margin-bottom: 35px; border-bottom: 1px solid var(--border-color); padding-bottom: 25px; }
         .rank-title { font-size: 2rem; font-weight: 800; color: var(--primary-violet); text-transform: uppercase; letter-spacing: 2px; margin: 0 0 20px 0; display: flex; align-items: center; gap: 10px; }
-        .staff-row { display: flex; align-items: center; background: rgba(17, 17, 22, 0.8); border: 1px solid var(--border-color); padding: 15px 25px; border-radius: 8px; margin-bottom: 12px; gap: 20px; }
-        .staff-head-avatar { width: 32px; height: 32px; border-radius: 4px; box-shadow: 0 0 6px rgba(0,0,0,0.6); object-fit: contain; image-rendering: pixelated; }
-        
-        .staff-name-animated-red { 
-            font-size: 1.3rem; font-weight: 700; 
-            background: linear-gradient(270deg, #ff0000, #ff4d4d, #990000, #ff0000); 
-            background-size: 200% auto; 
-            -webkit-background-clip: text; 
-            -webkit-text-fill-color: transparent; 
-            animation: waveGradient 3s linear infinite; 
-        }
-        .staff-name-dark-red { 
-            font-size: 1.3rem; font-weight: 700; color: #8B0000; 
-        }
-        
+        .staff-row { display: flex; align-items: center; background: rgba(0,0,0,0.2); border: 1px solid var(--border-color); padding: 15px 25px; border-radius: 8px; margin-bottom: 12px; gap: 20px; }
+        body.light-mode .staff-row { background: #fdfdfd; }
+        .staff-head-avatar { width: 32px; height: 32px; border-radius: 4px; object-fit: contain; image-rendering: pixelated; }
+        .staff-name-animated-red { font-size: 1.3rem; font-weight: 700; background: linear-gradient(270deg, #ff0000, #ff4d4d, #990000, #ff0000); background-size: 200% auto; -webkit-background-clip: text; -webkit-text-fill-color: transparent; animation: waveGradient 3s linear infinite; }
+        .staff-name-dark-red { font-size: 1.3rem; font-weight: 700; color: #8B0000; }
         @keyframes waveGradient { 0% { background-position: 0% 50%; } 100% { background-position: 200% 50%; } }
-        .staff-role-desc { margin-right: auto; color: #888; font-size: 0.95rem; font-style: italic; }
+        .staff-role-desc { margin-right: auto; color: var(--text-muted); font-size: 0.95rem; font-style: italic; }
         
         .rules-container { max-width: 900px; margin: auto; }
-        .rule-category { background: rgba(17, 17, 22, 0.8); backdrop-filter: blur(5px); padding: 30px; border-radius: 12px; margin-bottom: 25px; border-right: 4px solid var(--accent-gold); border-left: 1px solid var(--border-color); border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); }
-        .rule-category h3 { color: var(--accent-gold); margin-top: 0; margin-bottom: 15px; font-size: 1.4rem; }
-        .rule-item { list-style: none; padding: 8px 0; display: flex; gap: 10px; color: #ddd; line-height: 1.6; font-size: 1.05rem; }
+        .rule-category { background: var(--card-bg); padding: 30px; border-radius: 12px; margin-bottom: 25px; border-right: 4px solid var(--accent-gold); border: 1px solid var(--border-color); }
+        .rule-category h3 { color: var(--accent-gold); margin-top: 0; margin-bottom: 15px; }
+        .rule-item { list-style: none; padding: 8px 0; display: flex; gap: 10px; color: var(--text-muted); }
         .rule-item i { color: var(--bright-violet); margin-top: 5px; }
         
-        .form-box { background: rgba(17, 17, 22, 0.85); backdrop-filter: blur(5px); padding: 40px; border-radius: 12px; max-width: 700px; margin: auto; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        input, textarea, select { width: 100%; padding: 14px; margin: 10px 0; background: rgba(5, 5, 7, 0.8); border: 1px solid var(--border-color); color: #fff; border-radius: 8px; outline: none; text-align: center; }
-        input:focus, textarea:focus, select:focus { border-color: var(--bright-violet); background: rgba(5, 5, 7, 1); }
+        .form-box { background: var(--card-bg); padding: 40px; border-radius: 12px; max-width: 700px; margin: auto; border: 1px solid var(--border-color); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        input, textarea, select { width: 100%; padding: 14px; margin: 10px 0; background: rgba(0,0,0,0.1); border: 1px solid var(--border-color); color: var(--text-color); border-radius: 8px; outline: none; text-align: center; }
+        body.light-mode input, body.light-mode textarea { background: #fff; }
+        input:focus, textarea:focus { border-color: var(--bright-violet); }
         
         .role-grid { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin: 15px 0; }
-        .role-card {
-            background: rgba(5, 5, 7, 0.8); border: 2px solid var(--border-color);
-            padding: 10px 18px; border-radius: 8px; cursor: pointer;
-            display: flex; align-items: center; gap: 8px; font-weight: bold; font-size: 0.95rem;
-            color: #888; transition: all 0.3s ease; user-select: none;
-        }
-        .role-card i { color: var(--role-color); font-size: 1.2rem; }
-        .role-card:hover { border-color: var(--role-color); color: #fff; background: rgba(17, 17, 22, 1); }
-        .role-card.selected { 
-            border-color: var(--role-color); 
-            background: rgba(255, 255, 255, 0.08); 
-            color: #fff; 
-            box-shadow: 0 0 15px rgba(157, 0, 255, 0.2); 
-        }
+        .role-card { background: rgba(0,0,0,0.2); border: 2px solid var(--border-color); padding: 10px 18px; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 8px; font-weight: bold; color: var(--text-muted); user-select: none; }
+        body.light-mode .role-card { background: #fdfdfd; }
+        .role-card i { color: var(--role-color); }
+        .role-card:hover { border-color: var(--role-color); color: var(--text-color); }
+        .role-card.selected { border-color: var(--role-color); color: var(--text-color); box-shadow: 0 0 10px rgba(157, 0, 255, 0.2); }
 
         .btn { width: 100%; padding: 15px; border: none; border-radius: 8px; font-weight: bold; font-size: 1rem; cursor: pointer; text-transform: uppercase; color: #fff; }
         .btn-primary { background: var(--primary-violet); }
         .btn-primary:hover { background: var(--bright-violet); box-shadow: 0 0 15px rgba(157,0,255,0.4); }
-        .status-pulse { display: inline-block; width: 10px; height: 10px; background: #2ecc71; border-radius: 50%; margin-left: 10px; box-shadow: 0 0 10px #2ecc71; }
-        footer { text-align: center; padding: 50px; color: #555; font-weight: bold; border-top: 1px solid rgba(17, 17, 22, 0.8); margin-top: 60px; background: rgba(5, 5, 7, 0.6); backdrop-filter: blur(5px); }
-        .rules-list { text-align: right; background: rgba(10, 10, 12, 0.8); padding: 25px; border-radius: 8px; border: 1px solid #333; margin-bottom: 20px; color: #ddd; }
+        .btn-gold { background: var(--accent-gold); color: #000; }
+        
+        /* Live Chat Floating Button */
+        .floating-chat { position: fixed; bottom: 30px; right: 30px; background: var(--bright-violet); color: #fff; width: 65px; height: 65px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.8rem; cursor: pointer; box-shadow: 0 5px 20px rgba(157,0,255,0.6); z-index: 1000; transition: transform 0.3s ease; }
+        .floating-chat:hover { transform: scale(1.1); }
+
+        footer { text-align: center; padding: 50px; color: var(--text-muted); font-weight: bold; border-top: 1px solid var(--border-color); margin-top: 60px; background: var(--card-bg); }
+        .rules-list { text-align: right; background: rgba(0,0,0,0.1); padding: 25px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 20px; color: var(--text-muted); }
+        
+        /* Placeholder styling for new sections */
+        .placeholder-text { text-align: center; color: var(--text-muted); font-size: 1.2rem; margin-top: 20px; }
     </style>
 </head>
 <body>
@@ -106,15 +132,21 @@
     <nav>
         <div class="nav-logo" onclick="showSection('home')">VERTEXMC</div>
         <div class="nav-links">
-            <a onclick="showSection('staff-login')" class="staff-login-btn"><i class="fas fa-user"></i> Login</a>
+            <a onclick="toggleTheme()" title="تغيير المظهر"><i class="fas fa-moon" id="theme-icon"></i><span class="badge-beta-nav">BETA</span></a>
+            <a onclick="alert('اللغات الإضافية قادمة قريباً!')" title="اللغات"><i class="fas fa-globe"></i><span class="badge-beta-nav">BETA</span></a>
+            
             <a onclick="showSection('home')"><i class="fas fa-ghost"></i> الرئيسية</a>
             <a onclick="showSection('apply')"><i class="fas fa-user-plus"></i> Staff Apply</a>
             <a onclick="showSection('staff')"><i class="fas fa-shield-halved"></i> الإدارة</a>
             <a onclick="showSection('rules')"><i class="fas fa-book"></i> القوانين</a>
-            <a onclick="showSection('bug-report')"><i class="fas fa-microchip"></i> الأعطال</a>
-            <a onclick="showSection('player-report')"><i class="fas fa-shield-virus"></i> البلاغات</a>
+            <a onclick="showSection('staff-login')" class="staff-login-btn"><i class="fas fa-user"></i> Login</a>
         </div>
     </nav>
+
+    <div class="floating-chat" onclick="alert('نظام الدعم المباشر والبوت قيد التطوير (Live Support SOON)')">
+        <i class="fas fa-comment-dots"></i>
+        <span class="badge-soon">BETA</span>
+    </div>
 
     <div id="staff-login" class="section">
         <div class="form-box" style="max-width: 400px; text-align: center;">
@@ -127,12 +159,18 @@
     <div id="home" class="section active">
         <div class="hero">
             <h1>VERTEXMC</h1>
-            <p><span class="status-pulse"></span> <span style="color:#2ecc71">Server Protection System: ONLINE</span></p>
+            <div class="server-stats">
+                <span><i class="fas fa-server" style="color:#2ecc71;"></i> Status: SOON</span>
+                <span><i class="fas fa-users" style="color:var(--accent-gold);"></i> Players: <b style="color:#e74c3c">SOON</b></span>
+                <span><i class="fas fa-signal" style="color:var(--bright-violet);"></i> Ping: <b style="color:#e74c3c">SOON</b></span>
+            </div>
         </div>
+        
         <div class="server-ip-box" onclick="copyServerIP()">
             <span class="ip-text" id="server-ip">vertexmc.myftp.org</span>
             <span class="copy-badge" id="copy-status">CLICK TO COPY</span>
         </div>
+        
         <div class="grid">
             <div class="card" onclick="showSection('apply')"><i class="fas fa-user-plus"></i><h3>Staff Apply</h3></div>
             <div class="card" onclick="showSection('rules')"><i class="fas fa-scroll"></i><h3>قوانين السيرفر</h3></div>
@@ -140,8 +178,73 @@
             <a href="https://discord.gg/9WdhzReSY" target="_blank" style="text-decoration:none"><div class="card"><i class="fab fa-discord" style="color:#5865F2"></i><h3>سيرفر الديسكورد</h3></div></a>
             <div class="card" onclick="showSection('player-report')"><i class="fas fa-gavel"></i><h3>Report Player</h3></div>
             <div class="card" onclick="showSection('bug-report')"><i class="fas fa-bug"></i><h3>Bug Report</h3></div>
+            
+            <div class="card" onclick="showSection('news')">
+                <span class="badge-soon">SOON</span>
+                <i class="fas fa-newspaper" style="color: #3498db;"></i><h3>أخبار وتحديثات (News)</h3>
+            </div>
+            <div class="card" onclick="showSection('store')">
+                <span class="badge-soon">SOON</span>
+                <i class="fas fa-shopping-cart" style="color: #2ecc71;"></i><h3>متجر الرتب (Store)</h3>
+            </div>
+            <div class="card" onclick="showSection('economy')">
+                <span class="badge-soon">SOON</span>
+                <i class="fas fa-coins" style="color: #f1c40f;"></i><h3>الاقتصاد (Economy)</h3>
+            </div>
+            <div class="card" onclick="showSection('banlist')">
+                <span class="badge-soon">SOON</span>
+                <i class="fas fa-ban" style="color: #e74c3c;"></i><h3>قائمة الحظر (Ban List)</h3>
+            </div>
+            <div class="card" onclick="showSection('rankup')">
+                <span class="badge-soon">SOON</span>
+                <i class="fas fa-level-up-alt" style="color: #9b59b6;"></i><h3>نظام الترقية (Rank Up)</h3>
+            </div>
+            <div class="card" onclick="showSection('commands')">
+                <span class="badge-soon">SOON</span>
+                <i class="fas fa-terminal" style="color: #1abc9c;"></i><h3>قائمة الأوامر (Commands)</h3>
+            </div>
+            <div class="card" onclick="showSection('partners')">
+                <span class="badge-soon">SOON</span>
+                <i class="fas fa-handshake" style="color: #e67e22;"></i><h3>التعاون (Partnerships)</h3>
+            </div>
+            <div class="card" onclick="showSection('donate')">
+                <span class="badge-soon">SOON</span>
+                <i class="fas fa-heart" style="color: #ff4757;"></i><h3>دعم السيرفر (Donate)</h3>
+            </div>
         </div>
     </div>
+
+    <div id="store" class="section">
+        <h2 style="text-align:center; color:var(--bright-violet); font-size: 2.5rem; margin-bottom: 40px;">🛒 VERTEX STORE</h2>
+        <div class="store-grid">
+            <div class="rank-card" style="border-color: #3498db;">
+                <h3 style="color:#3498db;">VIP</h3>
+                <div class="rank-price">$4.99</div>
+                <ul><li>Kit VIP الأسبوعي</li><li>Chat لون مخصص</li><li>/hat أمر</li></ul>
+                <button class="btn" style="background:#3498db">شراء الآن</button>
+            </div>
+            <div class="rank-card" style="border-color: #f1c40f; transform: scale(1.05); box-shadow: 0 0 20px rgba(241, 196, 15, 0.2);">
+                <h3 style="color:#f1c40f;">MVP</h3>
+                <div class="rank-price">$14.99</div>
+                <ul><li>Kit MVP الأسبوعي</li><li>/fly في اللوبي</li><li>/nick أمر</li><li>كل مميزات VIP</li></ul>
+                <button class="btn btn-gold">شراء الآن</button>
+            </div>
+            <div class="rank-card" style="border-color: #e74c3c;">
+                <h3 style="color:#e74c3c;">ELITE</h3>
+                <div class="rank-price">$29.99</div>
+                <ul><li>Kit ELITE الحصري</li><li>دخول وقت الامتلاء</li><li>شعار مخصص بالتاب</li><li>كل المميزات السابقة</li></ul>
+                <button class="btn" style="background:#e74c3c">شراء الآن</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="news" class="section"><div class="form-box"><h2 style="text-align:center; color:#3498db;">📰 أخبار السيرفر (SOON)</h2><p class="placeholder-text">نظام الأخبار والتحديثات قيد البرمجة...</p></div></div>
+    <div id="economy" class="section"><div class="form-box"><h2 style="text-align:center; color:#f1c40f;">💰 بورصة الاقتصاد (SOON)</h2><p class="placeholder-text">لوحة مراقبة أسعار الذهب والموارد داخل السيرفر ستتوفر قريباً...</p></div></div>
+    <div id="banlist" class="section"><div class="form-box"><h2 style="text-align:center; color:#e74c3c;">🔨 قائمة المحظورين (SOON)</h2><p class="placeholder-text">شفافية تامة: سيتم عرض أسباب الحظر وأسماء المخالفين هنا.</p></div></div>
+    <div id="rankup" class="section"><div class="form-box"><h2 style="text-align:center; color:#9b59b6;">🚀 شروط الترقية (SOON)</h2><p class="placeholder-text">مسار الترقية داخل اللعبة ومتطلبات كل رتبة مجانية.</p></div></div>
+    <div id="commands" class="section"><div class="form-box"><h2 style="text-align:center; color:#1abc9c;">⌨️ أوامر اللعب (SOON)</h2><p class="placeholder-text">قائمة بجميع الأوامر الأساسية للمبتدئين.</p></div></div>
+    <div id="partners" class="section"><div class="form-box"><h2 style="text-align:center; color:#e67e22;">🤝 شركاء النجاح (SOON)</h2><p class="placeholder-text">السيرفرات واليوتيوبرز المتعاونين معنا.</p></div></div>
+    <div id="donate" class="section"><div class="form-box"><h2 style="text-align:center; color:#ff4757;">❤️ ادعم السيرفر (SOON)</h2><p class="placeholder-text">طرق دعم استمرارية وتطوير السيرفر اختيارياً.</p></div></div>
 
     <div id="apply" class="section">
         <div class="form-box" id="rules-step">
@@ -149,36 +252,36 @@
             <div class="rules-list">
                 <ol style="padding-right: 20px;">
                     <li style="margin-bottom: 20px;">
-                        <strong style="font-size: 1.2rem; color: #fff; display: block; margin-bottom: 5px;">1. الحياد المطلق (Neutrality):</strong>
-                        <span style="color: #aaa;">يمنع منعاً كلياً استغلال الـ Creative Mode أو Teleport لغرض شخصي أو لمساعدة الأصدقاء. السيرفر هو Survival، والـ Staff جزء من هذا العالم مثل أي لاعب.</span>
+                        <strong style="font-size: 1.2rem; color: var(--text-color); display: block; margin-bottom: 5px;">1. الحياد المطلق (Neutrality):</strong>
+                        <span>يمنع منعاً كلياً استغلال الـ Creative Mode أو Teleport لغرض شخصي أو لمساعدة الأصدقاء. السيرفر هو Survival، والـ Staff جزء من هذا العالم مثل أي لاعب.</span>
                     </li>
                     <li style="margin-bottom: 20px;">
-                        <strong style="font-size: 1.2rem; color: #fff; display: block; margin-bottom: 5px;">2. التحقيق قبل الحكم (Investigation):</strong>
-                        <span style="color: #aaa;">لا تطرد أو تحظر (Ban) أي لاعب بمجرد "الشك". دائماً استعمل الأدوات المتاحة (مثل CoreProtect) للتأكد من الوقائع قبل اتخاذ أي إجراء.</span>
+                        <strong style="font-size: 1.2rem; color: var(--text-color); display: block; margin-bottom: 5px;">2. التحقيق قبل الحكم (Investigation):</strong>
+                        <span>لا تطرد أو تحظر (Ban) أي لاعب بمجرد "الشك". دائماً استعمل الأدوات المتاحة (مثل CoreProtect) للتأكد من الوقائع قبل اتخاذ أي إجراء.</span>
                     </li>
                     <li style="margin-bottom: 20px;">
-                        <strong style="font-size: 1.2rem; color: #fff; display: block; margin-bottom: 5px;">3. التواصل باحترام:</strong>
-                        <span style="color: #aaa;">الـ Staff هو واجهة السيرفر. أي تواصل مع اللاعبين يجب أن يكون بمهنية وهدوء، حتى في حالة تعرضك للإساءة (يتم التعامل مع الإساءة عبر القوانين لا عبر الرد بالمثل).</span>
+                        <strong style="font-size: 1.2rem; color: var(--text-color); display: block; margin-bottom: 5px;">3. التواصل باحترام:</strong>
+                        <span>الـ Staff هو واجهة السيرفر. أي تواصل مع اللاعبين يجب أن يكون بمهنية وهدوء، حتى في حالة تعرضك للإساءة (يتم التعامل مع الإساءة عبر القوانين لا عبر الرد بالمثل).</span>
                     </li>
                     <li style="margin-bottom: 20px;">
-                        <strong style="font-size: 1.2rem; color: #fff; display: block; margin-bottom: 5px;">4. منع "التحيز" (No Favoritism):</strong>
-                        <span style="color: #aaa;">ممنوع تماماً إعطاء أفضليات للاعبين بناءً على معرفة شخصية. الجميع سواسية أمام قوانين السيرفر.</span>
+                        <strong style="font-size: 1.2rem; color: var(--text-color); display: block; margin-bottom: 5px;">4. منع "التحيز" (No Favoritism):</strong>
+                        <span>ممنوع تماماً إعطاء أفضليات للاعبين بناءً على معرفة شخصية. الجميع سواسية أمام قوانين السيرفر.</span>
                     </li>
                     <li style="margin-bottom: 20px;">
-                        <strong style="font-size: 1.2rem; color: #fff; display: block; margin-bottom: 5px;">5. الشفافية (Transparency):</strong>
-                        <span style="color: #aaa;">أي إجراء تأديبي (Ban/Kick) يجب أن يكون موثقاً بالسبب والأدلة في "سجل الإدارة" (Discord Logs). لا يوجد "عقوبات سرية".</span>
+                        <strong style="font-size: 1.2rem; color: var(--text-color); display: block; margin-bottom: 5px;">5. الشفافية (Transparency):</strong>
+                        <span>أي إجراء تأديبي (Ban/Kick) يجب أن يكون موثقاً بالسبب والأدلة في "سجل الإدارة" (Discord Logs). لا يوجد "عقوبات سرية".</span>
                     </li>
                     <li style="margin-bottom: 20px;">
-                        <strong style="font-size: 1.2rem; color: #fff; display: block; margin-bottom: 5px;">6. الصلاحيات للاحتياج فقط (Least Privilege):</strong>
-                        <span style="color: #aaa;">لا تستخدم صلاحياتك (OP commands) إلا إذا كان الأمر يتطلب ذلك فعلاً. كل أمر OP يتم تسجيله.</span>
+                        <strong style="font-size: 1.2rem; color: var(--text-color); display: block; margin-bottom: 5px;">6. الصلاحيات للاحتياج فقط (Least Privilege):</strong>
+                        <span>لا تستخدم صلاحياتك (OP commands) إلا إذا كان الأمر يتطلب ذلك فعلاً. كل أمر OP يتم تسجيله.</span>
                     </li>
                     <li style="margin-bottom: 20px;">
-                        <strong style="font-size: 1.2rem; color: #fff; display: block; margin-bottom: 5px;">7. السرية (Confidentiality):</strong>
-                        <span style="color: #aaa;">يمنع مشاركة معلومات الإدارة أو التيكيتات الخاصة باللاعبين مع أي شخص خارج الفريق.</span>
+                        <strong style="font-size: 1.2rem; color: var(--text-color); display: block; margin-bottom: 5px;">7. السرية (Confidentiality):</strong>
+                        <span>يمنع مشاركة معلومات الإدارة أو التيكيتات الخاصة باللاعبين مع أي شخص خارج الفريق.</span>
                     </li>
                     <li style="margin-bottom: 20px;">
-                        <strong style="font-size: 1.2rem; color: #fff; display: block; margin-bottom: 5px;">8. الالتزام بالـ Roadmap:</strong>
-                        <span style="color: #aaa;">أي تغيير في قواعد السيرفر أو إضافة Plugin جديد يجب أن يتم بالتنسيق مع الإدارة العليا.</span>
+                        <strong style="font-size: 1.2rem; color: var(--text-color); display: block; margin-bottom: 5px;">8. الالتزام بالـ Roadmap:</strong>
+                        <span>أي تغيير في قواعد السيرفر أو إضافة Plugin جديد يجب أن يتم بالتنسيق مع الإدارة العليا.</span>
                     </li>
                 </ol>
             </div>
@@ -253,13 +356,26 @@
     <footer><p>SECURED BY PROTECTION SYSTEMS &copy; 2026</p></footer>
 
     <script>
-        // الرابط محطوط ديريكت باش ما تضطر تبدل والو
+        // Webhook محفوظ كما هو!
         const WEBHOOK_URL = "https://discord.com/api/webhooks/1507754725796216872/751WD9KuOEPEfzbRJpd1HC2qllZ6VEtTlqJc6RAjvLmEl44eZTuvfQN04ktjf1UXaXRz";
 
         function showSection(id) {
             document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
             document.getElementById(id).classList.add('active');
             window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        // خاصية Dark / Light Mode
+        function toggleTheme() {
+            document.body.classList.toggle('light-mode');
+            const icon = document.getElementById('theme-icon');
+            if (document.body.classList.contains('light-mode')) {
+                icon.classList.remove('fa-moon');
+                icon.classList.add('fa-sun');
+            } else {
+                icon.classList.remove('fa-sun');
+                icon.classList.add('fa-moon');
+            }
         }
 
         function copyServerIP() {
